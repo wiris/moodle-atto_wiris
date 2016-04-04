@@ -20,7 +20,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version   = 2016040400;        // The current plugin version (Date: YYYYMMDDXX).
-$plugin->release = '3.57.0.1169';
+$plugin->release = '3.57.0.1170';
 $plugin->requires  = 2014050800;        // Requires this Moodle version.
 $plugin->component = 'atto_wiris';      // Full name of the plugin (used for diagnostics).
 $plugin->dependencies = array ('filter_wiris' => 2016040400);
