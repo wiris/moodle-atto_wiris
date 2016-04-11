@@ -1,21 +1,19 @@
 YUI.add('moodle-atto_wiris-button', function (Y, NAME) {
 
+// This file is part of Moodle - http://moodle.org/
 //
-//  Copyright (c) 2014, Maths for More S.L. http://www.wiris.com
-//  This file is part of WIRIS Plugin.
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-//  WIRIS Plugin is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  any later version.
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-//  WIRIS Plugin is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with WIRIS Plugin. If not, see <http://www.gnu.org/licenses/>.
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 //
 
 /*
@@ -49,7 +47,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      *   The language ISO code.
      **/
     initializer: function() {
-        // Add global-scope callback functions and properties
+        // Add global-scope callback functions and properties.
 
         // Popup closed callback.
         window.wrs_int_notifyWindowClosed = function() {
@@ -81,16 +79,16 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         window._wrs_int_popup = window._wrs_int_popup || null;
         window._wrs_int_coreLoading = window._wrs_int_coreLoading || false;
 
-        // Custom integration folder
+        // Custom integration folder.
         window._wrs_int_path = window._wrs_int_conf_file.split("/");
         window._wrs_int_path.pop();
         window._wrs_int_path = window._wrs_int_path.join("/");
-        window._wrs_int_path =  window._wrs_int_path.indexOf("/")==0 || window._wrs_int_path.indexOf("http")==0 ? window._wrs_int_path : window._wrs_int_conf_path + "/" + window._wrs_int_path;
+        window._wrs_int_path = window._wrs_int_path.indexOf("/") == 0 || window._wrs_int_path.indexOf("http") == 0 ? window._wrs_int_path : window._wrs_int_conf_path + "/" + window._wrs_int_path;
 
-        // Moodle
+        // Moodle.
         window._wrs_isMoodle24 = true;
 
-        // Custom editors
+        // Custom editors.
         window._wrs_int_customEditors = {chemistry : {name: 'Chemistry', toolbar : 'chemistry', icon : 'chem.gif', enabled : false, confVariable : '_wrs_conf_chemEnabled'}}
 
         // Load WIRIS plugin core javascript file only once.
@@ -101,8 +99,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 }
             });
         }
-        
-        // Add parse/unparse events
+
+        // Add parse/unparse events.
         var host = this.get('host');
         var wirisplugin = this;
         window._wrs_int_currentPlugin = this;
@@ -116,10 +114,10 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             host._wirisUpdateFromTextArea();
             wirisplugin._parseContent();
         };
-        
-        // Parse the content for the first time
+
+        // Parse the content for the first time.
         this._parseContent();
-        
+
         // Add WIRIS buttons to the toolbar.
         this._addButtons();
     },
@@ -161,7 +159,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             if (host.plugins.collapse) {
                 host.plugins.collapse._setVisibility(host.plugins.collapse.buttons.collapse);
             }
-            
+
         }
         else {
             Y.later(50, this, this._addButtons);
