@@ -44,7 +44,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      * @param string lang
      *   The language ISO code.
      **/
-    initializer: function() {
+    initializer: function(config) {
+        this._lang = config.lang;
         // Add global-scope callback functions and properties.
 
         // Popup closed callback.
