@@ -14,6 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Settings page for WIRIS plugin for Atto.
+ *
+ * @package    atto
+ * @subpackage wiris
+ * @copyright  Maths for More S.L. <info@wiris.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 $output = 'WIRIS plugin for Atto (Maths) is correctly installed.';
 
 // Checking that WIRIS plugin is installed.

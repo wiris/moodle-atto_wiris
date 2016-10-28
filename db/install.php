@@ -15,6 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Atto install script. Adds WIRIS Editor icon to Atto toolbar.
+ *
+ * @package    atto
+ * @subpackage wiris
+ * @copyright  Maths for More S.L. <info@wiris.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/**
  * Enable WIRIS plugin buttons on installation.
  */
 function xmldb_atto_wiris_install() {

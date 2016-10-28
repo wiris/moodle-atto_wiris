@@ -14,6 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Atto uninstall script. Removes WIRIS Editor icon to Atto toolbar.
+ *
+ * @package    atto
+ * @subpackage wiris
+ * @copyright  Maths for More S.L. <info@wiris.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 function xmldb_atto_wiris_uninstall() {
     // Remove 'wiris' from the toolbar editor_atto config variable.
     $toolbar = get_config('editor_atto', 'toolbar');
