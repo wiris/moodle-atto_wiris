@@ -40,6 +40,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      * The current language.
      * **/
     _lang: 'en',
+
     /**
      * Initialization function.
      *
@@ -84,13 +85,19 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         window._wrs_int_path = window._wrs_int_conf_file.split("/");
         window._wrs_int_path.pop();
         window._wrs_int_path = window._wrs_int_path.join("/");
-        window._wrs_int_path = window._wrs_int_path.indexOf("/") == 0 || window._wrs_int_path.indexOf("http") == 0 ? window._wrs_int_path : window._wrs_int_conf_path + "/" + window._wrs_int_path;
+        window._wrs_int_path = window._wrs_int_path.indexOf("/") === 0 || window._wrs_int_path.indexOf("http") === 0 ? window._wrs_int_path : window._wrs_int_conf_path + "/" + window._wrs_int_path;
 
         // Moodle.
         window._wrs_isMoodle24 = true;
 
         // Custom editors.
-        window._wrs_int_customEditors = {chemistry : {name: 'Chemistry', toolbar : 'chemistry', icon : 'chem.gif', enabled : false, confVariable : '_wrs_conf_chemEnabled'}}
+        window._wrs_int_customEditors = {
+            chemistry : {
+                name: 'Chemistry',
+                toolbar : 'chemistry',
+                icon : 'chem.gif',
+                enabled : false,
+                confVariable : '_wrs_conf_chemEnabled'}};
 
         // Load WIRIS plugin core javascript file only once.
         if (!window._wrs_int_coreLoading) {
@@ -136,7 +143,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                     callback: this._editorButton
                 });
             }
-            if (window[_wrs_int_customEditors['chemistry'].confVariable]) {
+            if (window[_wrs_int_customEditors.chemistry.confVariable]) {
                 this.addButton({
                     title: 'wiris_chem_editor_title',
                     buttonName: 'wiris_chem_editor',
@@ -239,11 +246,12 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      * Doubleclick event for Wiris images on editable div.
      */
     _handleElementDoubleclick: function(target, element, event){
-        if (typeof _wrs_conf_imageClassName != 'undefined' && wrs_containsClass(element, _wrs_conf_imageClassName)) {
+        if (element.dataset.mathml) {
             event.stopPropagation();
             window._wrs_temporalImage = element;
             window._wrs_isNewElement = false;
-            if (customEditor = window._wrs_temporalImage.getAttribute('data-custom-editor')) {
+            var customEditor = window._wrs_temporalImage.getAttribute('data-custom-editor');
+            if (typeof(customEditor) != 'undefined' && customEditor){
                 if (window[_wrs_int_customEditors[customEditor].confVariable]) {
                     wrs_int_enableCustomEditor(customEditor);
                 }
