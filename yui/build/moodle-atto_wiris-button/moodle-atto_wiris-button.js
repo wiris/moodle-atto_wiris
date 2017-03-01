@@ -49,6 +49,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      **/
     initializer: function(config) {
         this._lang = config.lang;
+        window._wrs_int_langCode = config.lang;
         // Add global-scope callback functions and properties.
 
         // Popup closed callback.
@@ -97,7 +98,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 toolbar : 'chemistry',
                 icon : 'chem.gif',
                 enabled : false,
-                confVariable : '_wrs_conf_chemEnabled'}};
+                confVariable : '_wrs_conf_chemEnabled',
+                title: 'WIRIS EDITOR chemistry'}};
 
         // Load WIRIS plugin core javascript file only once.
         if (!window._wrs_int_coreLoading) {
