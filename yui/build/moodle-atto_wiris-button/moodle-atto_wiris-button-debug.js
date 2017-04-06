@@ -62,7 +62,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         // Editor popup OK callback.
         window.wrs_int_updateFormula = function(mathml, editMode) {
             var editable = window._wrs_int_currentPlugin.get('host').editor.getDOMNode();
-            wrs_updateFormula(editable, window, mathml, null, editMode);
+            wrs_updateFormula(editable, window, mathml, null, editMode,  _wrs_int_currentPlugin._lang);
             window._wrs_int_currentPlugin.markUpdated();
             window._wrs_int_currentPlugin._updateEditorImgHandlers();
         };
