@@ -113,6 +113,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         var host = this.get('host');
         var wirisplugin = this;
         window._wrs_int_currentPlugin = this;
+        window._wrs_int_editors_elements = typeof window._wrs_int_editors_elements == "undefined" ? {} : window._wrs_int_editors_elements;
         // Update textarea value on change.
         host.on('change', function() {
             wirisplugin._unparseContent();
@@ -257,9 +258,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                     wrs_int_enableCustomEditor(customEditor);
                 }
             }
-            // We need to call global variable (can't call this._editorButton())
-            // out of context.
-            window._wrs_int_currentPlugin._editorButton();
+
+            window._wrs_int_editors_elements[target.id]._editorButton();
         }
     },
     /**
@@ -277,6 +277,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
     _updateEditorImgHandlers: function() {
         // Add doubleclick event to editable div.
         wrs_addElementEvents(this.get('host').editor.getDOMNode(),this._handleElementDoubleclick);
+        window._wrs_int_editors_elements[this.get("host").editor.getDOMNode().id] = this;
     },
     /**
      * Reset event handlers for cas images.
