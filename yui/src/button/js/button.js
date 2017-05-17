@@ -35,7 +35,7 @@
 
 Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
     /**
-     * The current language.
+     * The current language en by default.
      * **/
     _lang: 'en',
 
