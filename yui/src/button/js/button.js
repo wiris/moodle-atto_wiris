@@ -46,6 +46,11 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      *   The language ISO code.
      **/
     initializer: function(config) {
+
+        // Filter not enabled at course level so no continue.
+        if (!config.filter_enabled) {
+            return;
+        }
         this._lang = config.lang;
         window._wrs_int_langCode = config.lang;
         // Add global-scope callback functions and properties.

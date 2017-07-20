@@ -43,5 +43,15 @@ function atto_wiris_strings_for_js() {
  * Set parameters to be passed to the js plugin constructor.
  */
 function atto_wiris_params_for_js() {
-    return array('lang' => current_language());
+    global $COURSE;
+    // We need to know if  WIRIS filter are active in the context of the course.
+    // If not WIRIS plugin should be disabled.
+    $filterwirisactive = true;
+    if (!get_config('filter_wiris', 'allow_editorplugin_active_course')) {
+        $context = context_course::instance($COURSE->id);
+        $activefilters = filter_get_active_in_context($context);
+        $filterwirisactive = array_key_exists('wiris', $activefilters);
+    }
+    // Atto js plugin checks if the filter is - or not - active.
+    return array('lang' => current_language(), 'filter_enabled' => $filterwirisactive);
 }
