@@ -136,7 +136,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         // Add WIRIS buttons to the toolbar.
         this._addButtons();
 
-        // Adding submit event
+        // Adding submit event.
         var form = host.textarea.ancestor('form');
 
         if (form) {
