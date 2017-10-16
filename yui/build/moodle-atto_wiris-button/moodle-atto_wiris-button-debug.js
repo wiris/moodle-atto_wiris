@@ -122,7 +122,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         window._wrs_int_currentPlugin = this;
         window._wrs_int_editors_elements = typeof window._wrs_int_editors_elements == "undefined" ? {} : window._wrs_int_editors_elements;
         // Update textarea value on change.
-        host.on('change', function() {
+        host.on('change', function(e) {
             wirisplugin._unparseContent();
         });
         // Override updateFromTextArea to update the content editable element.
@@ -137,6 +137,26 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
 
         // Add WIRIS buttons to the toolbar.
         this._addButtons();
+
+        // Adding submit event
+        var form = host.textarea.ancestor('form');
+
+        if (form) {
+            form.on('submit', this._submitClean, this);
+        }
+
+    },
+
+    /**
+     * This method convert the content of the textarea (MathML) into
+     * the default saveMode (saveXml or MathML) after the content is updated on the database.
+     */
+    _submitClean: function() {
+        var host = this.get('host');
+        // We get the HTML content (with the imnages) instead of the raw html content
+        // and convert images into data-mathml attribute.
+        var html = host.editor.get('innerHTML');
+        host.textarea.set('value', wrs_endParse(html, null, this._lang, true));
     },
     /**
      * Add buttons depending on configuration.
@@ -244,7 +264,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         if (window._wrs_conf_plugin_loaded) {
             var host = this.get('host');
             var html = host.textarea.get('value');
-            html = wrs_endParse(html, null, this._lang);
+            html = wrs_mathmlDecode(wrs_endParse(html, null, this._lang, true));
             host.textarea.set('value', html);
         }
         else {
@@ -296,6 +316,5 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         }, this);
     }
 });
-
 
 }, '@VERSION@', {"requires": ["moodle-editor_atto-plugin", "get"]});
