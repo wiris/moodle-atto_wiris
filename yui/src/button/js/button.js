@@ -51,6 +51,11 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         if (!config.filter_enabled) {
             return;
         }
+        this._platform_version = config.platform_version;
+        if(this._serviceAvailable(config.url_status) == false){
+            this._notify('error_connection');
+            return;
+        }
         this._lang = config.lang;
         window._wrs_int_langCode = config.lang;
         // Add global-scope callback functions and properties.
@@ -208,9 +213,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             _wrs_int_popup.focus();
         }
         else {
-            var host = this.get('host');
-            _wrs_int_currentPlugin = this;
-            _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
+            var chemistryEditor = false;
+            this._connectEditor(chemistryEditor);
         }
     },
 
@@ -219,10 +223,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             _wrs_int_popup.focus();
         }
         else {
-            var host = this.get('host');
-            _wrs_int_currentPlugin = this;
-            wrs_int_enableCustomEditor('chemistry');
-            _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
+            var chemistryEditor = true;
+            this._connectEditor(chemistryEditor);
         }
     },
     /**
@@ -312,5 +314,41 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             img.detachAll('dblclick');
             img.on('dblclick', this._handleCasDoubleClick, this);
         }, this);
+    },
+    _serviceAvailable: function(urlChecker) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", urlChecker, false);
+        try{
+            xhttp.send();
+        }catch(e){
+            xhttp.abort();
+            return false;
+        }
+        if (xhttp.status == 200) {
+            xhttp.abort();
+            return true;
+        }
+        xhttp.abort();
+        return false;
+    },
+    _connectEditor: function(chemistry){
+        var host = this.get('host');
+        wrs_int_currentPlugin = this;
+        if(chemistry == true){
+            wrs_int_enableCustomEditor('chemistry');
+        }else{
+            wrs_int_enableCustomEditor();
+        }
+        _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
+    },
+    _notify: function(message){
+        if(this._platform_version > 2016052300){
+            require(['core/notification'], function(notification) {
+                notification.addNotification({
+                    message:M.util.get_string(message, 'atto_wiris'),
+                    type: "danger"
+                });
+            });
+        }
     }
 });
