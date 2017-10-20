@@ -54,7 +54,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             return;
         }
         this._platform_version = config.platform_version;
-        if(this._serviceAvailable(config.url_status) == false){
+        if(this._serviceAvailable(config.url_status) === false){
             window._wrs_service_available = false;
         }else{
             window._wrs_service_available = true;
@@ -136,7 +136,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         var wrs_editors_elements_cond = typeof window._wrs_int_editors_elements == "undefined";
         window._wrs_int_editors_elements = wrs_editors_elements_cond ? {} : window._wrs_int_editors_elements;
         // Update textarea value on change.
-        host.on('change', function(e) {
+        host.on('change', function() {
             wirisplugin._unparseContent();
         });
         // Override updateFromTextArea to update the content editable element.
@@ -220,7 +220,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      * WIRIS editor button callback.
      **/
     _editorButton: function() {
-        if(window._wrs_service_available == true){
+        if(window._wrs_service_available === true){
             if (_wrs_int_popup) {
                 _wrs_int_popup.focus();
             }
@@ -234,7 +234,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
     },
 
     _chemEditorButton: function() {
-        if(window._wrs_service_available == true){
+        if(window._wrs_service_available === true){
             if (_wrs_int_popup) {
                 _wrs_int_popup.focus();
             }
@@ -335,6 +335,20 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         }, this);
     },
     _serviceAvailable: function(urlChecker) {
+        if (window.location.href.indexOf("https://") === 0) {
+            var a = document.createElement('a');
+            a.href = urlChecker;
+            // It check if browser is https and configuration is http. If this is so, we will replace protocol.
+            if (a.protocol == 'http:') {
+                a.protocol = 'https:';
+            }
+            // check protocol and remove port if it's standar
+            if(a.port == '80' || a.port == '443'){
+                urlChecker = a.protocol + '//' + a.hostname + a.pathname;
+            }else{
+                urlChecker = a.protocol + '//' + a.hostname + a.port + a.pathname;
+            }
+        }
         var xhttp = new XMLHttpRequest();
         xhttp.open("GET", urlChecker, false);
         try{
@@ -353,7 +367,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
     _connectEditor: function(chemistry){
         var host = this.get('host');
         wrs_int_currentPlugin = this;
-        if(chemistry == true){
+        if(chemistry === true){
             wrs_int_enableCustomEditor('chemistry');
         }else{
             wrs_int_enableCustomEditor();

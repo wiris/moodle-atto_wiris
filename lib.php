@@ -52,8 +52,17 @@ function atto_wiris_params_for_js() {
     $servicepath = str_replace('/editor/render', '/editor/status', $servicepath);
     $port = get_config('filter_wiris', 'imageserviceport');
     $protocol = get_config('filter_wiris', 'imageserviceprotocol');
+    if ($protocol == 'http' && $port == '443') {
+        $port = '';
+    }
+    if ($protocol == 'https' && $port == '80') {
+        $port = '';
+    }
+    if ($port != '') {
+        $port = ':'.$port;
+    }
     // URL FOR CHECK AVAILABLE SERVICE
-    $urlstatus = $protocol . "://" . $host . ":" . $port . $servicepath;
+    $urlstatus = $protocol . "://" . $host . $port . $servicepath;
     $filterwirisactive = true;
     // Filter disabled at course level.
     if (!get_config('filter_wiris', 'allow_editorplugin_active_course')) {
