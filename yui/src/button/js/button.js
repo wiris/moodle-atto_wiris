@@ -51,6 +51,12 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         if (!config.filter_enabled) {
             return;
         }
+        this._platform_version = config.platform_version;
+        if(this._serviceAvailable(config.url_status) === false){
+            window._wrs_service_available = false;
+        }else{
+            window._wrs_service_available = true;
+        }
         this._lang = config.lang;
         window._wrs_int_langCode = config.lang;
         // Add global-scope callback functions and properties.
@@ -89,7 +95,14 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         window._wrs_int_path = window._wrs_int_conf_file.split("/");
         window._wrs_int_path.pop();
         window._wrs_int_path = window._wrs_int_path.join("/");
-        window._wrs_int_path = window._wrs_int_path.indexOf("/") === 0 || window._wrs_int_path.indexOf("http") === 0 ? window._wrs_int_path : window._wrs_int_conf_path + "/" + window._wrs_int_path;
+
+        // Here we choose the correct integration path.
+        // We need to know if the integration path is an absolute path
+        // or an absolute URL.
+        var wrs_int_path_cond = window._wrs_int_path.indexOf("/") === 0 || window._wrs_int_path.indexOf("http");
+
+        // Here we construct the final integration path.
+        window._wrs_int_path = wrs_int_path_cond ? window._wrs_int_path : window._wrs_int_conf_path + "/" + window._wrs_int_path;
 
         // Moodle.
         window._wrs_isMoodle24 = true;
@@ -118,9 +131,11 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         var host = this.get('host');
         var wirisplugin = this;
         window._wrs_int_currentPlugin = this;
-        window._wrs_int_editors_elements = typeof window._wrs_int_editors_elements == "undefined" ? {} : window._wrs_int_editors_elements;
+        // check if elements of editor exists and return elements
+        var wrs_editors_elements_cond = typeof window._wrs_int_editors_elements == "undefined";
+        window._wrs_int_editors_elements = wrs_editors_elements_cond ? {} : window._wrs_int_editors_elements;
         // Update textarea value on change.
-        host.on('change', function(e) {
+        host.on('change', function() {
             wirisplugin._unparseContent();
         });
         // Override updateFromTextArea to update the content editable element.
@@ -204,25 +219,30 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      * WIRIS editor button callback.
      **/
     _editorButton: function() {
-        if (_wrs_int_popup) {
-            _wrs_int_popup.focus();
-        }
-        else {
-            var host = this.get('host');
-            _wrs_int_currentPlugin = this;
-            _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
+        if(window._wrs_service_available === true){
+            if (_wrs_int_popup) {
+                _wrs_int_popup.focus();
+            }
+            else {
+                var chemistryEditor = false;
+                this._connectEditor(chemistryEditor);
+            }
+        }else{
+            this._notify('error_connection');
         }
     },
 
     _chemEditorButton: function() {
-        if (_wrs_int_popup) {
-            _wrs_int_popup.focus();
-        }
-        else {
-            var host = this.get('host');
-            _wrs_int_currentPlugin = this;
-            wrs_int_enableCustomEditor('chemistry');
-            _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
+        if(window._wrs_service_available === true){
+            if (_wrs_int_popup) {
+                _wrs_int_popup.focus();
+            }
+            else {
+                var chemistryEditor = true;
+                this._connectEditor(chemistryEditor);
+            }
+        }else{
+            this._notify('error_connection');
         }
     },
     /**
@@ -312,5 +332,55 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             img.detachAll('dblclick');
             img.on('dblclick', this._handleCasDoubleClick, this);
         }, this);
+    },
+    _serviceAvailable: function(urlChecker) {
+        if (window.location.href.indexOf("https://") === 0) {
+            var a = document.createElement('a');
+            a.href = urlChecker;
+            // It check if browser is https and configuration is http. If this is so, we will replace protocol.
+            if (a.protocol == 'http:') {
+                a.protocol = 'https:';
+            }
+            // check protocol and remove port if it's standar
+            if(a.port == '80' || a.port == '443'){
+                urlChecker = a.protocol + '//' + a.hostname + a.pathname;
+            }else{
+                urlChecker = a.protocol + '//' + a.hostname + a.port + a.pathname;
+            }
+        }
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", urlChecker, false);
+        try{
+            xhttp.send();
+        }catch(e){
+            xhttp.abort();
+            return false;
+        }
+        if (xhttp.status == 200) {
+            xhttp.abort();
+            return true;
+        }
+        xhttp.abort();
+        return false;
+    },
+    _connectEditor: function(chemistry){
+        var host = this.get('host');
+        wrs_int_currentPlugin = this;
+        if(chemistry === true){
+            wrs_int_enableCustomEditor('chemistry');
+        }else{
+            wrs_int_enableCustomEditor();
+        }
+        _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
+    },
+    _notify: function(message){
+        if(this._platform_version > 2016052300){
+            require(['core/notification'], function(notification) {
+                notification.addNotification({
+                    message:M.util.get_string(message, 'atto_wiris'),
+                    type: "danger"
+                });
+            });
+        }
     }
 });
