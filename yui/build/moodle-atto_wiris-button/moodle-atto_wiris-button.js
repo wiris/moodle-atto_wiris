@@ -53,12 +53,6 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         if (!config.filter_enabled) {
             return;
         }
-        this._platform_version = config.platform_version;
-        if(this._serviceAvailable(config.url_status) === false){
-            window._wrs_service_available = false;
-        }else{
-            window._wrs_service_available = true;
-        }
         this._lang = config.lang;
         window._wrs_int_langCode = config.lang;
         // Add global-scope callback functions and properties.
@@ -220,30 +214,25 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      * WIRIS editor button callback.
      **/
     _editorButton: function() {
-        if(window._wrs_service_available === true){
-            if (_wrs_int_popup) {
-                _wrs_int_popup.focus();
-            }
-            else {
-                var chemistryEditor = false;
-                this._connectEditor(chemistryEditor);
-            }
-        }else{
-            this._notify('error_connection');
+        if (_wrs_int_popup) {
+            _wrs_int_popup.focus();
+        }
+        else {
+            var host = this.get('host');
+            _wrs_int_currentPlugin = this;
+            _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
         }
     },
 
     _chemEditorButton: function() {
-        if(window._wrs_service_available === true){
-            if (_wrs_int_popup) {
-                _wrs_int_popup.focus();
-            }
-            else {
-                var chemistryEditor = true;
-                this._connectEditor(chemistryEditor);
-            }
-        }else{
-            this._notify('error_connection');
+        if (_wrs_int_popup) {
+            _wrs_int_popup.focus();
+        }
+        else {
+            var host = this.get('host');
+            _wrs_int_currentPlugin = this;
+            wrs_int_enableCustomEditor('chemistry');
+            _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
         }
     },
     /**
@@ -333,58 +322,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             img.detachAll('dblclick');
             img.on('dblclick', this._handleCasDoubleClick, this);
         }, this);
-    },
-    _serviceAvailable: function(urlChecker) {
-        if (window.location.href.indexOf("https://") === 0) {
-            var a = document.createElement('a');
-            a.href = urlChecker;
-            // It check if browser is https and configuration is http. If this is so, we will replace protocol.
-            if (a.protocol == 'http:') {
-                a.protocol = 'https:';
-            }
-            // check protocol and remove port if it's standar
-            if(a.port == '80' || a.port == '443'){
-                urlChecker = a.protocol + '//' + a.hostname + a.pathname;
-            }else{
-                urlChecker = a.protocol + '//' + a.hostname + a.port + a.pathname;
-            }
-        }
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", urlChecker, false);
-        try{
-            xhttp.send();
-        }catch(e){
-            xhttp.abort();
-            return false;
-        }
-        if (xhttp.status == 200) {
-            xhttp.abort();
-            return true;
-        }
-        xhttp.abort();
-        return false;
-    },
-    _connectEditor: function(chemistry){
-        var host = this.get('host');
-        wrs_int_currentPlugin = this;
-        if(chemistry === true){
-            wrs_int_enableCustomEditor('chemistry');
-        }else{
-            wrs_int_enableCustomEditor();
-        }
-        _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
-    },
-    _notify: function(message){
-        if(this._platform_version > 2016052300){
-            require(['core/notification'], function(notification) {
-                notification.addNotification({
-                    message:M.util.get_string(message, 'atto_wiris'),
-                    type: "danger"
-                });
-            });
-        }
     }
 });
-
 
 }, '@VERSION@', {"requires": ["moodle-editor_atto-plugin", "get"]});
