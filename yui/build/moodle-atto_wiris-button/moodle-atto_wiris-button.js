@@ -164,7 +164,10 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         // We get the HTML content (with the imnages) instead of the raw html content
         // and convert images into data-mathml attribute.
         var html = host.editor.get('innerHTML');
-        host.textarea.set('value', wrs_endParse(html, null, this._lang, true));
+        // Check if exist mathml tag for parse
+        if(html.indexOf('math»') >= 0 || html.indexOf('math>') >= 0){
+            host.textarea.set('value', wrs_endParse(html, null, this._lang, true));
+        }
     },
     /**
      * Add buttons depending on configuration.
