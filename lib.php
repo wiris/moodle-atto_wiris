@@ -35,7 +35,6 @@ function atto_wiris_strings_for_js() {
         'wiris_editor_title',
         'wiris_cas_title',
         'wiris_chem_editor_title',
-        'error_connection'
       ),
       'atto_wiris');
 }
@@ -44,25 +43,9 @@ function atto_wiris_strings_for_js() {
  * Set parameters to be passed to the js plugin constructor.
  */
 function atto_wiris_params_for_js() {
-    global $COURSE, $PAGE, $CFG;
+    global $COURSE, $PAGE;
     // We need to know if  WIRIS filter are active in the context of the course.
     // If not WIRIS plugin should be disabled.
-    $host = get_config('filter_wiris', 'imageservicehost');
-    $servicepath = get_config('filter_wiris', 'imageservicepath');
-    $servicepath = str_replace('/editor/render', '/editor/status', $servicepath);
-    $port = get_config('filter_wiris', 'imageserviceport');
-    $protocol = get_config('filter_wiris', 'imageserviceprotocol');
-    if ($protocol == 'http' && $port == '443') {
-        $port = '';
-    }
-    if ($protocol == 'https' && $port == '80') {
-        $port = '';
-    }
-    if ($port != '') {
-        $port = ':'.$port;
-    }
-    // URL FOR CHECK AVAILABLE SERVICE
-    $urlstatus = $protocol . "://" . $host . $port . $servicepath;
     $filterwirisactive = true;
     // Filter disabled at course level.
     if (!get_config('filter_wiris', 'allow_editorplugin_active_course')) {
@@ -84,5 +67,5 @@ function atto_wiris_params_for_js() {
     }
 
     // Atto js plugin checks if the filter is - or not - active.
-    return array('lang' => current_language(), 'filter_enabled' => $filterwirisactive, 'url_status' => $urlstatus, 'platform_version' => $CFG->version);
+    return array('lang' => current_language(), 'filter_enabled' => $filterwirisactive);
 }
