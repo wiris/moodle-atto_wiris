@@ -12,6 +12,7 @@ Feature: Atto WIRIS plugin
     And I click on "Manage filters" "link"
     And I click on "On" "option" in the "Math & Science by WIRIS" "table_row"
     And I open my profile in edit mode
+    When I click on "Show more buttons" "button"
     And I click on "Math editor" "button"
     And I switch to "wrsModalIframe" iframe
     And I wait "5" seconds
