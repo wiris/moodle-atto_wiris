@@ -329,4 +329,5 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
     }
 });
 
+
 }, '@VERSION@', {"requires": ["moodle-editor_atto-plugin", "get"]});
