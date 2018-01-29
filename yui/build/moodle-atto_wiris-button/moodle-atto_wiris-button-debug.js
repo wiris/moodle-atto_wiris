@@ -276,8 +276,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         if (window._wrs_conf_plugin_loaded) {
             var host = this.get('host');
             var html = host.textarea.get('value');
-            html = wrs_mathmlDecode(wrs_endParse(html, null, this._lang, true));
-            host.textarea.set('value', html);
+            host.textarea.set('value', this._convertSafeMath(wrs_endParse(html, null, this._lang, true)));
         }
         else {
             Y.later(50, this, this._unparseContent);
@@ -326,6 +325,47 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             img.detachAll('dblclick');
             img.on('dblclick', this._handleCasDoubleClick, this);
         }, this);
+    },
+    /**
+     * This method only decode safe-mathml tags into normal mathml
+     **/
+    _convertSafeMath: function(content) {
+        var output = '';
+        var mathTagBegin = '«math';
+        var mathTagEnd = '«/math»';
+        var start = content.indexOf(mathTagBegin);
+        var end = 0;
+
+        while (start != -1) {
+            output += content.substring(end, start);
+            // Avoid WIRIS images to be parsed.
+            imageMathmlAtrribute = content.indexOf(_wrs_conf_imageMathmlAttribute);
+            end = content.indexOf(mathTagEnd, start);
+
+            if (end == -1) {
+                end = content.length - 1;
+            } else if (imageMathmlAtrribute != -1) {
+                // First close tag of img attribute
+                // If a mathmlAttribute exists should be inside a img tag.
+                end += content.indexOf("/>", start);
+            }
+            else {
+                end += mathTagEnd.length;
+            }
+
+            if (!wrs_isMathmlInAttribute(content, start) && imageMathmlAtrribute == -1){
+                var mathml = content.substring(start, end);
+                output += wrs_mathmlDecode(mathml);
+            }
+            else {
+                output += content.substring(start, end);
+            }
+
+            start = content.indexOf(mathTagBegin, end);
+        }
+
+        output += content.substring(end, content.length);
+        return output;
     }
 });
 
