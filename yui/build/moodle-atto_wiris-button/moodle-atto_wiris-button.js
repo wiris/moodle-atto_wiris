@@ -48,6 +48,11 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      *   The language ISO code.
      **/
     initializer: function(config) {
+
+        // Filter not enabled at course level so no continue.
+        if (!config.filter_enabled) {
+            return;
+        }
         this._lang = config.lang;
         window._wrs_int_langCode = config.lang;
         // Add global-scope callback functions and properties.
@@ -86,7 +91,14 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         window._wrs_int_path = window._wrs_int_conf_file.split("/");
         window._wrs_int_path.pop();
         window._wrs_int_path = window._wrs_int_path.join("/");
-        window._wrs_int_path = window._wrs_int_path.indexOf("/") === 0 || window._wrs_int_path.indexOf("http") === 0 ? window._wrs_int_path : window._wrs_int_conf_path + "/" + window._wrs_int_path;
+
+        // Here we choose the correct integration path.
+        // We need to know if the integration path is an absolute path
+        // or an absolute URL.
+        var wrs_int_path_cond = window._wrs_int_path.indexOf("/") === 0 || window._wrs_int_path.indexOf("http");
+
+        // Here we construct the final integration path.
+        window._wrs_int_path = wrs_int_path_cond ? window._wrs_int_path : window._wrs_int_conf_path + "/" + window._wrs_int_path;
 
         // Moodle.
         window._wrs_isMoodle24 = true;
@@ -114,7 +126,9 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         var host = this.get('host');
         var wirisplugin = this;
         window._wrs_int_currentPlugin = this;
-        window._wrs_int_editors_elements = typeof window._wrs_int_editors_elements == "undefined" ? {} : window._wrs_int_editors_elements;
+        // check if elements of editor exists and return elements
+        var wrs_editors_elements_cond = typeof window._wrs_int_editors_elements == "undefined";
+        window._wrs_int_editors_elements = wrs_editors_elements_cond ? {} : window._wrs_int_editors_elements;
         // Update textarea value on change.
         host.on('change', function() {
             wirisplugin._unparseContent();
@@ -131,6 +145,29 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
 
         // Add WIRIS buttons to the toolbar.
         this._addButtons();
+
+        // Adding submit event.
+        var form = host.textarea.ancestor('form');
+
+        if (form) {
+            form.on('submit', this._submitClean, this);
+        }
+
+    },
+
+    /**
+     * This method convert the content of the textarea (MathML) into
+     * the default saveMode (saveXml or MathML) after the content is updated on the database.
+     */
+    _submitClean: function() {
+        var host = this.get('host');
+        // We get the HTML content (with the imnages) instead of the raw html content
+        // and convert images into data-mathml attribute.
+        var html = host.editor.get('innerHTML');
+        // Check if exist mathml tag for parse
+        if(html.indexOf('math»') >= 0 || html.indexOf('math>') >= 0){
+            host.textarea.set('value', wrs_endParse(html, null, this._lang, true));
+        }
     },
     /**
      * Add buttons depending on configuration.
@@ -238,8 +275,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         if (window._wrs_conf_plugin_loaded) {
             var host = this.get('host');
             var html = host.textarea.get('value');
-            html = wrs_endParse(html, null, this._lang);
-            host.textarea.set('value', html);
+            host.textarea.set('value', this._convertSafeMath(wrs_endParse(html, null, this._lang, true)));
         }
         else {
             Y.later(50, this, this._unparseContent);
@@ -288,6 +324,47 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             img.detachAll('dblclick');
             img.on('dblclick', this._handleCasDoubleClick, this);
         }, this);
+    },
+    /**
+     * This method only decode safe-mathml tags into normal mathml
+     **/
+    _convertSafeMath: function(content) {
+        var output = '';
+        var mathTagBegin = '«math';
+        var mathTagEnd = '«/math»';
+        var start = content.indexOf(mathTagBegin);
+        var end = 0;
+
+        while (start != -1) {
+            output += content.substring(end, start);
+            // Avoid WIRIS images to be parsed.
+            imageMathmlAtrribute = content.indexOf(_wrs_conf_imageMathmlAttribute);
+            end = content.indexOf(mathTagEnd, start);
+
+            if (end == -1) {
+                end = content.length - 1;
+            } else if (imageMathmlAtrribute != -1) {
+                // First close tag of img attribute
+                // If a mathmlAttribute exists should be inside a img tag.
+                end += content.indexOf("/>", start);
+            }
+            else {
+                end += mathTagEnd.length;
+            }
+
+            if (!wrs_isMathmlInAttribute(content, start) && imageMathmlAtrribute == -1){
+                var mathml = content.substring(start, end);
+                output += wrs_mathmlDecode(mathml);
+            }
+            else {
+                output += content.substring(start, end);
+            }
+
+            start = content.indexOf(mathTagBegin, end);
+        }
+
+        output += content.substring(end, content.length);
+        return output;
     }
 });
 

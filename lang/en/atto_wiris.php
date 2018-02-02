@@ -18,3 +18,4 @@ $string['pluginname'] = 'WIRIS plugin for Atto';
 $string['wiris_editor_title'] = 'Math editor';
 $string['wiris_cas_title'] = 'Calculator';
 $string['wiris_chem_editor_title'] = 'Chemistry editor';
+$string['error_connection'] = 'An error occurred while loading WIRIS PLUGIN';
