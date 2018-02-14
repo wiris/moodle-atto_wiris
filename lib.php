@@ -67,5 +67,5 @@ function atto_wiris_params_for_js() {
     }
 
     // Atto js plugin checks if the filter is - or not - active.
-    return array('lang' => current_language(), 'filter_enabled' => $filterwirisactive);
+    return array('lang' => current_language(), 'filter_enabled' => $filterwirisactive, 'version' => get_config('atto_wiris', 'version'));
 }
