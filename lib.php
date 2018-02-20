@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Library functions for WIRIS plugin for Atto.
+ * Library functions for MathType for Atto.
  *
  * @package    atto
  * @subpackage wiris
@@ -44,8 +44,8 @@ function atto_wiris_strings_for_js() {
  */
 function atto_wiris_params_for_js() {
     global $COURSE, $PAGE;
-    // We need to know if  WIRIS filter are active in the context of the course.
-    // If not WIRIS plugin should be disabled.
+    // We need to know if  MathType filter are active in the context of the course.
+    // If not MathType for Atto should be disabled.
     $filterwirisactive = true;
     // Filter disabled at course level.
     if (!get_config('filter_wiris', 'allow_editorplugin_active_course')) {

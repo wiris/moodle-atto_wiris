@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Atto uninstall script. Removes WIRIS Editor icon to Atto toolbar.
+ * Atto uninstall script. Removes MathType icon to Atto toolbar.
  *
  * @package    atto
  * @subpackage wiris
