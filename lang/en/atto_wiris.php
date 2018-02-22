@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-$string['pluginname'] = 'MathType for Atto';
+$string['pluginname'] = 'MathType by WIRIS';
 $string['wiris_editor_title'] = 'Insert a math equation - MathType';
 $string['wiris_cas_title'] = 'Calculator';
 $string['wiris_chem_editor_title'] = 'Insert a chemistry formula - ChemType';
