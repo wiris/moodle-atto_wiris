@@ -25,7 +25,7 @@
  */
 
 /**
- * Atto text editor WIRIS plugin.
+ * MathType for Atto plugin.
  *
  * @namespace M.atto_wiris
  * @class button
@@ -53,6 +53,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         }
         this._lang = config.lang;
         window._wrs_int_langCode = config.lang;
+        window._wrs_plugin_version  = config.version;
         // Add global-scope callback functions and properties.
 
         // Popup closed callback.
@@ -104,17 +105,17 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         // Custom editors.
         window._wrs_int_customEditors = {
             chemistry : {
-                name: 'Chemistry',
+                name: 'ChemType',
                 toolbar : 'chemistry',
                 icon : 'chem.gif',
                 enabled : false,
                 confVariable : '_wrs_conf_chemEnabled',
-                title: 'WIRIS EDITOR chemistry'}};
+                title: 'ChemType'}};
 
-        // Load WIRIS plugin core javascript file only once.
+        // Load MathType core javascript file only once.
         if (!window._wrs_int_coreLoading) {
             window._wrs_int_coreLoading = true;
-            Y.Get.js(window._wrs_int_conf_path + '/core/core.js', function(err) {
+            Y.Get.js(window._wrs_int_conf_path + '/core/core.js?v=' + config.version, function(err) {
                 if (err) {
                     Y.log('Could not load core.js');
                 }
@@ -213,7 +214,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         }
     },
     /**
-     * WIRIS editor button callback.
+     * MathType button callback.
      **/
     _editorButton: function() {
         if (_wrs_int_popup) {
@@ -238,7 +239,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         }
     },
     /**
-     * WIRIS cas button callback.
+     * Cas button callback.
      **/
     _casButton: function() {
         if (_wrs_int_popup) {

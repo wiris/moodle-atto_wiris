@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Atto install script. Adds WIRIS Editor icon to Atto toolbar.
+ * Atto install script. Adds MathType icons to Atto toolbar.
  *
  * @package    atto
  * @subpackage wiris
- * @copyright  Maths for More S.L. <info@wiris.com>
+ * @copyright  WIRIS Europe (Maths for more S.L)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Enable WIRIS plugin buttons on installation.
+ * Enable MathType for Atto buttons on installation.
  */
 function xmldb_atto_wiris_install() {
     $toolbar = get_config('editor_atto', 'toolbar');
