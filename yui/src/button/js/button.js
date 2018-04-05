@@ -144,7 +144,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         this._parseContent();
 
         // Add WIRIS buttons to the toolbar.
-        this._addButtons();
+        this._addButtons(config);
 
         // Adding submit event.
         var form = host.textarea.ancestor('form');
@@ -172,45 +172,30 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
     /**
      * Add buttons depending on configuration.
      */
-    _addButtons: function() {
-        if (window._wrs_conf_plugin_loaded) {
-            if (window._wrs_conf_editorEnabled) {
-                this.addButton({
-                    title: 'wiris_editor_title',
-                    buttonName: 'wiris_editor',
-                    icon: 'formula',
-                    iconComponent: 'atto_wiris',
-                    callback: this._editorButton
-                });
-            }
-            if (window[_wrs_int_customEditors.chemistry.confVariable]) {
-                this.addButton({
-                    title: 'wiris_chem_editor_title',
-                    buttonName: 'wiris_chem_editor',
-                    icon:'chem',
-                    iconComponent: 'atto_wiris',
-                    callback: this._chemEditorButton
-                });
-            }
-            if (window._wrs_conf_CASEnabled) {
-                this.addButton({
-                    title: 'wiris_cas_title',
-                    buttonName: 'wiris_cas',
-                    icon: 'cas',
-                    iconComponent: 'atto_wiris',
-                    callback: this._casButton
-                });
-            }
-            // We add the buton after the collapse plugin initially hide other
-            // buttons. So we recall it here.
-            var host = this.get('host');
-            if (host.plugins.collapse) {
-                host.plugins.collapse._setVisibility(host.plugins.collapse.buttons.collapse);
-            }
-
+    _addButtons: function(config) {
+        if (parseInt(config.editor_is_active)) {
+            this.addButton({
+                title: 'wiris_editor_title',
+                buttonName: 'wiris_editor',
+                icon: 'formula',
+                iconComponent: 'atto_wiris',
+                callback: this._editorButton
+            });
         }
-        else {
-            Y.later(50, this, this._addButtons);
+        if (parseInt(config.chemistry_is_active)) {
+            this.addButton({
+                title: 'wiris_chem_editor_title',
+                buttonName: 'wiris_chem_editor',
+                icon:'chem',
+                iconComponent: 'atto_wiris',
+                callback: this._chemEditorButton
+            });
+        }
+        // We add the buton after the collapse plugin initially hide other
+        // buttons. So we recall it here.
+        var host = this.get('host');
+        if (host.plugins.collapse) {
+            host.plugins.collapse._setVisibility(host.plugins.collapse.buttons.collapse);
         }
     },
     /**
