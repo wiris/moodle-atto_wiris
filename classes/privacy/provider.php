@@ -14,9 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-$string['pluginname'] = 'MathType by WIRIS';
-$string['error_connection'] = 'An error occurred while loading MathType';
-$string['privacy:null_reason'] = 'MathType for Atto does not effect or store any data itself.';
-$string['wiris_editor_title'] = 'Insert a math equation - MathType';
-$string['wiris_cas_title'] = 'Calculator';
-$string['wiris_chem_editor_title'] = 'Insert a chemistry formula - ChemType';
+/**
+ * Privacy class for MathType for Atto.
+ *
+ * @package    filter_wiris
+ * @copyright  WIRIS Europe (Maths for more S.L)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace atto_wiris\privacy;
+
+defined('MOODLE_INTERNAL') || die();
+
+class provider implements
+    // This plugin does not store any personal user data.
+    \core_privacy\local\metadata\null_provider
+{
+
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return  string
+     */
+    public static function get_reason() : string {
+        return 'privacy:null_reason';
+    }
+}
