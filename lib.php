@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Library functions for WIRIS plugin for Atto.
+ * Library functions for MathType for Atto.
  *
  * @package    atto
  * @subpackage wiris
- * @copyright  Maths for More S.L. <info@wiris.com>
+ * @copyright  WIRIS Europe (Maths for more S.L)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -44,9 +44,12 @@ function atto_wiris_strings_for_js() {
  */
 function atto_wiris_params_for_js() {
     global $COURSE, $PAGE;
-    // We need to know if  WIRIS filter are active in the context of the course.
-    // If not WIRIS plugin should be disabled.
+    // We need to know if  MathType filter are active in the context of the course.
+    // If not MathType for Atto should be disabled.
     $filterwirisactive = true;
+    // Get MathType and Chemistry buttons enabled configuration.
+    $editorisactive = get_config('filter_wiris', 'editor_enable');
+    $chemistryisactive = get_config('filter_wiris', 'chem_editor_enable');
     // Filter disabled at course level.
     if (!get_config('filter_wiris', 'allow_editorplugin_active_course')) {
         $context = context_course::instance($COURSE->id);
@@ -63,9 +66,14 @@ function atto_wiris_params_for_js() {
                 $activefilters = filter_get_active_in_context($PAGE->context);
                 $filterwirisactive = array_key_exists('wiris', $activefilters);
             }
+        } else {
+            // If filter is deactivated and allowalways is disabled we don't add buttons.
+            $editorisactive = false;
+            $chemistryisactive = false;
         }
     }
 
     // Atto js plugin checks if the filter is - or not - active.
-    return array('lang' => current_language(), 'filter_enabled' => $filterwirisactive);
+    return array('lang' => current_language(), 'filter_enabled' => $filterwirisactive, 'version' => get_config('atto_wiris', 'version'),
+        'editor_is_active' => $editorisactive, 'chemistry_is_active' => $chemistryisactive);
 }

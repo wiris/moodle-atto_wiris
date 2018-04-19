@@ -27,7 +27,7 @@ YUI.add('moodle-atto_wiris-button', function (Y, NAME) {
  */
 
 /**
- * Atto text editor WIRIS plugin.
+ * MathType for Atto plugin.
  *
  * @namespace M.atto_wiris
  * @class button
@@ -55,6 +55,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         }
         this._lang = config.lang;
         window._wrs_int_langCode = config.lang;
+        window._wrs_plugin_version  = config.version;
         // Add global-scope callback functions and properties.
 
         // Popup closed callback.
@@ -106,17 +107,17 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         // Custom editors.
         window._wrs_int_customEditors = {
             chemistry : {
-                name: 'Chemistry',
+                name: 'ChemType',
                 toolbar : 'chemistry',
                 icon : 'chem.gif',
                 enabled : false,
                 confVariable : '_wrs_conf_chemEnabled',
-                title: 'WIRIS EDITOR chemistry'}};
+                title: 'ChemType'}};
 
-        // Load WIRIS plugin core javascript file only once.
+        // Load MathType core javascript file only once.
         if (!window._wrs_int_coreLoading) {
             window._wrs_int_coreLoading = true;
-            Y.Get.js(window._wrs_int_conf_path + '/core/core.js', function(err) {
+            Y.Get.js(window._wrs_int_conf_path + '/core/core.js?v=' + config.version, function(err) {
                 if (err) {
                     Y.log('Could not load core.js');
                 }
@@ -145,7 +146,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         this._parseContent();
 
         // Add WIRIS buttons to the toolbar.
-        this._addButtons();
+        this._addButtons(config);
 
         // Adding submit event.
         var form = host.textarea.ancestor('form');
@@ -173,49 +174,34 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
     /**
      * Add buttons depending on configuration.
      */
-    _addButtons: function() {
-        if (window._wrs_conf_plugin_loaded) {
-            if (window._wrs_conf_editorEnabled) {
-                this.addButton({
-                    title: 'wiris_editor_title',
-                    buttonName: 'wiris_editor',
-                    icon: 'formula',
-                    iconComponent: 'atto_wiris',
-                    callback: this._editorButton
-                });
-            }
-            if (window[_wrs_int_customEditors.chemistry.confVariable]) {
-                this.addButton({
-                    title: 'wiris_chem_editor_title',
-                    buttonName: 'wiris_chem_editor',
-                    icon:'chem',
-                    iconComponent: 'atto_wiris',
-                    callback: this._chemEditorButton
-                });
-            }
-            if (window._wrs_conf_CASEnabled) {
-                this.addButton({
-                    title: 'wiris_cas_title',
-                    buttonName: 'wiris_cas',
-                    icon: 'cas',
-                    iconComponent: 'atto_wiris',
-                    callback: this._casButton
-                });
-            }
-            // We add the buton after the collapse plugin initially hide other
-            // buttons. So we recall it here.
-            var host = this.get('host');
-            if (host.plugins.collapse) {
-                host.plugins.collapse._setVisibility(host.plugins.collapse.buttons.collapse);
-            }
-
+    _addButtons: function(config) {
+        if (parseInt(config.editor_is_active)) {
+            this.addButton({
+                title: 'wiris_editor_title',
+                buttonName: 'wiris_editor',
+                icon: 'formula',
+                iconComponent: 'atto_wiris',
+                callback: this._editorButton
+            });
         }
-        else {
-            Y.later(50, this, this._addButtons);
+        if (parseInt(config.chemistry_is_active)) {
+            this.addButton({
+                title: 'wiris_chem_editor_title',
+                buttonName: 'wiris_chem_editor',
+                icon:'chem',
+                iconComponent: 'atto_wiris',
+                callback: this._chemEditorButton
+            });
+        }
+        // We add the buton after the collapse plugin initially hide other
+        // buttons. So we recall it here.
+        var host = this.get('host');
+        if (host.plugins.collapse) {
+            host.plugins.collapse._setVisibility(host.plugins.collapse.buttons.collapse);
         }
     },
     /**
-     * WIRIS editor button callback.
+     * MathType button callback.
      **/
     _editorButton: function() {
         if (_wrs_int_popup) {
@@ -240,7 +226,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         }
     },
     /**
-     * WIRIS cas button callback.
+     * Cas button callback.
      **/
     _casButton: function() {
         if (_wrs_int_popup) {
