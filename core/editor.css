@@ -67,3 +67,8 @@
         width: 140%;
     }
 }
+
+table.wrs_layoutFor9Rows.wrs_periodicTable {
+    /*rtl:ignore*/
+    direction: ltr;
+}
