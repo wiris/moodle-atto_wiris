@@ -128,12 +128,20 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         var host = this.get('host');
         var wirisplugin = this;
         window._wrs_int_currentPlugin = this;
-        // check if elements of editor exists and return elements
+        // Check if elements of editor exists and return elements.
         var wrs_editors_elements_cond = typeof window._wrs_int_editors_elements == "undefined";
         window._wrs_int_editors_elements = wrs_editors_elements_cond ? {} : window._wrs_int_editors_elements;
         // Update textarea value on change.
         host.on('change', function() {
             wirisplugin._unparseContent();
+        });
+        // This code parse content when draft is called
+        // For more information view PLUGINS-1009
+        host.on('atto:selectionchanged', function(e) {
+            // This condition is satisfied when event is throwed by draft
+            if (typeof e.event == 'undefined') {
+                wirisplugin._parseContent();
+            }
         });
         // Override updateFromTextArea to update the content editable element.
         host._wirisUpdateFromTextArea = host.updateFromTextArea;
@@ -166,7 +174,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         // We get the HTML content (with the imnages) instead of the raw html content
         // and convert images into data-mathml attribute.
         var html = host.editor.get('innerHTML');
-        // Check if exist mathml tag for parse
+        // Check if exist mathml tag for parse.
         if(html.indexOf('math»') >= 0 || html.indexOf('math>') >= 0){
             host.textarea.set('value', wrs_endParse(html, null, this._lang, true));
         }
