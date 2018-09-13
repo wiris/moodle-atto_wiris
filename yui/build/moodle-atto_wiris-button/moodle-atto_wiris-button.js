@@ -73,7 +73,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                  */
                 AttoIntegration.prototype.getLanguage = function() {
                     return this.config.lang;
-                }
+                };
 
                 /**
                  * Handles a double click on the target element. In this integration
@@ -129,7 +129,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 AttoIntegration.prototype.unParseContent = function() {
                     var host = this.editorObject.get('host');
                     var html = host.textarea.get('value');
-                    host.textarea.set('value', this.convertSafeMathml(WirisPlugin.Parser.endParse(html, null, this.config.lang, true)));
+                    var value = this.convertSafeMathml(WirisPlugin.Parser.endParse(html, null, this.config.lang, true));
+                    host.textarea.set('value', value);
                 };
 
                 /**
@@ -237,7 +238,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             } else {
                 Y.later(50, this, this._onHostChange);
             }
-        }
+        };
 
         host.on('change', function() {
             _onHostChange();
@@ -304,6 +305,5 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         WirisPlugin.currentInstance.openNewFormulaEditor();
     }
 });
-
 
 }, '@VERSION@', {"requires": ["moodle-editor_atto-plugin", "get"]});
