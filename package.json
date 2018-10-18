@@ -1,13 +1,13 @@
 {
-  "name": "mathtype-js-lib",
-  "description": "MathType Web Integration API for generic editor",
-  "main": "wirisplugin-generic.src.js",
-  "scripts": {
+    "name": "mathtype-js-lib",
+    "description": "MathType Web Integration API for generic editor",
+    "main": "wirisplugin-generic.src.js",
+    "scripts": {
     "build-dev": "webpack --mode development",
     "build": "webpack --mode production"
-  },
-  "license": "GPL-3.0",
-  "devDependencies": {
+    },
+    "license": "GPL-3.0",
+    "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-loader": "^8.0.2",
@@ -18,5 +18,5 @@
     "url-loader": "^1.1.1",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0"
-  }
+    }
 }

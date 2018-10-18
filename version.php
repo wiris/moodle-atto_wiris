@@ -25,9 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2018100800;
-$plugin->release = '7.7.0.1394';
+$plugin->version = 2018101800;
+$plugin->release = '7.7.1.1395';
 $plugin->requires = 2014050800;
 $plugin->component = 'atto_wiris';
-$plugin->dependencies = array ('filter_wiris' => 2018100800);
+$plugin->dependencies = array ('filter_wiris' => 2018101800);
 $plugin->maturity = MATURITY_STABLE;
