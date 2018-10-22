@@ -93,6 +93,10 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                  */
                 AttoIntegration.prototype.updateFormula = function(mathml) {
                     WirisPlugin.IntegrationModel.prototype.updateFormula.call(this, mathml);
+                    var host = this.editorObject.get('host');
+                    var html = host.textarea.get('value');
+                    var value = this.convertSafeMathml(WirisPlugin.Parser.endParse(html, null, this.config.lang, true));
+                    host.textarea.set('value', value);
                     this.editorObject.markUpdated();
                 };
 
@@ -224,25 +228,6 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
 
         // Global events to host.
         var host = this.get('host');
-        var wirisplugin = this;
-
-        /**
-         * On host change callback method. The content of the host should updated in every
-         * change in order to maintain the associated textarea updated.
-         */
-        _onHostChange = function() {
-            if (typeof WirisPlugin !== 'undefined' && ('currentInstance' in WirisPlugin)) {
-                WirisPlugin.currentInstance.editorObject = wirisplugin;
-                WirisPlugin.currentInstance.setTarget(wirisplugin.get('host').editor.getDOMNode());
-                WirisPlugin.currentInstance.unParseContent();
-            } else {
-                Y.later(50, this, this._onHostChange);
-            }
-        };
-
-        host.on('change', function() {
-            _onHostChange();
-        }.bind(this));
 
         // It's needed to parse the content on selectionchanged event in order to recover properly
         // the content of the editor in drafts.
@@ -250,7 +235,9 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         host.on('atto:selectionchanged', function(e) {
             // This condition is satisfied when event is thrown by draft
             if (typeof e.event == 'undefined') {
-                WirisPlugin.currentInstance.parseContent();
+                var html = host.editor.get('innerHTML');
+                html = WirisPlugin.Parser.initParse(html, WirisPlugin.currentInstance.config.lang);
+                host.editor.set('innerHTML', html);
             }
         });
 
@@ -258,9 +245,66 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         host._wirisUpdateFromTextArea = host.updateFromTextArea;
         host.updateFromTextArea = function() {
             host._wirisUpdateFromTextArea();
-            WirisPlugin.currentInstance.parseContent();
+            var html = host.editor.get('innerHTML');
+            html = WirisPlugin.Parser.initParse(html, WirisPlugin.currentInstance.config.lang);
+            host.editor.set('innerHTML', html);
         };
+        // Override updateOriginal to update the content of the text area element.
+        host._wirisupdateOriginal = host.updateOriginal;
+        host.updateOriginal = function() {
+            host._wirisupdateOriginal();
+            var html = host.textarea.get('value');
+            var value = WirisPlugin.Parser.endParse(html);
+            value = _convertSafeMathML(value);
+            host.textarea.set('value', value);
+        }
+
+        /**
+         * Converts all the occurrences of a safeMathml
+         * with standard MathML.
+         * @type {string} - content content to be filtered.
+         * @returns {string} the original content with MathML instead of safeMathML.
+         */
+        _convertSafeMathML = function(content) {
+            var output = '';
+            var mathTagBegin = '«math';
+            var mathTagEnd = '«/math»';
+            var start = content.indexOf(mathTagBegin);
+            var end = 0;
+
+            while (start != -1) {
+                output += content.substring(end, start);
+                // Avoid WIRIS images to be parsed.
+                imageMathmlAttribute = content.indexOf(WirisPlugin.Configuration.get('imageMathmlAttribute'));
+                end = content.indexOf(mathTagEnd, start);
+
+                if (end == -1) {
+                    end = content.length - 1;
+                } else if (imageMathmlAttribute != -1) {
+                    // First close tag of img attribute
+                    // If a mathmlAttribute exists should be inside a img tag.
+                    end += content.indexOf("/>", start);
+                }
+                else {
+                    end += mathTagEnd.length;
+                }
+
+                if (!WirisPlugin.MathML.isMathmlInAttribute(content, start) && imageMathmlAttribute == -1) {
+                    var mathml = content.substring(start, end);
+                    output += WirisPlugin.MathML.safeXmlDecode(mathml);
+                }
+                else {
+                    output += content.substring(start, end);
+                }
+
+                start = content.indexOf(mathTagBegin, end);
+            }
+
+            output += content.substring(end, content.length);
+            return output;
+        }
     },
+
     /**
      * Add MathType and ChemType buttons to toolbar.
      * @param {object} config - backend configuration object.
