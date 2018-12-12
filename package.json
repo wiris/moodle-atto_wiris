@@ -1,7 +1,7 @@
 {
   "name": "@wiris/mathtype-generic-dev",
-  "version": "7.7.2",
-  "description": "MathType Web integration API for a generic HTML editor",
+  "version": "7.9.0",
+  "description": "MathType API for a generic HTML editor",
   "keywords": [
     "chem",
     "chemistry",
@@ -34,6 +34,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "style-loader": "^0.23.0",
     "url-loader": "^1.1.1",
+    "uglifyjs-webpack-plugin": "^1.2.8",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0"
   },
