@@ -33,146 +33,282 @@ YUI.add('moodle-atto_wiris-button', function (Y, NAME) {
  * @class button
  * @extends M.editor_atto.EditorPlugin
  */
-
-
 Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
-    /**
-     * The current language en by default.
-     * **/
-    _lang: 'en',
 
-    /**
-     * Initialization function.
-     *
-     * @param string lang
-     *   The language ISO code.
-     **/
     initializer: function(config) {
 
         // Filter not enabled at course level so no continue.
         if (!config.filter_enabled) {
             return;
         }
-        this._lang = config.lang;
-        window._wrs_int_langCode = config.lang;
-        window._wrs_plugin_version  = config.version;
-        // Add global-scope callback functions and properties.
 
-        // Popup closed callback.
-        window.wrs_int_notifyWindowClosed = function() {
-            window._wrs_int_popup = null;
-            window._wrs_temporalImage = null;
-            window._wrs_isNewElement = true;
-        };
+        Y.Get.js(M.cfg.wwwroot + '/lib/editor/atto/plugins/wiris/core/core.js?v=' + config.version, function(err) {
+            if (err) {
+                Y.log('Could not load core.js');
+            } else {
+                // Once the core is loaded we can extend the IntegrationModel class.
 
-        // Editor popup OK callback.
-        window.wrs_int_updateFormula = function(mathml, editMode) {
-            var editable = window._wrs_int_currentPlugin.get('host').editor.getDOMNode();
-            wrs_updateFormula(editable, window, mathml, null, editMode,  _wrs_int_currentPlugin._lang);
-            window._wrs_int_currentPlugin.markUpdated();
-            window._wrs_int_currentPlugin._updateEditorImgHandlers();
-        };
+                /**
+                 * AttoIntegration constructor. Extends from IntegrationModel class.
+                 * @param {object} integrationModelProperties - Integration model properties.
+                 */
+                AttoIntegration = function(integrationModelProperties) {
+                    WirisPlugin.IntegrationModel.call(this, integrationModelProperties);
+                    this.config = integrationModelProperties.config;
+                };
 
-        // CAS popup OK callback.
-        window.wrs_int_updateCAS = function(appletCode, image, width, height) {
-            var editable = window._wrs_int_currentPlugin.get('host').editor.getDOMNode();
-            wrs_updateCAS(editable, window, appletCode, image, width, height);
-            window._wrs_int_currentPlugin.markUpdated();
-            window._wrs_int_currentPlugin._updateCasImgHandlers();
-        };
+                AttoIntegration.prototype = Object.create(WirisPlugin.IntegrationModel && WirisPlugin.IntegrationModel.prototype);
 
-        // Configuration location.
-        window._wrs_int_conf_file = M.cfg.wwwroot + '/filter/wiris/integration/configurationjs.php';
-        window._wrs_int_conf_path = M.cfg.wwwroot + '/lib/editor/atto/plugins/wiris';
-        window._wrs_int_conf_async = true;
-        window._wrs_int_popup = window._wrs_int_popup || null;
-        window._wrs_int_coreLoading = window._wrs_int_coreLoading || false;
 
-        // Custom integration folder.
-        window._wrs_int_path = window._wrs_int_conf_file.split("/");
-        window._wrs_int_path.pop();
-        window._wrs_int_path = window._wrs_int_path.join("/");
+                /**
+                 * Returns the absolute plugin path.
+                 * @returns {string} - plugin path.
+                 */
+                AttoIntegration.prototype.getPath = function() {
+                    return M.cfg.wwwroot + '/lib/editor/atto/plugins/wiris';
+                };
 
-        // Here we choose the correct integration path.
-        // We need to know if the integration path is an absolute path
-        // or an absolute URL.
-        var wrs_int_path_cond = window._wrs_int_path.indexOf("/") === 0 || window._wrs_int_path.indexOf("http");
+                /**
+                 * Returns the integration language, i.e, Atto language
+                 * @returns {string} - integration language.
+                 */
+                AttoIntegration.prototype.getLanguage = function() {
+                    return this.config.lang;
+                };
 
-        // Here we construct the final integration path.
-        window._wrs_int_path = wrs_int_path_cond ? window._wrs_int_path : window._wrs_int_conf_path + "/" + window._wrs_int_path;
+                /**
+                 * Handles a double click on the target element. In this integration
+                 * we stop de event propagation to avoid Moodle opening image edit dialog.
+                 * @param {object} element - DOM object target.
+                 * @param {event} event - D¡double click event.
+                 */
+                AttoIntegration.prototype.doubleClickHandler = function(element, event) {
+                    event.stopPropagation();
+                    WirisPlugin.IntegrationModel.prototype.doubleClickHandler.call(this, element, event);
+                };
 
-        // Moodle.
-        window._wrs_isMoodle24 = true;
+                /**
+                 * Converts a MathML to an image and insert the image in the DOM object. Once the
+                 * formula is updated the edit object is marked as updated.
+                 * @param {string} mathml - target MathML.
+                 */
+                AttoIntegration.prototype.updateFormula = function(mathml) {
+                    WirisPlugin.IntegrationModel.prototype.updateFormula.call(this, mathml);
+                    var host = this.editorObject.get('host');
+                    var html = host.textarea.get('value');
+                    var value = this.convertSafeMathml(WirisPlugin.Parser.endParse(html, null, this.config.lang, true));
+                    host.textarea.set('value', value);
+                    this.editorObject.markUpdated();
+                };
 
-        // Custom editors.
-        window._wrs_int_customEditors = {
-            chemistry : {
-                name: 'ChemType',
-                toolbar : 'chemistry',
-                icon : 'chem.gif',
-                enabled : false,
-                confVariable : '_wrs_conf_chemEnabled',
-                title: 'ChemType'}};
+                /**
+                 * Callback function. This function is called before 'onTargetReady' event
+                 * is fired. We listen to form 'submit' event to un-parse the content.
+                 */
+                AttoIntegration.prototype.callbackFunction = function() {
+                    WirisPlugin.IntegrationModel.prototype.callbackFunction.call(this);
+                    this.parseContent();
+                    // Adding submit event.
+                    var form = this.editorObject.get('host').textarea.ancestor('form');
 
-        // Load MathType core javascript file only once.
-        if (!window._wrs_int_coreLoading) {
-            window._wrs_int_coreLoading = true;
-            Y.Get.js(window._wrs_int_conf_path + '/core/core.js?v=' + config.version, function(err) {
-                if (err) {
-                    Y.log('Could not load core.js');
-                }
-            });
-        }
+                    if (form) {
+                        form.on('submit', this.submit, this);
+                    }
+                };
 
-        // Add parse/unparse events.
+                /**
+                 * Converts all MathML inside the editor object to img elements.
+                 * **/
+                AttoIntegration.prototype.parseContent = function() {
+                    var host = this.editorObject.get('host');
+                    var html = host.editor.get('innerHTML');
+                    // html = this._convertSafeMath(html);
+                    html = WirisPlugin.Parser.initParse(html, this.config.lang);
+                    host.editor.set('innerHTML', html);
+                    this.editorObject.markUpdated();
+                };
+
+                /**
+                 * Converts all MathType images inside the editor object into MathML.
+                 */
+                AttoIntegration.prototype.unParseContent = function() {
+                    var host = this.editorObject.get('host');
+                    var html = host.textarea.get('value');
+                    var value = this.convertSafeMathml(WirisPlugin.Parser.endParse(html, null, this.config.lang, true));
+                    host.textarea.set('value', value);
+                };
+
+                /**
+                 * This method is called once the form is submitted. Replaces the content of the
+                 * editor textarea replacing MathType formulas for the correspondent MathML.
+                 */
+                AttoIntegration.prototype.submit = function() {
+                    var host = this.editorObject.get('host');
+                    // We get the HTML content (with the imnages) instead of the raw html content
+                    // and convert images into data-mathml attribute.
+                    var html = host.editor.get('innerHTML');
+                    // Check if exist mathml tag for parse.
+                    if (html.indexOf('math»') >= 0 || html.indexOf('math>') >= 0) {
+                        host.textarea.set('value', WirisPlugin.Parser.endParse(html, null, this.config.lang, true));
+                    }
+                };
+
+                /**
+                 * Transform all occurrences of safeMatML in a text for MathML.
+                 * @param {string} content - original content.
+                 * @returns {string} - parsed original content.
+                 */
+                AttoIntegration.prototype.convertSafeMathml = function(content) {
+                   var output = '';
+                   var mathTagBegin = '«math';
+                   var mathTagEnd = '«/math»';
+                   var start = content.indexOf(mathTagBegin);
+                   var end = 0;
+
+                   while (start != -1) {
+                       output += content.substring(end, start);
+                       // Avoid WIRIS images to be parsed.
+                       imageMathmlAttribute = content.indexOf(WirisPlugin.Configuration.get('imageMathmlAttribute'));
+                       end = content.indexOf(mathTagEnd, start);
+
+                       if (end == -1) {
+                           end = content.length - 1;
+                       } else if (imageMathmlAttribute != -1) {
+                           // First close tag of img attribute
+                           // If a mathmlAttribute exists should be inside a img tag.
+                           end += content.indexOf("/>", start);
+                       }
+                       else {
+                           end += mathTagEnd.length;
+                       }
+
+                       if (!WirisPlugin.MathML.isMathmlInAttribute(content, start) && imageMathmlAttribute == -1) {
+                           var mathml = content.substring(start, end);
+                           output += WirisPlugin.MathML.safeXmlDecode(mathml);
+                       }
+                       else {
+                           output += content.substring(start, end);
+                       }
+
+                       start = content.indexOf(mathTagBegin, end);
+                   }
+
+                   output += content.substring(end, content.length);
+                   return output;
+                };
+
+               /**
+                * Integration model properties.
+                * @type {object}
+                * @property {string} configurationService - URL for configuration service.
+                * @property {object} editorObject - editor object.
+                * @property {object} target - integration DOM target.
+                * @property {string} stringName - integration script name.
+                * @property {object} config - Atto plugin config object.
+                *
+                */
+                var integrationModelProperties = {};
+                integrationModelProperties.configurationService = M.cfg.wwwroot + '/filter/wiris/integration/configurationjs.php';
+                integrationModelProperties.editorObject = this;
+                integrationModelProperties.target = this.get('host').editor.getDOMNode();
+                integrationModelProperties.scriptName = '';
+                integrationModelProperties.config = config;
+
+                // Here we create a new instance of AttoIntegration.
+                var attoIntegrationInstance = new AttoIntegration(integrationModelProperties);
+                attoIntegrationInstance.init();
+                // We don't need to wait for anything. The event 'onTargetReady' can be fired.
+                attoIntegrationInstance.listeners.fire('onTargetReady', {});
+
+                // Despite the number of Atto editors we only need a single instance.
+                WirisPlugin.currentInstance = attoIntegrationInstance;
+            }
+        }.bind(this));
+
+        this._addButtons(config);
+
+        // Global events to host.
         var host = this.get('host');
-        var wirisplugin = this;
-        window._wrs_int_currentPlugin = this;
-        // check if elements of editor exists and return elements
-        var wrs_editors_elements_cond = typeof window._wrs_int_editors_elements == "undefined";
-        window._wrs_int_editors_elements = wrs_editors_elements_cond ? {} : window._wrs_int_editors_elements;
-        // Update textarea value on change.
-        host.on('change', function() {
-            wirisplugin._unparseContent();
+
+        // It's needed to parse the content on selectionchanged event in order to recover properly
+        // the content of the editor in drafts.
+        // For more information view PLUGINS-1009
+        host.on('atto:selectionchanged', function(e) {
+            // This condition is satisfied when event is thrown by draft
+            if (typeof e.event == 'undefined') {
+                var html = host.editor.get('innerHTML');
+                html = WirisPlugin.Parser.initParse(html, WirisPlugin.currentInstance.config.lang);
+                host.editor.set('innerHTML', html);
+            }
         });
+
         // Override updateFromTextArea to update the content editable element.
         host._wirisUpdateFromTextArea = host.updateFromTextArea;
         host.updateFromTextArea = function() {
             host._wirisUpdateFromTextArea();
-            wirisplugin._parseContent();
+            var html = host.editor.get('innerHTML');
+            html = WirisPlugin.Parser.initParse(html, WirisPlugin.currentInstance.config.lang);
+            host.editor.set('innerHTML', html);
         };
-
-        // Parse the content for the first time.
-        this._parseContent();
-
-        // Add WIRIS buttons to the toolbar.
-        this._addButtons(config);
-
-        // Adding submit event.
-        var form = host.textarea.ancestor('form');
-
-        if (form) {
-            form.on('submit', this._submitClean, this);
+        // Override updateOriginal to update the content of the text area element.
+        host._wirisupdateOriginal = host.updateOriginal;
+        host.updateOriginal = function() {
+            host._wirisupdateOriginal();
+            var html = host.textarea.get('value');
+            var value = WirisPlugin.Parser.endParse(html);
+            value = _convertSafeMathML(value);
+            host.textarea.set('value', value);
         }
 
+        /**
+         * Converts all the occurrences of a safeMathml
+         * with standard MathML.
+         * @type {string} - content content to be filtered.
+         * @returns {string} the original content with MathML instead of safeMathML.
+         */
+        _convertSafeMathML = function(content) {
+            var output = '';
+            var mathTagBegin = '«math';
+            var mathTagEnd = '«/math»';
+            var start = content.indexOf(mathTagBegin);
+            var end = 0;
+
+            while (start != -1) {
+                output += content.substring(end, start);
+                // Avoid WIRIS images to be parsed.
+                imageMathmlAttribute = content.indexOf(WirisPlugin.Configuration.get('imageMathmlAttribute'));
+                end = content.indexOf(mathTagEnd, start);
+
+                if (end == -1) {
+                    end = content.length - 1;
+                } else if (imageMathmlAttribute != -1) {
+                    // First close tag of img attribute
+                    // If a mathmlAttribute exists should be inside a img tag.
+                    end += content.indexOf("/>", start);
+                }
+                else {
+                    end += mathTagEnd.length;
+                }
+
+                if (!WirisPlugin.MathML.isMathmlInAttribute(content, start) && imageMathmlAttribute == -1) {
+                    var mathml = content.substring(start, end);
+                    output += WirisPlugin.MathML.safeXmlDecode(mathml);
+                }
+                else {
+                    output += content.substring(start, end);
+                }
+
+                start = content.indexOf(mathTagBegin, end);
+            }
+
+            output += content.substring(end, content.length);
+            return output;
+        }
     },
 
     /**
-     * This method convert the content of the textarea (MathML) into
-     * the default saveMode (saveXml or MathML) after the content is updated on the database.
-     */
-    _submitClean: function() {
-        var host = this.get('host');
-        // We get the HTML content (with the imnages) instead of the raw html content
-        // and convert images into data-mathml attribute.
-        var html = host.editor.get('innerHTML');
-        // Check if exist mathml tag for parse
-        if(html.indexOf('math»') >= 0 || html.indexOf('math>') >= 0){
-            host.textarea.set('value', wrs_endParse(html, null, this._lang, true));
-        }
-    },
-    /**
-     * Add buttons depending on configuration.
+     * Add MathType and ChemType buttons to toolbar.
+     * @param {object} config - backend configuration object.
      */
     _addButtons: function(config) {
         if (parseInt(config.editor_is_active)) {
@@ -188,12 +324,12 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             this.addButton({
                 title: 'wiris_chem_editor_title',
                 buttonName: 'wiris_chem_editor',
-                icon:'chem',
+                icon: 'chem',
                 iconComponent: 'atto_wiris',
-                callback: this._chemEditorButton
+                callback: this._chemButton
             });
         }
-        // We add the buton after the collapse plugin initially hide other
+        // We add the button after the collapse plugin initially hide other
         // buttons. So we recall it here.
         var host = this.get('host');
         if (host.plugins.collapse) {
@@ -201,159 +337,22 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         }
     },
     /**
-     * MathType button callback.
-     **/
-    _editorButton: function() {
-        if (_wrs_int_popup) {
-            _wrs_int_popup.focus();
-        }
-        else {
-            var host = this.get('host');
-            _wrs_int_currentPlugin = this;
-            _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
-        }
-    },
-
-    _chemEditorButton: function() {
-        if (_wrs_int_popup) {
-            _wrs_int_popup.focus();
-        }
-        else {
-            var host = this.get('host');
-            _wrs_int_currentPlugin = this;
-            wrs_int_enableCustomEditor('chemistry');
-            _wrs_int_popup = wrs_openEditorWindow(this._lang, host.editor.getDOMNode(), false);
-        }
-    },
-    /**
-     * Cas button callback.
-     **/
-    _casButton: function() {
-        if (_wrs_int_popup) {
-            _wrs_int_popup.focus();
-        }
-        else {
-            var host = this.get('host');
-            _wrs_int_currentPlugin = this;
-            _wrs_int_popup = wrs_openCASWindow(host.editor.getDOMNode(), false, this._lang);
-        }
-    },
-    /**
-     * Converts all MathML from the editor html to img elements.
-     * **/
-    _parseContent: function() {
-        if (window._wrs_conf_plugin_loaded) {
-            var host = this.get('host');
-            var html = host.editor.get('innerHTML');
-            html = wrs_initParse(html, this._lang);
-            host.editor.set('innerHTML', html);
-            this.markUpdated();
-            this._updateCasImgHandlers();
-            this._updateEditorImgHandlers();
-        }
-        else {
-            Y.later(50, this, this._parseContent);
-        }
-    },
-    /**
-     * Converts all img elements from the textarea I/O element to MathML.
-     * */
-    _unparseContent: function() {
-        if (window._wrs_conf_plugin_loaded) {
-            var host = this.get('host');
-            var html = host.textarea.get('value');
-            host.textarea.set('value', this._convertSafeMath(wrs_endParse(html, null, this._lang, true)));
-        }
-        else {
-            Y.later(50, this, this._unparseContent);
-        }
-    },
-    /**
-     * Doubleclick event for Wiris images on editable div.
+     * Callback for MathType button.
      */
-    _handleElementDoubleclick: function(target, element, event){
-        if (element.dataset.mathml) {
-            event.stopPropagation();
-            window._wrs_temporalImage = element;
-            window._wrs_isNewElement = false;
-            var customEditor = window._wrs_temporalImage.getAttribute('data-custom-editor');
-            if (typeof(customEditor) != 'undefined' && customEditor){
-                if (window[_wrs_int_customEditors[customEditor].confVariable]) {
-                    wrs_int_enableCustomEditor(customEditor);
-                }
-            }
-
-            window._wrs_int_editors_elements[target.id]._editorButton();
-        }
+    _editorButton: function() {
+        WirisPlugin.currentInstance.editorObject = this;
+        WirisPlugin.currentInstance.setTarget(this.get('host').editor.getDOMNode());
+        WirisPlugin.currentInstance.openNewFormulaEditor();
     },
     /**
-     * Doubleclick in img.Wiriscas handler
-     * */
-    _handleCasDoubleClick: function(e) {
-        window._wrs_temporalImage = e.currentTarget.getDOMNode();
-        window._wrs_isNewElement = false;
-        this._casButton();
-        e.stopPropagation();
-    },
-    /**
-     * Reset event handlers for formula images.
-     * **/
-    _updateEditorImgHandlers: function() {
-        // Add doubleclick event to editable div.
-        wrs_addElementEvents(this.get('host').editor.getDOMNode(),this._handleElementDoubleclick);
-        window._wrs_int_editors_elements[this.get("host").editor.getDOMNode().id] = this;
-    },
-    /**
-     * Reset event handlers for cas images.
-     * **/
-    _updateCasImgHandlers: function() {
-        this.editor.all('img.Wiriscas').each(function(img){
-            img.detachAll('dblclick');
-            img.on('dblclick', this._handleCasDoubleClick, this);
-        }, this);
-    },
-    /**
-     * This method only decode safe-mathml tags into normal mathml
-     **/
-    _convertSafeMath: function(content) {
-        var output = '';
-        var mathTagBegin = '«math';
-        var mathTagEnd = '«/math»';
-        var start = content.indexOf(mathTagBegin);
-        var end = 0;
-
-        while (start != -1) {
-            output += content.substring(end, start);
-            // Avoid WIRIS images to be parsed.
-            imageMathmlAtrribute = content.indexOf(_wrs_conf_imageMathmlAttribute);
-            end = content.indexOf(mathTagEnd, start);
-
-            if (end == -1) {
-                end = content.length - 1;
-            } else if (imageMathmlAtrribute != -1) {
-                // First close tag of img attribute
-                // If a mathmlAttribute exists should be inside a img tag.
-                end += content.indexOf("/>", start);
-            }
-            else {
-                end += mathTagEnd.length;
-            }
-
-            if (!wrs_isMathmlInAttribute(content, start) && imageMathmlAtrribute == -1){
-                var mathml = content.substring(start, end);
-                output += wrs_mathmlDecode(mathml);
-            }
-            else {
-                output += content.substring(start, end);
-            }
-
-            start = content.indexOf(mathTagBegin, end);
-        }
-
-        output += content.substring(end, content.length);
-        return output;
+     * Callback for ChemType button.
+     */
+    _chemButton: function() {
+        WirisPlugin.currentInstance.editorObject = this;
+        WirisPlugin.currentInstance.setTarget(this.get('host').editor.getDOMNode());
+        WirisPlugin.currentInstance.getCore().getCustomEditors().enable('chemistry');
+        WirisPlugin.currentInstance.openNewFormulaEditor();
     }
 });
-
 
 }, '@VERSION@', {"requires": ["moodle-editor_atto-plugin", "get"]});

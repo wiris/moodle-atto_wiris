@@ -74,6 +74,9 @@ function atto_wiris_params_for_js() {
     }
 
     // Atto js plugin checks if the filter is - or not - active.
-    return array('lang' => current_language(), 'filter_enabled' => $filterwirisactive, 'version' => get_config('atto_wiris', 'version'),
-        'editor_is_active' => $editorisactive, 'chemistry_is_active' => $chemistryisactive);
+    return array('lang' => current_language(),
+                'filter_enabled' => $filterwirisactive,
+                'version' => get_config('atto_wiris', 'version'),
+                'editor_is_active' => $editorisactive,
+                'chemistry_is_active' => $chemistryisactive);
 }
