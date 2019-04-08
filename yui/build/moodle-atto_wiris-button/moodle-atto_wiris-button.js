@@ -42,7 +42,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             return;
         }
 
-        Y.Get.js(M.cfg.wwwroot + '/lib/editor/atto/plugins/wiris/core/core.js?v=' + config.version, function(err) {
+        Y.Get.js(M.cfg.wwwroot + '/lib/editor/atto/plugins/wiris/core.js?v=' + config.version, function(err) {
             if (err) {
             } else {
                 // Once the core is loaded we can extend the IntegrationModel class.

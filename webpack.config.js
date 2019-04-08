@@ -1,13 +1,15 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './global.js'
+        app: './src/global.js'
     },
     output: {
         path: path.resolve(__dirname, ''),
-        filename: 'wirisplugin-generic.js'
+        filename: 'core.js'
     },
     // Set watch to true for dev purposes.
     watch: false,
@@ -19,6 +21,8 @@ module.exports = {
                 parallel: true,
                 sourceMap: true // Set to true if you want JS source maps.
             }),
+            // CSS optimizer mainly to minimize css files.
+            new OptimizeCSSAssetsPlugin({})
         ]
     },
     module: {
@@ -36,7 +40,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader']
             },
             {
                 test: /\.(png|jpg|gif)$/i,
@@ -51,6 +55,12 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            // Output path for css.
+            filename: './styles/styles.css',
+        }),
+    ],
     stats: {
         colors: true
     }
