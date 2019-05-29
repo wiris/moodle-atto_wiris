@@ -31,7 +31,6 @@ Feature: MathType for Atto
     And I add a "Forum" to section "0"
     And I set the following fields to these values:
       | Forum name | News Forum |
-      | Description | |
     And I press "Save and return to course"
     And I follow "News Forum"
     And I press "Add a new discussion topic"

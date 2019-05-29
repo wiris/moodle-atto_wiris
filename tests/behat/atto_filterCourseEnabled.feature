@@ -23,7 +23,6 @@ Feature: MathType for Atto
     And I add a "Forum" to section "0"
     And I set the following fields to these values:
       | Forum name | News Forum |
-      | Description | |
     And I press "Save and return to course"
     And I navigate to "Filters" in current page administration
     And I click on "Off" "option" in the "MathType by WIRIS" "table_row"
