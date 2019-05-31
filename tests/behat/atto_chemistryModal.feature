@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @_bug_phantomjs @atto_modal_drag_focus
+@editor @editor_atto @atto @_bug_phantomjs @atto_chemistryModal
 Feature: MathType for Atto
   To teach maths to students, I need to write equations
 
@@ -14,7 +14,7 @@ Feature: MathType for Atto
       | admin  | C1     | editingteacher |
 
   @javascript
-  Scenario: Verify that we have focus after move modal window
+  Scenario: Use atto to post a chemistry formula
     And I log in as "admin"
     And I navigate to "Plugins" in site administration
     And I click on "Manage filters" "link"
@@ -27,13 +27,12 @@ Feature: MathType for Atto
     And I follow "News Forum"
     And I press "Add a new discussion topic"
     And I set the following fields to these values:
-      | Subject | Test MathType for Atto on Moodle |
-    And I press "MathType"
+      | Subject | Test MathType for Atto on Moodle chemistry formulas |
+    And I press "ChemType"
     And I wait "5" seconds
-    And I click on "//div[@class='wrs_modal_title']" "xpath_element"
-    And I set mathtype formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
+    And I set mathtype formula to '<math><mi mathvariant="normal">H</mi><mn>2</mn><mi mathvariant="normal">O</mi></math>'
     And I click on "//button[@id='wrs_modal_button_accept[0]']" "xpath_element"
     And I press "Post to forum"
-    And I click on "Test MathType for Atto on Moodle" "link"
-    Then "//img[@alt='fraction numerator 1 over denominator square root of 2 pi end root end fraction']" "xpath_element" should exist
-    Then "Wirisformula" should has height 48 with error of 2
+    And I click on "Test MathType for Atto on Moodle chemistry formulas" "link"
+    Then "//img[contains(@alt, 'straight &#x1D540;')]" "xpath_element" should exist
+    Then "Wirisformula" should has height 19 with error of 2

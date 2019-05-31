@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @_bug_phantomjs @atto-chemistry_modal
+@editor @editor_atto @atto @_bug_phantomjs @atto_frenchQuotes
 Feature: MathType for Atto
   To teach maths to students, I need to write equations
 
@@ -14,11 +14,8 @@ Feature: MathType for Atto
       | admin  | C1     | editingteacher |
 
   @javascript
-  Scenario: Use atto to post a chemistry formula
+  Scenario: Checking french quotes to prevent dissapear and post
     And I log in as "admin"
-    And I navigate to "Plugins" in site administration
-    And I click on "Manage filters" "link"
-    And I click on "On" "option" in the "MathType by WIRIS" "table_row"
     And I am on "Course 1" course homepage with editing mode on
     And I add a "Forum" to section "0"
     And I set the following fields to these values:
@@ -27,12 +24,8 @@ Feature: MathType for Atto
     And I follow "News Forum"
     And I press "Add a new discussion topic"
     And I set the following fields to these values:
-      | Subject | Test MathType for Atto on Moodle chemistry formulas |
-    And I press "ChemType"
-    And I wait "5" seconds
-    And I set mathtype formula to '<math><mi mathvariant="normal">H</mi><mn>2</mn><mi mathvariant="normal">O</mi></math>'
-    And I click on "//button[@id='wrs_modal_button_accept[0]']" "xpath_element"
+      | Subject | Test MathType for Atto on Moodle |
+      | Message | &laquo;Bonjour&raquo; |
     And I press "Post to forum"
-    And I click on "Test MathType for Atto on Moodle chemistry formulas" "link"
-    Then "//img[@alt='straight H 2 straight O']" "xpath_element" should exist
-    Then "Wirisformula" should has height 20 with error of 2
+    And I click on "Test MathType for Atto on Moodle" "link"
+    Then "&laquo;Bonjour&raquo;" "text" should exist
