@@ -34,5 +34,5 @@ Feature: MathType for Atto
     And I click on "//button[@id='wrs_modal_button_accept[0]']" "xpath_element"
     And I press "Post to forum"
     And I click on "Test MathType for Atto on Moodle" "link"
-    Then "//img[@alt='fraction numerator 1 over denominator square root of 2 pi end root end fraction']" "xpath_element" should exist
+    Then "//img[contains(@alt, 'square root')]" "xpath_element" should exist
     Then "Wirisformula" should has height 48 with error of 2

@@ -44,4 +44,4 @@ Feature: MathType for Atto
     Then the field "Message" matches value "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#960;</mi></msqrt></mfrac></math><br>"
     And I press "Post to forum"
     And I click on "Test MathType for Atto on Moodle" "link"
-    Then "//img[@alt='fraction numerator 1 over denominator square root of 20 pi end root end fraction']" "xpath_element" should exist
+    Then "//img[contains(@alt, 'square root')]" "xpath_element" should exist

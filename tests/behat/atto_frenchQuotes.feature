@@ -29,3 +29,5 @@ Feature: MathType for Atto
     And I press "Post to forum"
     And I click on "Test MathType for Atto on Moodle" "link"
     Then "&laquo;Bonjour&raquo;" "text" should exist
+    And I click on "Edit" "link"
+    Then "//img[@class='Wirisformula']" "xpath_element" should not exist

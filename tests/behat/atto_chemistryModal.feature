@@ -34,5 +34,5 @@ Feature: MathType for Atto
     And I click on "//button[@id='wrs_modal_button_accept[0]']" "xpath_element"
     And I press "Post to forum"
     And I click on "Test MathType for Atto on Moodle chemistry formulas" "link"
-    Then "//img[contains(@alt, 'straight &#x1D540;')]" "xpath_element" should exist
+    Then "//img[contains(@data-mathml, 'chemistry')]" "xpath_element" should exist
     Then "Wirisformula" should has height 19 with error of 2
