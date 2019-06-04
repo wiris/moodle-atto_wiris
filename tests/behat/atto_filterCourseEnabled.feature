@@ -1,6 +1,5 @@
-@editor @editor_atto @atto @_bug_phantomjs @atto_filterCourseEnabled
-Feature: MathType for Atto
-  To teach maths to students, I need to write equations
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+Feature: Check MathType enabled if filter disabled at course level but allow_editorplugin_active_course setting is enabled
 
   Background:
     Given the following config values are set as admin:

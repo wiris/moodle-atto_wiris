@@ -29,10 +29,9 @@ require_once(__DIR__ . '/behat_wiris_base.php');
 class behat_wiris_editor extends behat_wiris_base {
 
      /**
-     * @Transform /^(\d+)$/
-     */
-    public function castStringToNumber($string)
-    {
+      * @Transform /^(\d+)$/
+      */
+    public function cast_string_to_number($string) {
         return intval($string);
     }
 
@@ -70,7 +69,7 @@ class behat_wiris_editor extends behat_wiris_base {
         $equals = $session->evaluateScript($script);
 
         if ('integer' !== gettype($height) || 'integer' !== gettype($error)) {
-            throw new Exception('Integer expected.');
+            throw new Exception('Integer value expected.');
         }
         if (!$equals) {
             throw new Exception('Image height is not correct');
@@ -86,5 +85,24 @@ class behat_wiris_editor extends behat_wiris_base {
         $session = $this->getSession();
         $script = 'WirisPlugin.Configuration.set("saveMode", "xml")';
         $session->executeScript($script);
+    }
+
+    /**
+     * Look whether an attribute in an element contains a something
+     *
+     * @Given I try this
+     * @throws ElementNotFoundException If MathType does not exist, it will throw an invalid argument exception.
+     */
+    public function alt_attribute_should_exist() {
+        $session = $this->getSession();
+        $element = $session->getPage()->find(
+            'xpath',
+            $session->getPage()->findAll('xpath', "//img[contains(@alt, '&#x1D540;')]")
+        );
+        if (null === $element) {
+            $script = 'console.log("caca"); console.log('.$element.')';
+            $session->executeScript($script);
+        }
+
     }
 }

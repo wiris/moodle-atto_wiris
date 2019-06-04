@@ -1,6 +1,5 @@
-@editor @editor_atto @atto @_bug_phantomjs @attoModalDragFocus
-Feature: MathType for Atto
-  To teach maths to students, I need to write equations
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+Feature: Verify that we have focus after move modal window
 
   Background:
     Given the following config values are set as admin:

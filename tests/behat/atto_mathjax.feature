@@ -1,6 +1,5 @@
-@editor @editor_atto @atto @_bug_phantomjs @atto_mathjax
-Feature: MathType for Atto
-  To teach maths to students, I need to write equations
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+Feature: MathML should be rendered by MathJax if the MathJax filter is first
 
   Background:
     Given the following config values are set as admin:

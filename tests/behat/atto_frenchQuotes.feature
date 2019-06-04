@@ -1,6 +1,5 @@
-@editor @editor_atto @atto @_bug_phantomjs @atto_frenchQuotes
-Feature: MathType for Atto
-  To teach maths to students, I need to write equations
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+Feature: Checking french quotes to prevent dissapear and post
 
   Background:
     Given the following config values are set as admin:
