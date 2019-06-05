@@ -37,7 +37,7 @@ class behat_wiris_editor extends behat_wiris_base {
 
 
     /**
-     * Once the editor has been opened and focused, sets the MathType formula to the specified value.
+     * Once the editor has been opened and focused, set the MathType formula to the specified value.
      *
      * @Given I set mathtype formula to :value
      * @param  string $value value to which we want to set the field
@@ -45,32 +45,68 @@ class behat_wiris_editor extends behat_wiris_base {
      */
     public function i_set_mathtype_formula_to($value) {
         $session = $this->getSession(); // Get the mink session.
-
-        $script = 'const container = document.getElementById(\'wrs_content_container[0]\');'.
-            'const editor = window.com.wiris.jsEditor.JsEditor.getInstance(container);'.
-            'editor.setMathML(\''.$value.'\');';
-        $session->executeScript($script);
+        if (strpos($value, 'math') == false) {
+            $component = $session->getPage()->find(
+                'xpath',
+                $session->getSelectorsHandler()->selectorToXpath('xpath', "//input[@class='wrs_focusElement']")
+            ); // Runs the actual query and returns the element.
+            if (null === $component) {
+                throw new \ElementNotFoundException($this->getSession(), get_string('wirisbehaterroreditornotfound', 'filter_wirs'));
+            }
+            $component->setValue($value);
+        }
+        else {
+            $script = 'return document.getElementById(\'wrs_content_container[0]\')';
+            $container = $session->evaluateScript($script);
+            if (empty($container)) {
+                throw new \ElementNotFoundException("Mathtype editor not found");
+            }
+            $script = 'const container = document.getElementById(\'wrs_content_container[0]\');'.
+                'const editor = window.com.wiris.jsEditor.JsEditor.getInstance(container);'.
+                'editor.setMathML(\''.$value.'\');';
+            $session->executeScript($script);
+        }
     }
 
     /**
-     * Check the size of the image
+     * Press on accept button in Mathtype Editor
      *
-     * @Then :xpath should has height :height with error of :error
-     * @param  string $xpath xpath of the image to verify its height
+     * @Given I press accept button in Mathtype Editor
+     * @throws ElementNotFoundException If MathType does not exist, it will throw an exception.
+     */
+    public function i_click_accept_button_in_mathtype_editor() {
+        $session = $this->getSession();
+        $component = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', "//button[@id='wrs_modal_button_accept[0]']")
+        );
+        if (empty($component)) {
+            throw new \ElementNotFoundException("Accept button in Mathtype editor not found");
+        }
+        $component->click();
+    }
+
+    /**
+     * Check the size of the formula
+     *
+     * @Then Wirisformula should has height :height with error of :error
      * @param  int $height height value to be compared with
      * @param  int $error acceptable error of the height value
-     * @throws ElementNotFoundException If image does not exist, it will throw an invalid argument exception.
+     * @throws ElementNotFoundException If formula does not exist, it will throw an invalid argument exception.
      */
-    public function image_has_height($xpath, $height, $error) {
+    public function wirisformula_should_has_height_with_error($height, $error) {
         $session = $this->getSession();
-
-        $script = 'return document.getElementsByClassName(\''.$xpath.'\')[0].height >= '.($height - $error).
-        ' && document.getElementsByClassName(\''.$xpath.'\')[0].height <='.($height + $error);
-        $equals = $session->evaluateScript($script);
-
         if ('integer' !== gettype($height) || 'integer' !== gettype($error)) {
             throw new Exception('Integer value expected.');
         }
+        $script = 'return document.getElementsByClassName(\'Wirisformula\')[0].height';
+        $formula = $session->evaluateScript($script);
+        if (empty($formula)) {
+            throw new \ElementNotFoundException('Formula not found');
+        }
+        $script = 'return document.getElementsByClassName(\'Wirisformula\')[0].height >= '.($height - $error).
+        ' && document.getElementsByClassName(\'Wirisformula\')[0].height <='.($height + $error);
+        $equals = $this->getSession()->evaluateScript($script);
         if (!$equals) {
             throw new Exception('Image height is not correct');
         }
@@ -81,28 +117,46 @@ class behat_wiris_editor extends behat_wiris_base {
      *
      * @Given I enable saveMode
      */
-    public function enable_save_mode() {
-        $session = $this->getSession();
+    public function i_enable_save_mode() {
         $script = 'WirisPlugin.Configuration.set("saveMode", "xml")';
-        $session->executeScript($script);
+        $this->getSession()->executeScript($script);
     }
 
     /**
-     * Look whether an attribute in an element contains a something
+     * Look whether an element contains certain value for an attribute
      *
-     * @Given I try this
-     * @throws ElementNotFoundException If MathType does not exist, it will throw an invalid argument exception.
+     * @Then element :element containing attribute :attribute with value :value should exist
+     * @param  string $element element to find
+     * @param  string $attribute attribute of the element to find
+     * @param  string $value value for the attribute of the element to find
      */
-    public function alt_attribute_should_exist() {
+    public function element_containing_attribute_with_value_should_exist($element,$attribute,$value) {
         $session = $this->getSession();
-        $element = $session->getPage()->find(
+        $component = $session->getPage()->find(
             'xpath',
-            $session->getPage()->findAll('xpath', "//img[contains(@alt, '&#x1D540;')]")
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//'.$element.'[contains(@'.$attribute.', \''.$value.'\')]')
         );
-        if (null === $element) {
-            $script = 'console.log("caca"); console.log('.$element.')';
-            $session->executeScript($script);
+        if (empty($component)) {
+            throw new Exception ($element.' with value '.$value.' for attribute '.$attribute.' not found');
         }
+    }
 
+    /**
+     * Look whether an element contains certain value for an attribute
+     *
+     * @Then element :element containing attribute :attribute with value :value should not exist
+     * @param  string $element element to find
+     * @param  string $attribute attribute of the element to find
+     * @param  string $value value for the attribute of the element to find
+     */
+    public function element_containing_attribute_with_value_should_not_exist($element,$attribute,$value) {
+        $session = $this->getSession();
+        $component = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//'.$element.'[contains(@'.$attribute.', \''.$value.'\')]')
+        );
+        if (!empty($component)) {
+            throw new Exception ($element.' with value \''.$value.'\' for attribute \''.$attribute.'\' do exist');
+        }
     }
 }

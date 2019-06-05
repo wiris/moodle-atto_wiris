@@ -30,8 +30,8 @@ Feature: Use atto to post a chemistry formula
     And I press "ChemType"
     And I wait "5" seconds
     And I set mathtype formula to '<math><mi mathvariant="normal">H</mi><mn>2</mn><mi mathvariant="normal">O</mi></math>'
-    And I click on "//button[@id='wrs_modal_button_accept[0]']" "xpath_element"
+    And I press accept button in Mathtype Editor
     And I press "Post to forum"
     And I click on "Test MathType for Atto on Moodle chemistry formulas" "link"
-    Then "//img[contains(@data-mathml, 'chemistry')]" "xpath_element" should exist
-    Then "Wirisformula" should has height 19 with error of 2
+    Then element 'img' containing attribute 'data-mathml' with value 'chemistry' should exist
+    Then Wirisformula should has height 19 with error of 2

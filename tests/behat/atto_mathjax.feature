@@ -39,15 +39,15 @@ Feature: MathML should be rendered by MathJax if the MathJax filter is first
     And I press "MathType"
     And I wait "5" seconds
     And I set mathtype formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
-    And I click on "//button[@id='wrs_modal_button_accept[0]']" "xpath_element"
+    And I press accept button in Mathtype Editor
     And I press "Post to forum"
     And I click on "Test MathType for Atto on Moodle: MathJax" "link"
-    Then "//span[contains(@class, 'MathJax')]" "xpath_element" should exist
+    Then element 'span' containing attribute 'class' with value 'MathJax' should exist
     And I navigate to "Plugins" in site administration
     And I click on "Manage filters" "link"
     And I click on "Disable" "option" in the "MathJax" "table_row"
     And I am on "Course 1" course homepage
     And I follow "News Forum"
     And I click on "Test MathType for Atto on Moodle: MathJax" "link"
-    Then "//img[contains(@alt, 'square root')]" "xpath_element" should exist
-    Then "Wirisformula" should has height 48 with error of 2
+    Then element 'img' containing attribute 'alt' with value 'square root' should exist
+    Then Wirisformula should has height 48 with error of 2

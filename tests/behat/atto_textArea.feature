@@ -38,9 +38,9 @@ Feature: Check if the raw code generated in html contains MathML instead of safe
     And I press "MathType"
     And I wait "5" seconds
     And I set mathtype formula to '<math><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
-    And I click on "//button[@id='wrs_modal_button_accept[0]']" "xpath_element"
+    And I press accept button in Mathtype Editor
     And I press "HTML"
     Then the field "Message" matches value "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#960;</mi></msqrt></mfrac></math><br>"
     And I press "Post to forum"
     And I click on "Test MathType for Atto on Moodle" "link"
-    Then "//img[contains(@alt, 'square root')]" "xpath_element" should exist
+    Then element 'img' containing attribute 'alt' with value 'square root' should exist

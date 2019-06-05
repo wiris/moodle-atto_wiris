@@ -29,7 +29,7 @@ Feature: Check MathType enabled if filter disabled at course level but allow_edi
     And I am on "Course 1" course homepage
     And I follow "News Forum"
     And I press "Add a new discussion topic"
-    Then "//button[@class='atto_wiris_button_wiris_editor']" "xpath_element" should not exist
+    Then "MathType" "button" should not exist
     And I navigate to "Plugins" in site administration
     And I click on "MathType by WIRIS" "link"
     And I click on "id_s_filter_wiris_allow_editorplugin_active_course" "checkbox"
@@ -37,5 +37,4 @@ Feature: Check MathType enabled if filter disabled at course level but allow_edi
     And I am on "Course 1" course homepage
     And I follow "News Forum"
     And I press "Add a new discussion topic"
-    Then "//button[@class='atto_wiris_button_wiris_editor']" "xpath_element" should exist
-    And I wait "800" seconds
+    Then "MathType" "button" should exist

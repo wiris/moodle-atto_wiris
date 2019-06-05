@@ -25,7 +25,7 @@ Feature: Check MathType disabled if filter disabled at course level
     And I press "Save and return to course"
     And I follow "News Forum"
     And I press "Add a new discussion topic"
-    Then "//button[@class='atto_wiris_button_wiris_editor']" "xpath_element" should exist
+    Then "MathType" "button" should exist
     And I am on "Course 1" course homepage
     And I navigate to "Filters" in current page administration
     And I click on "Off" "option" in the "MathType by WIRIS" "table_row"
@@ -33,4 +33,4 @@ Feature: Check MathType disabled if filter disabled at course level
     And I am on "Course 1" course homepage
     And I follow "News Forum"
     And I press "Add a new discussion topic"
-    Then "//button[@class='atto_wiris_button_wiris_editor']" "xpath_element" should not exist
+    Then "MathType" "button" should not exist

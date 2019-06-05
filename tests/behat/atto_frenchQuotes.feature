@@ -29,4 +29,4 @@ Feature: Checking french quotes to prevent dissapear and post
     And I click on "Test MathType for Atto on Moodle" "link"
     Then "&laquo;Bonjour&raquo;" "text" should exist
     And I click on "Edit" "link"
-    Then "//img[@class='Wirisformula']" "xpath_element" should not exist
+    Then element 'img' containing attribute 'class' with value 'Wirisformula' should not exist
