@@ -74,7 +74,7 @@ class behat_wiris_editor extends behat_wiris_base {
      * @Given I press accept button in Mathtype Editor
      * @throws ElementNotFoundException If MathType does not exist, it will throw an exception.
      */
-    public function i_click_accept_button_in_mathtype_editor() {
+    public function i_press_accept_button_in_mathtype_editor() {
         $session = $this->getSession();
         $component = $session->getPage()->find(
             'xpath',
@@ -159,4 +159,149 @@ class behat_wiris_editor extends behat_wiris_base {
             throw new Exception ($element.' with value \''.$value.'\' for attribute \''.$attribute.'\' do exist');
         }
     }
+
+    /**
+     * Click on an element that contains certain value for an attribute
+     *
+     * @Given I click on element :element containing attribute :attribute with value :value
+     * @throws ElementNotFoundException If the element does not exist, it will throw an exception.
+     */
+    public function i_click_on_element_containing_attribute_with_value($element,$attribute,$value) {
+        $session = $this->getSession();
+        $component = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//'.$element.'[contains(@'.$attribute.', \''.$value.'\')]')
+        );
+        if (empty($component)) {
+            throw new Exception ($element.' with value \''.$value.'\' for attribute \''.$attribute.'\' do not exist');
+        }
+        $component->click();
+    }
+
+    /**
+     * Place caret in a certain position
+     *
+     * @Given I place caret at position :position
+     */
+    public function i_place_caret_at_position($position) {
+        $script = 'range = window.parent.document.getSelection().getRangeAt(0);'
+            .'node = document.getElementById(\'id_messageeditable\').firstChild;'
+            .'window.parent.document.getSelection().removeAllRanges();'
+            .'range.setStart(node,'.$position.');'
+            .'range.setEnd(node,'.$position.');'
+            .'window.parent.document.getSelection().addRange(range);'
+            .'window.parent.document.body.focus();';
+        $this->getSession()->executeScript($script);
+    }
+
+
+
+    /**
+     * Press MathType button in Question text text field
+     *
+     * @Given I press MathType in Question text text field
+     * @throws ElementNotFoundException If MathType does not exist, it will throw an exception.
+     */
+    public function i_press_mathtype_in_questiontext_text_field() {
+        $session = $this->getSession();
+        $component = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@id="fitem_id_questiontext"]//button[@class="atto_wiris_button_wiris_editor"]')
+        );
+        if (empty($component)) {
+            throw new Exception ('MathType button in Question text text field not found');
+        }
+        $component->click();
+    }
+
+    /**
+     * Press MathType button in General feedback text field
+     *
+     * @Given I press MathType in General feedback text field
+     * @throws ElementNotFoundException If MathType does not exist, it will throw an exception.
+     */
+    public function i_press_mathtype_in_general_feedback_text_field() {
+        $session = $this->getSession();
+        $component = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@id="fitem_id_generalfeedback"]//button[@class="atto_wiris_button_wiris_editor"]')
+        );
+        if (empty($component)) {
+            throw new Exception ('MathType button in General feedback text field not found');
+        }
+        $component->click();
+    }
+
+    /**
+     * Press MathType button in Answer1 Feedback text field
+     *
+     * @Given I press MathType in Answer1 Feedback text field
+     * @throws ElementNotFoundException If MathType does not exist, it will throw an exception.
+     */
+    public function i_press_mathtype_in_answer1_feedback_text_field() {
+        $session = $this->getSession();
+        $component = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@id="fitem_id_feedback_0"]//button[@class="atto_wiris_button_wiris_editor"]')
+        );
+        if (empty($component)) {
+            throw new Exception ('MathType button in Answer1 Feedback text field not found');
+        }
+        $component->click();
+    }
+
+    /**
+     * Press HTML button in Question text text field
+     *
+     * @Given I press HTML in Question text text field
+     * @throws ElementNotFoundException If HTML does not exist, it will throw an exception.
+     */
+    public function i_press_html_in_questiontext_text_field() {
+        $session = $this->getSession();
+        $component = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@id="fitem_id_questiontext"]//button[@class="atto_html_button"]')
+        );
+        if (empty($component)) {
+            throw new Exception ('HTML button in Question text text field not found');
+        }
+        $component->click();
+    }
+
+    /**
+     * Press HTML button in General feedback text field
+     *
+     * @Given I press HTML in General feedback text field
+     * @throws ElementNotFoundException If HTML does not exist, it will throw an exception.
+     */
+    public function i_press_html_in_general_feedback_text_field() {
+        $session = $this->getSession();
+        $component = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@id="fitem_id_generalfeedback"]//button[@class="atto_html_button"]')
+        );
+        if (empty($component)) {
+            throw new Exception ('HTML button in General feedback text field not found');
+        }
+        $component->click();
+    }
+
+    /**
+     * Press HTMEL button in Answer1 Feedback text field
+     *
+     * @Given I press HTML in Answer1 Feedback text field
+     * @throws ElementNotFoundException If HTML does not exist, it will throw an exception.
+     */
+    public function i_press_html_in_answer1_feedback_text_field() {
+        $session = $this->getSession();
+        $component = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@id="fitem_id_feedback_0"]//button[@class="atto_html_button"]')
+        );
+        if (empty($component)) {
+            throw new Exception ('HTML button in Answer1 Feedback text field not found');
+        }
+        $component->click();
+    }
+
 }
