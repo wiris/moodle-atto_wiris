@@ -16,7 +16,7 @@ Feature: Use atto to post a chemistry formula
   Scenario: Use atto to post a chemistry formula
     And I log in as "admin"
     And I navigate to "Plugins" in site administration
-    And I click on "Manage filters" "link"
+    And I follow "Manage filters"
     And I click on "On" "option" in the "MathType by WIRIS" "table_row"
     And I am on "Course 1" course homepage with editing mode on
     And I add a "Forum" to section "0"
@@ -28,10 +28,9 @@ Feature: Use atto to post a chemistry formula
     And I set the following fields to these values:
       | Subject | Test MathType for Atto on Moodle chemistry formulas |
     And I press "ChemType"
-    And I wait "5" seconds
-    And I set mathtype formula to '<math><mi mathvariant="normal">H</mi><mn>2</mn><mi mathvariant="normal">O</mi></math>'
-    And I press accept button in Mathtype Editor
+    And I set MathType formula to '<math><mi mathvariant="normal">H</mi><mn>2</mn><mi mathvariant="normal">O</mi></math>'
+    And I press accept button in MathType Editor
     And I press "Post to forum"
-    And I click on "Test MathType for Atto on Moodle chemistry formulas" "link"
-    Then element 'img' containing attribute 'data-mathml' with value 'chemistry' should exist
+    And I follow "Test MathType for Atto on Moodle chemistry formulas"
+    Then ChemType formula should exist
     Then Wirisformula should has height 19 with error of 2

@@ -26,7 +26,7 @@ Feature: Checking french quotes to prevent dissapear and post
       | Subject | Test MathType for Atto on Moodle |
       | Message | &laquo;Bonjour&raquo; |
     And I press "Post to forum"
-    And I click on "Test MathType for Atto on Moodle" "link"
+    And I follow "Test MathType for Atto on Moodle"
     Then "&laquo;Bonjour&raquo;" "text" should exist
-    And I click on "Edit" "link"
-    Then element 'img' containing attribute 'class' with value 'Wirisformula' should not exist
+    And I follow "Edit"
+    Then Wirisformula should not exist

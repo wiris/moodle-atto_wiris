@@ -16,10 +16,10 @@ Feature: Checks formula creation in forms with multiple editors
   Scenario: Checks formula creation in forms with multiple editors
     And I log in as "admin"
     And I navigate to "Plugins" in site administration
-    And I click on "Manage filters" "link"
+    And I follow "Manage filters"
     And I click on "On" "option" in the "MathType by WIRIS" "table_row"
     And I navigate to "Plugins" in site administration
-    And I click on "Atto toolbar settings" "link"
+    And I follow "Atto toolbar settings"
     And I set the field "Toolbar config" to multiline:
     """
     math = wiris
@@ -37,19 +37,16 @@ Feature: Checks formula creation in forms with multiple editors
     And I click on "Short answer" "radio"
     And I press "submitbutton"
     And I press MathType in Question text text field
-    And I wait "5" seconds
-    And I set mathtype formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>2</mn></msqrt></math>'
-    And I press accept button in Mathtype Editor
+    And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>2</mn></msqrt></math>'
+    And I press accept button in MathType Editor
     And I press HTML in Question text text field
     And I press MathType in General feedback text field
-    And I wait "5" seconds
-    And I set mathtype formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>3</mn></msqrt></math>'
-    And I press accept button in Mathtype Editor
+    And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>3</mn></msqrt></math>'
+    And I press accept button in MathType Editor
     And I press HTML in General feedback text field
     And I press MathType in Answer1 Feedback text field
-    And I wait "5" seconds
-    And I set mathtype formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>4</mn></msqrt></math>'
-    And I press accept button in Mathtype Editor
+    And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>4</mn></msqrt></math>'
+    And I press accept button in MathType Editor
     And I press HTML in Answer1 Feedback text field
     Then the field "Question text" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>2</mn></msqrt></math><br></p>"
     Then the field "General feedback" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>3</mn></msqrt></math><br></p>"
@@ -64,11 +61,11 @@ Feature: Checks formula creation in forms with multiple editors
     And I press "submitbutton"
     And I follow "Quiz 1"
     And I navigate to "Preview" in current page administration
-    Then element 'img' containing attribute 'alt' with value 'square root of 2' should exist
+    Then a Wirisformula containing 'square root of 2' should exist
     And I set the field "Answer" to "10"
     And I follow "Finish attempt ..."
     And I press "Submit all and finish"
     And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
-    Then element 'img' containing attribute 'alt' with value 'square root of 2' should exist
-    Then element 'img' containing attribute 'alt' with value 'square root of 3' should exist
-    Then element 'img' containing attribute 'alt' with value 'square root of 4' should exist
+    Then a Wirisformula containing 'square root of 2' should exist
+    Then a Wirisformula containing 'square root of 3' should exist
+    Then a Wirisformula containing 'square root of 4' should exist

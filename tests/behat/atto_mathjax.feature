@@ -20,7 +20,7 @@ Feature: MathML should be rendered by MathJax if the MathJax filter is first
     And I click on "id_s__enabletrusttext" "checkbox"
     And I press "Save changes"
     And I navigate to "Plugins" in site administration
-    And I click on "Manage filters" "link"
+    And I follow "Manage filters"
     And I click on "On" "option" in the "MathType by WIRIS" "table_row"
     And I click on "Settings" "link" in the "MathJax" "table_row"
     And I set the following fields to these values:
@@ -37,17 +37,16 @@ Feature: MathML should be rendered by MathJax if the MathJax filter is first
       | Subject | Test MathType for Atto on Moodle: MathJax |
     And I enable saveMode
     And I press "MathType"
-    And I wait "5" seconds
-    And I set mathtype formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
-    And I press accept button in Mathtype Editor
+    And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
+    And I press accept button in MathType Editor
     And I press "Post to forum"
     And I click on "Test MathType for Atto on Moodle: MathJax" "link"
     Then element 'span' containing attribute 'class' with value 'MathJax' should exist
     And I navigate to "Plugins" in site administration
-    And I click on "Manage filters" "link"
+    And I follow "Manage filters"
     And I click on "Disable" "option" in the "MathJax" "table_row"
     And I am on "Course 1" course homepage
     And I follow "News Forum"
-    And I click on "Test MathType for Atto on Moodle: MathJax" "link"
-    Then element 'img' containing attribute 'alt' with value 'square root' should exist
+    And I follow "Test MathType for Atto on Moodle: MathJax"
+    Then a Wirisformula containing 'square root' should exist
     Then Wirisformula should has height 48 with error of 2

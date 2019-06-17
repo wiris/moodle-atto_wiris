@@ -16,10 +16,10 @@ Feature: Test I double struck (UTF-32)
   Scenario: Test I double struck (UTF-32)
     And I log in as "admin"
     And I navigate to "Plugins" in site administration
-    And I click on "Manage filters" "link"
+    And I follow "Manage filters"
     And I click on "On" "option" in the "MathType by WIRIS" "table_row"
     And I navigate to "Plugins" in site administration
-    And I click on "Atto toolbar settings" "link"
+    And I follow "Atto toolbar settings"
     And I set the field "Toolbar config" to multiline:
     """
     math = wiris
@@ -36,12 +36,11 @@ Feature: Test I double struck (UTF-32)
     And I set the following fields to these values:
       | Subject | Test MathType for Atto on Moodle |
     And I press "MathType"
-    And I wait "5" seconds
-    And I set mathtype formula to '<math><mi mathvariant="normal">&#x1D540;</mi></math>'
-    And I press accept button in Mathtype Editor
+    And I set MathType formula to '<math><mi mathvariant="normal">&#x1D540;</mi></math>'
+    And I press accept button in MathType Editor
     And I press "HTML"
     And I press "HTML"
     And I press "Post to forum"
-    And I click on "Test MathType for Atto on Moodle" "link"
-    Then element 'img' containing attribute 'alt' with value 'straight 𝕀' should exist
+    And I follow "Test MathType for Atto on Moodle"
+    Then a Wirisformula containing 'straight 𝕀' should exist
     Then Wirisformula should has height 19 with error of 2

@@ -16,10 +16,10 @@ Feature: Check that formula is rendered when atto's draft is restored
   Scenario: Check that formula is rendered when atto's draft is restored
     And I log in as "admin"
     And I navigate to "Plugins" in site administration
-    And I click on "Manage filters" "link"
+    And I follow "Manage filters"
     And I click on "On" "option" in the "MathType by WIRIS" "table_row"
     And I navigate to "Plugins" in site administration
-    And I click on "Atto toolbar settings" "link"
+    And I follow "Atto toolbar settings"
     And I click on "seconds" "option" in the "#id_s_editor_atto_autosavefrequencyu" "css_element"
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
@@ -30,8 +30,7 @@ Feature: Check that formula is rendered when atto's draft is restored
     And I follow "News Forum"
     And I press "Add a new discussion topic"
     And I press "MathType"
-    And I wait "5" seconds
-    And I set mathtype formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
-    And I press accept button in Mathtype Editor
+    And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
+    And I press accept button in MathType Editor
     And I reload the page
-    Then element 'img' containing attribute 'class' with value 'Wirisformula' should exist
+    Then Wirisformula should exist

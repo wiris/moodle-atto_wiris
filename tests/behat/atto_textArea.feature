@@ -16,10 +16,10 @@ Feature: Check if the raw code generated in html contains MathML instead of safe
   Scenario: Check if the raw code generated in html contains MathML instead of safeXML
     And I log in as "admin"
     And I navigate to "Plugins" in site administration
-    And I click on "Manage filters" "link"
+    And I follow "Manage filters"
     And I click on "On" "option" in the "MathType by WIRIS" "table_row"
     And I navigate to "Plugins" in site administration
-    And I click on "Atto toolbar settings" "link"
+    And I follow "Atto toolbar settings"
     And I set the field "Toolbar config" to multiline:
     """
     math = wiris
@@ -36,11 +36,10 @@ Feature: Check if the raw code generated in html contains MathML instead of safe
     And I set the following fields to these values:
       | Subject | Test MathType for Atto on Moodle |
     And I press "MathType"
-    And I wait "5" seconds
-    And I set mathtype formula to '<math><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
-    And I press accept button in Mathtype Editor
+    And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
+    And I press accept button in MathType Editor
     And I press "HTML"
-    Then the field "Message" matches value "<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#960;</mi></msqrt></mfrac></math><br></p>"
+    Then the field "Message" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#960;</mi></msqrt></mfrac></math><br></p>"
     And I press "Post to forum"
-    And I click on "Test MathType for Atto on Moodle" "link"
-    Then element 'img' containing attribute 'alt' with value 'square root' should exist
+    And I follow "Test MathType for Atto on Moodle"
+    Then a Wirisformula containing 'square root' should exist
