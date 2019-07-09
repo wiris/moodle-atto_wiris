@@ -28,13 +28,14 @@ module.exports = {
     module: {
         rules: [
             {
-                // Rule to translate ES5 javascript files to ES6.
+                // Rule to translate ES6 javascript files to ES5.
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/env']
+                        presets: ['@babel/env'],
+                        plugins: ["@babel/plugin-transform-object-assign"]
                     }
                 }
             },
