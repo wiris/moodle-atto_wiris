@@ -15,9 +15,7 @@ Feature: Verify that we have focus after move modal window
   @javascript
   Scenario: Verify that we have focus after move modal window
     And I log in as "admin"
-    And I navigate to "Plugins" in site administration
-    And I follow "Manage filters"
-    And I click on "On" "option" in the "MathType by WIRIS" "table_row"
+    And I enable Mathtype filter
     And I am on "Course 1" course homepage with editing mode on
     And I add a "Forum" to section "0"
     And I set the following fields to these values:

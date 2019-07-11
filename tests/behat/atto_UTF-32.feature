@@ -15,9 +15,7 @@ Feature: Test I double struck (UTF-32)
   @javascript
   Scenario: Test I double struck (UTF-32)
     And I log in as "admin"
-    And I navigate to "Plugins" in site administration
-    And I follow "Manage filters"
-    And I click on "On" "option" in the "MathType by WIRIS" "table_row"
+    And I enable Mathtype filter
     And I navigate to "Plugins" in site administration
     And I follow "Atto toolbar settings"
     And I set the field "Toolbar config" to multiline:

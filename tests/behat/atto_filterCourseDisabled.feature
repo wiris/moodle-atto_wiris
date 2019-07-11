@@ -12,12 +12,10 @@ Feature: Check MathType disabled if filter disabled at course level
       | user     | course | role           |
       | admin  | C1     | editingteacher |
 
-    @javascript
+  @javascript
   Scenario: Check MathType disabled if filter disabled at course level
     And I log in as "admin"
-    And I navigate to "Plugins" in site administration
-    And I follow "Manage filters"
-    And I click on "On" "option" in the "MathType by WIRIS" "table_row"
+    And I enable Mathtype filter
     And I am on "Course 1" course homepage with editing mode on
     And I add a "Forum" to section "0"
     And I set the following fields to these values:
@@ -28,7 +26,7 @@ Feature: Check MathType disabled if filter disabled at course level
     Then "MathType" "button" should exist
     And I am on "Course 1" course homepage
     And I navigate to "Filters" in current page administration
-    And I click on "Off" "option" in the "MathType by WIRIS" "table_row"
+    And I turn MathType filter off
     And I press "Save changes"
     And I am on "Course 1" course homepage
     And I follow "News Forum"

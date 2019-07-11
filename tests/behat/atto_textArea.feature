@@ -15,9 +15,7 @@ Feature: Check if the raw code generated in html contains MathML instead of safe
   @javascript
   Scenario: Check if the raw code generated in html contains MathML instead of safeXML
     And I log in as "admin"
-    And I navigate to "Plugins" in site administration
-    And I follow "Manage filters"
-    And I click on "On" "option" in the "MathType by WIRIS" "table_row"
+    And I enable Mathtype filter
     And I navigate to "Plugins" in site administration
     And I follow "Atto toolbar settings"
     And I set the field "Toolbar config" to multiline:

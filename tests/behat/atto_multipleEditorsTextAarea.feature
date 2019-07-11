@@ -15,9 +15,7 @@ Feature: Checks formula creation in forms with multiple editors
   @javascript
   Scenario: Checks formula creation in forms with multiple editors
     And I log in as "admin"
-    And I navigate to "Plugins" in site administration
-    And I follow "Manage filters"
-    And I click on "On" "option" in the "MathType by WIRIS" "table_row"
+    And I enable Mathtype filter
     And I navigate to "Plugins" in site administration
     And I follow "Atto toolbar settings"
     And I set the field "Toolbar config" to multiline:
@@ -34,30 +32,30 @@ Feature: Checks formula creation in forms with multiple editors
     And I press "Edit quiz"
     And I follow "Add"
     And I follow "a new question"
-    And I click on "Short answer" "radio"
+    And I choose Short answer
     And I press "submitbutton"
-    And I press MathType in Question text text field
+    And I press MathType in Question text field
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>2</mn></msqrt></math>'
     And I press accept button in MathType Editor
-    And I press HTML in Question text text field
-    And I press MathType in General feedback text field
+    And I press HTML in Question text field
+    And I press MathType in General feedback field
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>3</mn></msqrt></math>'
     And I press accept button in MathType Editor
-    And I press HTML in General feedback text field
-    And I press MathType in Answer1 Feedback text field
+    And I press HTML in General feedback field
+    And I press MathType in Answer1 Feedback field
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>4</mn></msqrt></math>'
     And I press accept button in MathType Editor
-    And I press HTML in Answer1 Feedback text field
+    And I press HTML in Answer1 Feedback field
     Then the field "Question text" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>2</mn></msqrt></math><br></p>"
     Then the field "General feedback" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>3</mn></msqrt></math><br></p>"
     Then the field "Feedback" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>4</mn></msqrt></math><br></p>"
-    Then element 'img' containing attribute 'alt' with value 'square root of 2' should exist
-    Then element 'img' containing attribute 'alt' with value 'square root of 3' should exist
-    Then element 'img' containing attribute 'alt' with value 'square root of 4' should exist
+    Then a Wirisformula containing 'square root of 2' should exist
+    Then a Wirisformula containing 'square root of 3' should exist
+    Then a Wirisformula containing 'square root of 4' should exist
     And I set the following fields to these values:
       | Question name | Short 1 |
       | Answer 1 | 10 |
-    And I click on "100%" "option" in the "#id_fraction_0" "css_element"
+    And I select 100% option in Answer1
     And I press "submitbutton"
     And I follow "Quiz 1"
     And I navigate to "Preview" in current page administration

@@ -15,14 +15,14 @@ Feature: MathML should be rendered by MathJax if the MathJax filter is first
   @javascript
   Scenario: MathML should be rendered by MathJax if the MathJax filter is first
     And I log in as "admin"
+    And I enable Mathtype filter
     And I navigate to "Site administration" in site administration
-    And I click on "Site security settings" "link"
-    And I click on "id_s__enabletrusttext" "checkbox"
+    And I follow "Site security settings"
+    And I check enable trusted content
     And I press "Save changes"
     And I navigate to "Plugins" in site administration
     And I follow "Manage filters"
-    And I click on "On" "option" in the "MathType by WIRIS" "table_row"
-    And I click on "Settings" "link" in the "MathJax" "table_row"
+    And I go to MathJax settings
     And I set the following fields to these values:
       | Additional equation delimiters | <math |
     And I press "Save changes"
@@ -40,11 +40,11 @@ Feature: MathML should be rendered by MathJax if the MathJax filter is first
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I press accept button in MathType Editor
     And I press "Post to forum"
-    And I click on "Test MathType for Atto on Moodle: MathJax" "link"
-    Then element 'span' containing attribute 'class' with value 'MathJax' should exist
+    And I follow "Test MathType for Atto on Moodle: MathJax"
+    Then MathJax element should exist
     And I navigate to "Plugins" in site administration
     And I follow "Manage filters"
-    And I click on "Disable" "option" in the "MathJax" "table_row"
+    And I turn mathjax disabled
     And I am on "Course 1" course homepage
     And I follow "News Forum"
     And I follow "Test MathType for Atto on Moodle: MathJax"

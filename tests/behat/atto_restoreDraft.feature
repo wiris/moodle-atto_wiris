@@ -15,12 +15,10 @@ Feature: Check that formula is rendered when atto's draft is restored
   @javascript
   Scenario: Check that formula is rendered when atto's draft is restored
     And I log in as "admin"
-    And I navigate to "Plugins" in site administration
-    And I follow "Manage filters"
-    And I click on "On" "option" in the "MathType by WIRIS" "table_row"
+    And I enable Mathtype filter
     And I navigate to "Plugins" in site administration
     And I follow "Atto toolbar settings"
-    And I click on "seconds" "option" in the "#id_s_editor_atto_autosavefrequencyu" "css_element"
+    And I select seconds in autosave frequency option
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
     And I add a "Forum" to section "0"

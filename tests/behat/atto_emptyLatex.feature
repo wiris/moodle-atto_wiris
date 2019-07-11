@@ -15,13 +15,13 @@ Feature: Check empty LaTeX edition
   @javascript
   Scenario: Check empty LaTeX edition
     And I log in as "admin"
+    And I enable Mathtype filter
     And I navigate to "Site administration" in site administration
     And I follow "Site security settings"
-    And I click on "id_s__enabletrusttext" "checkbox"
+    And I check enable trusted content
     And I press "Save changes"
     And I navigate to "Plugins" in site administration
     And I follow "Manage filters"
-    And I click on "On" "option" in the "MathType by WIRIS" "table_row"
     And I click on "Disabled" "option" in the "MathJax" "table_row"
     And I navigate to "Plugins" in site administration
     And I follow "Atto toolbar settings"
@@ -41,8 +41,8 @@ Feature: Check empty LaTeX edition
     And I set the following fields to these values:
       | Subject | Test MathType for Atto on Moodle |
       | Message | $$$$ |
-    And I click on Message text field
-    And I place caret at position "2"
+    And I click on Message field
+    And I place caret at position "2" in Message field
     And I press "MathType"
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I press accept button in MathType Editor
