@@ -1,5 +1,7 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Checking french quotes to prevent dissapear and post
+In order to check if french quotes can be displayed correctly
+I need to post with french quotes
 
   Background:
     Given the following config values are set as admin:
@@ -11,22 +13,17 @@ Feature: Checking french quotes to prevent dissapear and post
     And the following "course enrolments" exist:
       | user     | course | role           |
       | admin  | C1     | editingteacher |
+    And the "wiris" filter is "on"
+    And I log in as "admin"
 
   @javascript
   Scenario: Checking french quotes to prevent dissapear and post
-    And I log in as "admin"
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Forum" to section "0"
+    And I add a "Page" to section "0"
     And I set the following fields to these values:
-      | Forum name | News Forum |
-    And I press "Save and return to course"
-    And I follow "News Forum"
-    And I press "Add a new discussion topic"
-    And I set the following fields to these values:
-      | Subject | Test MathType for Atto on Moodle |
-      | Message | &laquo;Bonjour&raquo; |
-    And I press "Post to forum"
-    And I follow "Test MathType for Atto on Moodle"
+      | Name         | Test MathType for Atto on Moodle |
+      | Page content | &laquo;Bonjour&raquo; |
+    And I press "Save and display"
     Then "&laquo;Bonjour&raquo;" "text" should exist
-    And I follow "Edit"
+    And I navigate to "Edit settings" in current page administration
     Then Wirisformula should not exist
