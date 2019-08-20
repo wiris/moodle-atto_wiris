@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @caca
 Feature: Test I double struck (UTF-32)
 In order to check the I double struck can be displayed correctly
 I need to insert the I double struck using the UTF-32 encoding
@@ -31,7 +31,7 @@ I need to insert the I double struck using the UTF-32 encoding
     And I set MathType formula to '<math><mi mathvariant="normal">&#x1D540;</mi></math>'
     And I press accept button in MathType Editor
     And I press "HTML" in "Page content" field in Atto editor
-    And I press "HTML" in "Page content" field in Atto editor
+    And I press "HTML pressed" in "Page content" field in Atto editor
     And I press "Save and display"
     Then a Wirisformula containing html entity '&#x1D540;' should exist
     And Wirisformula should has height 19 with error of 2

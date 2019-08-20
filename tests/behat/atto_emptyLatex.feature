@@ -41,7 +41,7 @@ Insert a MathType formula
     And I press accept button in MathType Editor
     Then "$$\frac1{\sqrt{2\pi}}$$" "text" should exist
     And I press "HTML" in "Page content" field in Atto editor
-    And I press "HTML" in "Page content" field in Atto editor
+    And I press "HTML pressed" in "Page content" field in Atto editor
     Then "$$\frac1{\sqrt{2\pi}}$$" "text" should exist
     And I press "Save and display"
     Then a Wirisformula containing 'square root' should exist
