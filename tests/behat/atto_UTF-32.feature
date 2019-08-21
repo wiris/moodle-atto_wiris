@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @caca
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Test I double struck (UTF-32)
 In order to check the I double struck can be displayed correctly
 I need to insert the I double struck using the UTF-32 encoding

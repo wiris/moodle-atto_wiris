@@ -23,8 +23,7 @@ I need to add an additional equation delimiter at MathJax settings
     And I check enable trusted content
     And I press "Save changes"
     And I navigate to "Plugins" in site administration
-    And I follow "Manage filters"
-    And I go to MathJax settings
+    And I follow "MathJax"
     And I set the following fields to these values:
       | Additional equation delimiters | <math |
     And I press "Save changes"
