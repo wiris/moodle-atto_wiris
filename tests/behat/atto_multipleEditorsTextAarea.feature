@@ -1,8 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Checks formula creation in forms with multiple editors
-In order to check if formula can be created properly when there are multiple editors
-I need to create a Quiz of Showrt answers
-Insert formula in different fields
+In order to use multiple editors
+As an admin
+I need to re-edit formulas in a question type form
 
   Background:
     Given the following "courses" exist:

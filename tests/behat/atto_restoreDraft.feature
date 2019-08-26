@@ -1,10 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Check that formula is rendered when atto's draft is restored
-In order to check that MathType formula can be rendered when atto's draft is restored
-I need to insert a MathType formula
-Reduce the autosave frequency
-Reaload the page
-Check if the formula is rendered correctly
+In order to not loose data
+As an admin
+I need to restore draft content containing MathType formulas
 
   Background:
     Given the following config values are set as admin:

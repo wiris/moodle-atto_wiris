@@ -1,9 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Check MathType enabled if filter disabled at course level but allow_editorplugin_active_course setting is enabled
-In order to check that MathType is enabled if allow_editorplugin_active_course setting is active
-I need to disable MathType at course level
-Enable allow_editorplugin_active_course setting
-Check if MathType is enabled
+In order to use MathType with other filters
+As an admin
+I need to use MathType despite the filter is disabled
 
   Background:
     Given the following config values are set as admin:

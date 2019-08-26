@@ -1,8 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Check empty LaTeX edition
 In order to check the edition of a formula in LaTeX
-I need to write an empty LaTeX formula with "$$$$"
-Insert a MathType formula
+As an admin
+I need to edit an empty LaTeX with MathType
 
   Background:
     Given the following "courses" exist:

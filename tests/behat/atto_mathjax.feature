@@ -1,7 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: MathML should be rendered by MathJax if the MathJax filter is first
-In order to check if MathML can be rendered by MathJax
-I need to add an additional equation delimiter at MathJax settings
+In order to check if MathType's MathML can be rendered by MathJax
+As an admin
+I need to see MathType formulas rendered by MathJax
 
   Background:
     Given the following config values are set as admin:

@@ -1,10 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Verify that we have focus after move modal window
-In order to check that the focus isn't lost after moving the modal window
-I need to open modal window
-Move modal window
-Press accept button
-Check the formula is correctly inserted
+In order to write Mathematical formulas properly
+As an admin
+I need to use the modal window
 
   Background:
     Given the following config values are set as admin:

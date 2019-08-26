@@ -1,7 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Test I double struck (UTF-32)
-In order to check the I double struck can be displayed correctly
-I need to insert the I double struck using the UTF-32 encoding
+In order to create formulas with UTF-32 characters
+As an admin
+I need to see a formula with a UTF-32 character
 
   Background:
     Given the following "courses" exist:

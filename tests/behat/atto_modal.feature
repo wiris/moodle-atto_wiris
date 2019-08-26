@@ -1,7 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Use atto to post
 In order to check if MathType formula can be displayed correctly
-I need to post a MathType formula
+As an admin
+I need to create a MathType formula
 
   Background:
     Given the following config values are set as admin:

@@ -1,10 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Check if the raw code generated in html contains MathML instead of safeXML
-In order to check if the raw code in html contains MathML
-I need to add HTML button to toolbar
-Inserta a MathType formula
-Transform formula to raw code
-Check if formula contains MathML
+In order to edit HTML code
+As an admin
+I need to not loose data editing HTML code
 
   Background:
     Given the following "courses" exist:

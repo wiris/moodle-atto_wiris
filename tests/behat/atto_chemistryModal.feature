@@ -1,7 +1,8 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Use atto to post a chemistry formula
 In order to check whether a chemistry formula can be displayed correctly
-I need to post a chemistry formula
+As an admin
+I need to write a chemistry formula
 
   Background:
     Given the following config values are set as admin:
