@@ -342,6 +342,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
     _editorButton: function() {
         WirisPlugin.currentInstance.editorObject = this;
         WirisPlugin.currentInstance.setTarget(this.get('host').editor.getDOMNode());
+        WirisPlugin.currentInstance.core.getCustomEditors().disable();
         WirisPlugin.currentInstance.openNewFormulaEditor();
     },
     /**
