@@ -1,6 +1,6 @@
 @editor @editor_atto @atto @atto_wiris @_bug_phantomjs
-Feature: Use atto to post a chemistry formula
-In order to check whether a chemistry formula can be displayed correctly
+Feature: Change between editors
+In order to check if it's possible change between MathType and ChemType editors
 As an admin
 I need to write a chemistry formula
 
