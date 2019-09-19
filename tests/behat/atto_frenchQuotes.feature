@@ -24,6 +24,6 @@ I need to post with french quotes
       | Name         | Test MathType for Atto on Moodle |
       | Page content | &laquo;Bonjour&raquo; |
     And I press "Save and display"
-    Then "&laquo;Bonjour&raquo;" "text" should exist
+    Then "«Bonjour»" "text" should exist
     And I navigate to "Edit settings" in current page administration
     Then Wirisformula should not exist
