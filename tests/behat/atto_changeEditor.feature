@@ -2,7 +2,7 @@
 Feature: Change between editors
 In order to check if it's possible change between MathType and ChemType editors
 As an admin
-I need to write a chemistry formula
+I need to change between editors
 
   Background:
     Given the following config values are set as admin:
