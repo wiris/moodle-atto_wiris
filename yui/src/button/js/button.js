@@ -81,8 +81,11 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                  * @param {event} event - D¡double click event.
                  */
                 AttoIntegration.prototype.doubleClickHandler = function(element, event) {
-                    event.stopPropagation();
-                    WirisPlugin.IntegrationModel.prototype.doubleClickHandler.call(this, element, event);
+                    var isWirisformula = element.classList.contains('Wirisformula');
+                    if (isWirisformula) {
+                        event.stopPropagation();
+                        WirisPlugin.IntegrationModel.prototype.doubleClickHandler.call(this, element, event);
+                    }
                 };
 
                 /**
