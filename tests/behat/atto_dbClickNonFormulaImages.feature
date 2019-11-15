@@ -49,8 +49,8 @@ when it is opened.
     # Assert that dbClick works
     And I wait for 20 seconds
     And I dbClick on image with alt equals to "Dog"
-    And I wait for 3600 seconds
-
-    And I press "Save and display"
-    Then ChemType formula should exist
-    And Wirisformula should has height 19 with error of 2
+    Then the field "Enter URL" matches value "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg"
+    And I click on "Save image" "button"
+    # Assert modal window
+    And I dbClick on image with alt equals to "straight H 2 straight O"
+    Then modal window is opened
