@@ -47,7 +47,6 @@ when it is opened.
     And I set the field "Describe this image for someone who cannot see it" to "Dog"
     And I click on "Save image" "button"
     # Assert that dbClick works
-    And I wait for 20 seconds
     And I dbClick on image with alt equals to "Dog"
     Then the field "Enter URL" matches value "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg"
     And I click on "Save image" "button"
