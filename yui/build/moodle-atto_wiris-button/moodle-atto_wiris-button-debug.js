@@ -17,10 +17,10 @@ YUI.add('moodle-atto_wiris-button', function (Y, NAME) {
 //
 
 /*
- * @package    atto_atto_wiris
- * @copyright  2011, Maths for More S.L. http://www.wiris.com
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+    * @package    atto_atto_wiris
+    * @copyright  2011, Maths for More S.L. http://www.wiris.com
+    * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+    */
 
 /**
  * @module moodle-atto_atto_wiris-button
@@ -57,7 +57,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                     this.config = integrationModelProperties.config;
                 };
 
-                AttoIntegration.prototype = Object.create(WirisPlugin.IntegrationModel && WirisPlugin.IntegrationModel.prototype);
+                AttoIntegration.prototype = Object.create(WirisPlugin.IntegrationModel &&
+                                                            WirisPlugin.IntegrationModel.prototype);
 
 
                 /**
@@ -80,14 +81,47 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                  * Handles a double click on the target element. In this integration
                  * we stop de event propagation to avoid Moodle opening image edit dialog.
                  * @param {object} element - DOM object target.
-                 * @param {event} event - D¡double click event.
+                 * @param {event} event - Double click event.
                  */
                 AttoIntegration.prototype.doubleClickHandler = function(element, event) {
-                    var isWirisformula = element.classList.contains('Wirisformula');
-                    if (isWirisformula) {
-                        event.stopPropagation();
-                        WirisPlugin.IntegrationModel.prototype.doubleClickHandler.call(this, element, event);
+                    if (element.nodeName.toLowerCase() == 'img') {
+                        var isWirisformula = WirisPlugin.Util.containsClass(
+                                                element,
+                                                WirisPlugin.Configuration.get('imageClassName')
+                                                );
+                        if (isWirisformula) {
+                            // Some plugins (image2, image) open a dialog on double click. On formulas
+                            // doubleclick event ends here.
+                            if (typeof event.stopPropagation != 'undefined') { // old I.E compatibility.
+                                event.stopPropagation();
+                            } else {
+                                event.returnValue = false;
+                            }
+                            this.core.getCustomEditors().disable();
+                            var customEditorAttr = element.getAttribute(WirisPlugin.Configuration.get('imageCustomEditorName'));
+                            if (customEditorAttr) {
+                                this.core.getCustomEditors().enable(customEditorAttr);
+                            }
+                            this.core.editionProperties.temporalImage = element;
+                            this.openExistingFormulaEditor();
+                        }
                     }
+                };
+
+                /**
+                 * Adds focus listener on element to change currentInstance variable.
+                 * @param {object} element - DOM object target.
+                 */
+                AttoIntegration.prototype.addFocusListener = function(element) {
+                    element.addEventListener('focus', this.focusHandler.bind(this));
+                };
+
+                /**
+                 * Focus handler to change currentInstance variable when atto editor
+                 * is focused.
+                 */
+                AttoIntegration.prototype.focusHandler = function(event) {
+                    WirisPlugin.currentInstance = this;
                 };
 
                 /**
@@ -117,6 +151,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                     if (form) {
                         form.on('submit', this.submit, this);
                     }
+
+                    this.addFocusListener(this.editorObject.editor._node);
                 };
 
                 /**
@@ -125,7 +161,6 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 AttoIntegration.prototype.parseContent = function() {
                     var host = this.editorObject.get('host');
                     var html = host.editor.get('innerHTML');
-                    // html = this._convertSafeMath(html);
                     html = WirisPlugin.Parser.initParse(html, this.config.lang);
                     host.editor.set('innerHTML', html);
                     this.editorObject.markUpdated();
@@ -138,6 +173,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                     var host = this.editorObject.get('host');
                     var html = host.textarea.get('value');
                     var value = this.convertSafeMathml(WirisPlugin.Parser.endParse(html, null, this.config.lang, true));
+
                     host.textarea.set('value', value);
                 };
 
@@ -162,45 +198,45 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                  * @returns {string} - parsed original content.
                  */
                 AttoIntegration.prototype.convertSafeMathml = function(content) {
-                   var output = '';
-                   var mathTagBegin = '«math';
-                   var mathTagEnd = '«/math»';
-                   var start = content.indexOf(mathTagBegin);
-                   var end = 0;
+                    var output = '';
+                    var mathTagBegin = '«math';
+                    var mathTagEnd = '«/math»';
+                    var start = content.indexOf(mathTagBegin);
+                    var end = 0;
 
-                   while (start != -1) {
-                       output += content.substring(end, start);
-                       // Avoid WIRIS images to be parsed.
-                       imageMathmlAttribute = content.indexOf(WirisPlugin.Configuration.get('imageMathmlAttribute'));
-                       end = content.indexOf(mathTagEnd, start);
+                    while (start != -1) {
+                        output += content.substring(end, start);
+                        // Avoid WIRIS images to be parsed.
+                        imageMathmlAttribute = content.indexOf(WirisPlugin.Configuration.get('imageMathmlAttribute'));
+                        end = content.indexOf(mathTagEnd, start);
 
-                       if (end == -1) {
-                           end = content.length - 1;
-                       } else if (imageMathmlAttribute != -1) {
-                           // First close tag of img attribute
-                           // If a mathmlAttribute exists should be inside a img tag.
-                           end += content.indexOf("/>", start);
-                       }
-                       else {
-                           end += mathTagEnd.length;
-                       }
+                        if (end == -1) {
+                            end = content.length - 1;
+                        } else if (imageMathmlAttribute != -1) {
+                            // First close tag of img attribute
+                            // If a mathmlAttribute exists should be inside a img tag.
+                            end += content.indexOf("/>", start);
+                        }
+                        else {
+                            end += mathTagEnd.length;
+                        }
 
-                       if (!WirisPlugin.MathML.isMathmlInAttribute(content, start) && imageMathmlAttribute == -1) {
-                           var mathml = content.substring(start, end);
-                           output += WirisPlugin.MathML.safeXmlDecode(mathml);
-                       }
-                       else {
-                           output += content.substring(start, end);
-                       }
+                        if (!WirisPlugin.MathML.isMathmlInAttribute(content, start) && imageMathmlAttribute == -1) {
+                            var mathml = content.substring(start, end);
+                            output += WirisPlugin.MathML.safeXmlDecode(mathml);
+                        }
+                        else {
+                            output += content.substring(start, end);
+                        }
 
-                       start = content.indexOf(mathTagBegin, end);
-                   }
+                        start = content.indexOf(mathTagBegin, end);
+                    }
 
-                   output += content.substring(end, content.length);
-                   return output;
+                    output += content.substring(end, content.length);
+                    return output;
                 };
 
-               /**
+                /**
                 * Integration model properties.
                 * @type {object}
                 * @property {string} configurationService - URL for configuration service.
@@ -211,7 +247,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 *
                 */
                 var integrationModelProperties = {};
-                integrationModelProperties.configurationService = M.cfg.wwwroot + '/filter/wiris/integration/configurationjs.php';
+                integrationModelProperties.configurationService = M.cfg.wwwroot +
+                                                                    '/filter/wiris/integration/configurationjs.php';
                 integrationModelProperties.editorObject = this;
                 integrationModelProperties.target = this.get('host').editor.getDOMNode();
                 integrationModelProperties.scriptName = '';
@@ -223,8 +260,13 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 // We don't need to wait for anything. The event 'onTargetReady' can be fired.
                 attoIntegrationInstance.listeners.fire('onTargetReady', {});
 
-                // Despite the number of Atto editors we only need a single instance.
+                // They are not used, but they are implemented to use the same
+                // interface than other integrations.
                 WirisPlugin.currentInstance = attoIntegrationInstance;
+                if (!WirisPlugin.instances) {
+                    WirisPlugin.instances = [];
+                }
+                WirisPlugin.instances.push(attoIntegrationInstance);
             }
         }.bind(this));
 
