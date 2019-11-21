@@ -29,3 +29,22 @@ I need to create a MathType formula
     And I press "Save and display"
     Then a Wirisformula containing 'square root' should exist
     And Wirisformula should has height 48 with error of 2
+
+  @javascript
+  Scenario: Not open more than one modal per formula
+    # Insert formula.
+    And I am on "Course 1" course homepage with editing mode on
+    And I add a "Page" to section "0"
+    And I set the following fields to these values:
+      | Name | Test MathType for Atto on Moodle |
+    And I press "MathType" in "Page content" field in Atto editor
+    And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>+</mo><mn>2</mn></math>'
+    And I press accept button in MathType Editor
+    # Open it with the button.
+    And I click on image with alt equals to "1 plus 2"
+    And I press "MathType" in "Page content" field in Atto editor
+    Then modal window with number 0 is opened
+    # Open it with dbClick.
+    And I dbClick on image with alt equals to "1 plus 2"
+    Then modal window with number 1 is not opened
+
