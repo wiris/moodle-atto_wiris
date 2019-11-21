@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @dieguito
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Open multiple modals
 In order to check if it's possible open one modal per editor
 As an admin
