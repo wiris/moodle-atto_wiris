@@ -47,4 +47,3 @@ I need to create a MathType formula
     # Open it with dbClick.
     And I dbClick on image with alt equals to "1 plus 2"
     Then modal window with number 1 is not opened
-
