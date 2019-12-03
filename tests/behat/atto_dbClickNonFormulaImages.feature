@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @dieguito
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
 Feature: Use atto to open non-formula images
 In order to assert that MathType does not override the
 behavior of non-formula images.
