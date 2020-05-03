@@ -5,11 +5,11 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './global.js'
+        app: './src/global.js'
     },
     output: {
         path: path.resolve(__dirname, ''),
-        filename: 'wirisplugin-generic.js'
+        filename: 'core.js'
     },
     // Set watch to true for dev purposes.
     watch: false,
@@ -58,7 +58,7 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             // Output path for css.
-            filename: './core/styles.css',
+            filename: './styles/styles.css',
         }),
     ],
     stats: {

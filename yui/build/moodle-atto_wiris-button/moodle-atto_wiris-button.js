@@ -42,7 +42,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             return;
         }
 
-        Y.Get.js(M.cfg.wwwroot + '/lib/editor/atto/plugins/wiris/core/core.js?v=' + config.version, function(err) {
+        Y.Get.js(M.cfg.wwwroot + '/lib/editor/atto/plugins/wiris/core.js?v=' + config.version, function(err) {
             if (err) {
             } else {
                 // Once the core is loaded we can extend the IntegrationModel class.
@@ -82,8 +82,11 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                  * @param {event} event - D¡double click event.
                  */
                 AttoIntegration.prototype.doubleClickHandler = function(element, event) {
-                    event.stopPropagation();
-                    WirisPlugin.IntegrationModel.prototype.doubleClickHandler.call(this, element, event);
+                    var isWirisformula = element.classList.contains('Wirisformula');
+                    if (isWirisformula) {
+                        event.stopPropagation();
+                        WirisPlugin.IntegrationModel.prototype.doubleClickHandler.call(this, element, event);
+                    }
                 };
 
                 /**
@@ -257,7 +260,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             var value = WirisPlugin.Parser.endParse(html);
             value = _convertSafeMathML(value);
             host.textarea.set('value', value);
-        }
+        };
 
         /**
          * Converts all the occurrences of a safeMathml
@@ -302,7 +305,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
 
             output += content.substring(end, content.length);
             return output;
-        }
+        };
     },
 
     /**
@@ -341,6 +344,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
     _editorButton: function() {
         WirisPlugin.currentInstance.editorObject = this;
         WirisPlugin.currentInstance.setTarget(this.get('host').editor.getDOMNode());
+        WirisPlugin.currentInstance.core.getCustomEditors().disable();
         WirisPlugin.currentInstance.openNewFormulaEditor();
     },
     /**
@@ -353,5 +357,6 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         WirisPlugin.currentInstance.openNewFormulaEditor();
     }
 });
+
 
 }, '@VERSION@', {"requires": ["moodle-editor_atto-plugin", "get"]});
