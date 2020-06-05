@@ -31,9 +31,7 @@ env:
     - MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli
     - MOODLE_BRANCH=MOODLE_38_STABLE DB=pgsql
     - MOODLE_BRANCH=MOODLE_37_STABLE DB=mysqli
-    - MOODLE_BRANCH=MOODLE_37_STABLE DB=pgsql
-    - MOODLE_BRANCH=MOODLE_36_STABLE DB=mysqli
-    - MOODLE_BRANCH=MOODLE_36_STABLE DB=pgsql
+    - MOODLE_BRANCH=MOODLE_37_STABLE DB=pgsql    
     - MOODLE_BRANCH=MOODLE_35_STABLE DB=mysqli
     - MOODLE_BRANCH=MOODLE_35_STABLE DB=pgsql
 
@@ -64,7 +62,9 @@ before_install:
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:
-  - moodle-plugin-ci add-plugin wiris/moodle-filter_wiris
+  - nvm install 14.0.0
+  - nvm use 14.0.0
+  - moodle-plugin-ci add-plugin --branch TRAVIS_BRANCH wiris/moodle-filter_wiris
   - moodle-plugin-ci install
 
 script:
