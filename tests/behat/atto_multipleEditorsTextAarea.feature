@@ -31,7 +31,7 @@ I need to re-edit formulas in a question type form
     And I press "Save and return to course"
     And I follow "Quiz 1"
     And I press "Edit quiz"
-    And I follow "Add"
+    And I open the action menu in ".page-add-actions" "css_element"
     And I follow "a new question"
     And I choose Short answer
     And I press "submitbutton"
