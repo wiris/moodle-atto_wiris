@@ -29,4 +29,3 @@ I need to create a MathType formula
     And I press "Save and display"
     Then a Wirisformula containing 'square root' should exist
     And Wirisformula should has height 48 with error of 2
-
