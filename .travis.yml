@@ -32,9 +32,7 @@ env:
     - MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli IGNORE_PATHS=integration,filtersettings.php
     - MOODLE_BRANCH=MOODLE_38_STABLE DB=pgsql IGNORE_PATHS=integration,filtersettings.php
     - MOODLE_BRANCH=MOODLE_37_STABLE DB=mysqli IGNORE_PATHS=integration,filtersettings.php
-    - MOODLE_BRANCH=MOODLE_37_STABLE DB=pgsql IGNORE_PATHS=integration,filtersettings.php
-    - MOODLE_BRANCH=MOODLE_35_STABLE DB=mysqli IGNORE_PATHS=integration,filtersettings.php
-    - MOODLE_BRANCH=MOODLE_35_STABLE DB=pgsql IGNORE_PATHS=integration,filtersettings.php
+    - MOODLE_BRANCH=MOODLE_37_STABLE DB=pgsql IGNORE_PATHS=integration,filtersettings.php    
 
 matrix:
   exclude:
