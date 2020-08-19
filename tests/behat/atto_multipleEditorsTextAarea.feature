@@ -66,3 +66,4 @@ I need to re-edit formulas in a question type form
     Then a Wirisformula containing 'square root of 2' should exist
     And a Wirisformula containing 'square root of 3' should exist
     And a Wirisformula containing 'square root of 4' should exist
+    
