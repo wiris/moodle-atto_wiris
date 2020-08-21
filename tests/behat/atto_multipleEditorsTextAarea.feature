@@ -31,7 +31,8 @@ I need to re-edit formulas in a question type form
     And I press "Save and return to course"
     And I follow "Quiz 1"
     And I press "Edit quiz"
-    And I follow "Add"
+    And I open the action menu in ".page-add-actions" "css_element"
+
     And I follow "a new question"
     And I choose Short answer
     And I press "submitbutton"
@@ -47,9 +48,9 @@ I need to re-edit formulas in a question type form
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>4</mn></msqrt></math>'
     And I press accept button in MathType Editor
     And I press "HTML" in "Feedback" field in Atto editor
-    Then the field "Question text" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>2</mn></msqrt></math><br></p>"
-    And the field "General feedback" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>3</mn></msqrt></math><br></p>"
-    And the field "Feedback" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>4</mn></msqrt></math><br></p>"
+    Then I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>2</mn></msqrt></math>"
+    And I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>3</mn></msqrt></math>"
+    And I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>4</mn></msqrt></math>"
     And a Wirisformula containing 'square root of 2' should exist
     And a Wirisformula containing 'square root of 3' should exist
     And a Wirisformula containing 'square root of 4' should exist
