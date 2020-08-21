@@ -32,6 +32,6 @@ I need to not loose data editing HTML code
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I press accept button in MathType Editor
     And I press "HTML" in "Page content" field in Atto editor
-    Then the field "Page content" matches value "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#960;</mi></msqrt></mfrac></math><br></p>"
+    Then I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#960;</mi></msqrt></mfrac></math>"
     And I press "Save and display"
     Then a Wirisformula containing 'square root' should exist
