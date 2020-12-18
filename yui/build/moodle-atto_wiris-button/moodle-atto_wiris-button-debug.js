@@ -259,7 +259,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             host._wirisupdateOriginal();
             var html = host.textarea.get('value');
             var value = WirisPlugin.Parser.endParse(html);
-            value = _convertSafeMathML(value);
+            // Value does not need to be converted twice to SafeMathML.
+            // value = _convertSafeMathML(value);
             host.textarea.set('value', value);
         };
 
