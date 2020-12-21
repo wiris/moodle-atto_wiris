@@ -32,7 +32,6 @@ php:
 env:
   global:
     - COVERAGE=false
-    - MUSTACHE_IGNORE_NAMES=broken.mustache    
   matrix:
     - MOODLE_BRANCH=MOODLE_39_STABLE DB=mysqli IGNORE_PATHS=integration,filtersettings.php
     - MOODLE_BRANCH=MOODLE_39_STABLE DB=pgsql IGNORE_PATHS=integration,filtersettings.php
@@ -60,13 +59,15 @@ matrix:
 
 before_install:
   - phpenv config-rm xdebug.ini
-  - nvm install 8.9
-  - nvm use 8.9
+  - nvm install 14.0.0
+  - nvm use 14.0.0
   - cd ../..
-  - composer selfupdate
-  - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
+  - composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
-# - docker run -d -p 127.0.0.1:4444:4444 --net=host -v /dev/shm:/dev/shm selenium/standalone-firefox:3
+#  - composer selfupdate
+#  - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
+#  - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
+#  - docker run -d -p 127.0.0.1:4444:4444 --net=host -v /dev/shm:/dev/shm selenium/standalone-firefox:3
 
 
 install:
