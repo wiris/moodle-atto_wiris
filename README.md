@@ -1,8 +1,8 @@
-MathType for Atto
-==========
-### Stable Build Status
+# MathType for Atto
+
+## Stable Build Status
 [![Build Status](https://travis-ci.org/wiris/moodle-atto_wiris.svg?branch=stable)](https://travis-ci.org/wiris/moodle-atto_wiris)
-### Master Build Status
+## Master Build Status
 [![Build Status](https://travis-ci.org/wiris/moodle-atto_wiris.svg?branch=master)](https://travis-ci.org/wiris/moodle-atto_wiris)
 
 MathType for Atto adds [MathType](http://www.wiris.com/editor) to Atto editor.
