@@ -125,7 +125,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 AttoIntegration.prototype.parseContent = function() {
                     var host = this.editorObject.get('host');
                     var html = host.editor.get('innerHTML');
-                    // html = this._convertSafeMath(html);
+                    // Html = this._convertSafeMath(html);
                     html = WirisPlugin.Parser.initParse(html, this.config.lang);
                     host.editor.set('innerHTML', html);
                     this.editorObject.markUpdated();
@@ -180,16 +180,14 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                            // First close tag of img attribute
                            // If a mathmlAttribute exists should be inside a img tag.
                            end += content.indexOf("/>", start);
-                       }
-                       else {
+                       } else {
                            end += mathTagEnd.length;
                        }
 
                        if (!WirisPlugin.MathML.isMathmlInAttribute(content, start) && imageMathmlAttribute == -1) {
                            var mathml = content.substring(start, end);
                            output += WirisPlugin.MathML.safeXmlDecode(mathml);
-                       }
-                       else {
+                       } else {
                            output += content.substring(start, end);
                        }
 
@@ -259,15 +257,14 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             host._wirisupdateOriginal();
             var html = host.textarea.get('value');
             var value = WirisPlugin.Parser.endParse(html);
-            // Value does not need to be converted twice to SafeMathML.
-            // value = _convertSafeMathML(value);
+            value = _convertSafeMathML(value);
             host.textarea.set('value', value);
         };
 
         /**
          * Converts all the occurrences of a safeMathml
          * with standard MathML.
-         * @type {string} - content content to be filtered.
+         * @param {string} content the content to be filtered.
          * @returns {string} the original content with MathML instead of safeMathML.
          */
         _convertSafeMathML = function(content) {
@@ -289,16 +286,14 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                     // First close tag of img attribute
                     // If a mathmlAttribute exists should be inside a img tag.
                     end += content.indexOf("/>", start);
-                }
-                else {
+                } else {
                     end += mathTagEnd.length;
                 }
 
                 if (!WirisPlugin.MathML.isMathmlInAttribute(content, start) && imageMathmlAttribute == -1) {
                     var mathml = content.substring(start, end);
                     output += WirisPlugin.MathML.safeXmlDecode(mathml);
-                }
-                else {
+                } else {
                     output += content.substring(start, end);
                 }
 
