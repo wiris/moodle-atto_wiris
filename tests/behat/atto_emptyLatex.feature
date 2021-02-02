@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
 Feature: Check empty LaTeX edition
 In order to check the edition of a formula in LaTeX
 As an admin
@@ -13,6 +13,7 @@ I need to edit an empty LaTeX with MathType
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
     And the "mathjaxloader" filter is "disabled"
+    And the "urltolink" filter is "off"
     And I log in as "admin"
 
   @javascript
