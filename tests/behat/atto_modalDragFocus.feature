@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
 Feature: Verify that we have focus after move modal window
 In order to write Mathematical formulas properly
 As an admin
@@ -15,6 +15,7 @@ I need to use the modal window
       | user     | course | role           |
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
+    And the "urltolink" filter is "off"
     And I log in as "admin"
 
   @javascript

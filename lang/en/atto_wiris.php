@@ -18,5 +18,4 @@ $string['pluginname'] = 'MathType by WIRIS';
 $string['error_connection'] = 'An error occurred while loading MathType';
 $string['privacy:null_reason'] = 'MathType for Atto does not effect or store any data itself.';
 $string['wiris_editor_title'] = 'Insert a math equation - MathType';
-$string['wiris_cas_title'] = 'Calculator';
 $string['wiris_chem_editor_title'] = 'Insert a chemistry formula - ChemType';

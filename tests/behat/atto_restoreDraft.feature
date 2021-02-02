@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
 Feature: Check that formula is rendered when atto's draft is restored
 In order to not loose data
 As an admin
@@ -15,6 +15,7 @@ I need to restore draft content containing MathType formulas
       | user     | course | role           |
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
+    And the "urltolink" filter is "off"
     And I log in as "admin"
 
   @javascript

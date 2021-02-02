@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @atto_wiris_bug01 @wiris_mathtype
 Feature: Check if the raw code generated in html contains MathML instead of safeXML
 In order to edit HTML code
 As an admin
@@ -12,6 +12,7 @@ I need to not loose data editing HTML code
       | user     | course | role           |
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
+    And the "urltolink" filter is "off"
     And I log in as "admin"
 
   @javascript

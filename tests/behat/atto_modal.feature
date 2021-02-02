@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
 Feature: Use atto to post
 In order to check if MathType formula can be displayed correctly
 As an admin
@@ -15,6 +15,7 @@ I need to create a MathType formula
       | user     | course | role           |
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
+    And the "urltolink" filter is "off"
     And I log in as "admin"
 
   @javascript
