@@ -42,9 +42,6 @@ php:
 env:
   global:
     - IGNORE_PATHS=classes/privacy,ignore,node_modules,integration,filtersettings.php,render
-    # - IGNORE_NAMES=ignore_name.php
-    # - MUSTACHE_IGNORE_NAMES=broken.mustache
-    # - PROFILE=chrome
     - COVERAGE=false
     - PHPUNIT_IGNORE_PATHS=classes/privacy,ignore,node_modules,integration,filtersettings.php,render
     - DB=pgsql
@@ -88,11 +85,8 @@ before_install:
   - phpenv config-rm xdebug.ini
   - cd ../..
   - composer selfupdate
-  # - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
-  # - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
   - composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
-  # - docker run -d -p 127.0.0.1:4444:4444 --net=host -v /dev/shm:/dev/shm selenium/standalone-${PROFILE}:3
 
 install:
   - moodle-plugin-ci add-plugin --branch $TRAVIS_BRANCH wiris/moodle-filter_wiris
@@ -106,27 +100,26 @@ script:
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
   - moodle-plugin-ci mustache
-  - if [ "$MOODLE_BRANCH" = MOODLE_35_STABLE ]; then
-      moodle-plugin-ci grunt;
-    fi
-  - if [ "$MOODLE_BRANCH" = MOODLE_36_STABLE ]; then
-      moodle-plugin-ci grunt;
-    fi
-  - if [ "$MOODLE_BRANCH" = MOODLE_37_STABLE ]; then
-      moodle-plugin-ci grunt;
-    fi
-  - if [ "$MOODLE_BRANCH" = MOODLE_38_STABLE ]; then
-      moodle-plugin-ci grunt -t eslint;
-    fi
-  - if [ "$MOODLE_BRANCH" = MOODLE_39_STABLE ]; then
-      moodle-plugin-ci grunt -t eslint;
-    fi
-  - if [ "$MOODLE_BRANCH" = MOODLE_310_STABLE ]; then
-      moodle-plugin-ci grunt -t eslint;
-    fi
-  - if [ "$MOODLE_BRANCH" = MOODLE_311_STABLE ]; then
-      moodle-plugin-ci grunt -t eslint;
-    fi
+  # - if [ "$MOODLE_BRANCH" = MOODLE_35_STABLE ]; then
+  #     moodle-plugin-ci grunt;
+  #   fi
+  # - if [ "$MOODLE_BRANCH" = MOODLE_36_STABLE ]; then
+  #     moodle-plugin-ci grunt;
+  #   fi
+  # - if [ "$MOODLE_BRANCH" = MOODLE_37_STABLE ]; then
+  #     moodle-plugin-ci grunt;
+  #   fi
+  # - if [ "$MOODLE_BRANCH" = MOODLE_38_STABLE ]; then
+  #     moodle-plugin-ci grunt -t eslint;
+  #   fi
+  # - if [ "$MOODLE_BRANCH" = MOODLE_39_STABLE ]; then
+  #     moodle-plugin-ci grunt -t eslint;
+  #   fi
+  # - if [ "$MOODLE_BRANCH" = MOODLE_310_STABLE ]; then
+  #     moodle-plugin-ci grunt -t eslint;
+  #   fi
+  # - if [ "$MOODLE_BRANCH" = MOODLE_311_STABLE ]; then
+  #     moodle-plugin-ci grunt -t eslint;
+  #   fi
   - moodle-plugin-ci phpunit
   - moodle-plugin-ci behat
-  # - moodle-plugin-ci behat --profile $PROFILE
