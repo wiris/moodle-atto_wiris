@@ -7,7 +7,7 @@
     "prebuild-mathtype": "cd node_modules/@wiris/mathtype-html-integration-devkit && npm install",
     "build-mathtype": "cd node_modules/@wiris/mathtype-html-integration-devkit && npm run build",
     "update-mathtype": "npm run build-mathtype",
-    "postupdate-mathtype": "npx copyfiles -fVE node_modules/@wiris/mathtype-html-integration-devkit/core.js ."
+    "postupdate-mathtype": "npx copyfiles -fVE node_modules/@wiris/mathtype-html-integration-devkit/core.js devkit"
   },
   "devDependencies": {
     "@wiris/mathtype-html-integration-devkit": ">=1.4.5",

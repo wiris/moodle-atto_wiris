@@ -45,6 +45,7 @@ I need to edit an empty LaTeX with MathType
     And I press "HTML pressed" in "Page content" field in Atto editor
     Then "$$\frac1{\sqrt{2\pi}}$$" "text" should exist
     And I press "Save and display"
+    Then I wait until Wirisformula formula exists
     Then a Wirisformula containing 'square root' should exist
     And Wirisformula should has height 48 with error of 2
     And I navigate to "Edit settings" in current page administration

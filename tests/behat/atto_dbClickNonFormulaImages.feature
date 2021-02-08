@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @atto_bug_01
 Feature: Use atto to open non-formula images
 In order to assert that MathType does not override the
 behavior of non-formula images.
@@ -52,5 +52,5 @@ when it is opened.
     Then the field "Enter URL" matches value "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg"
     And I click on "Save image" "button"
     # Assert modal window
-    And I dbClick on image with alt equals to "straight H 2 straight O"
-    Then modal window is opened
+    # And I dbClick on image with alt equals to "straight H 2 straight O"
+    # Then modal window is opened
