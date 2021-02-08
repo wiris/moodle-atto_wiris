@@ -28,5 +28,6 @@ I need to write a chemistry formula
     And I set MathType formula to '<math><mi mathvariant="normal">H</mi><mn>2</mn><mi mathvariant="normal">O</mi></math>'
     And I press accept button in MathType Editor
     And I press "Save and display"
+    Then I wait until Wirisformula formula exists
     Then ChemType formula should exist
     And Wirisformula should has height 19 with error of 2

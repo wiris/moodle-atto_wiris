@@ -33,4 +33,5 @@ I need to restore draft content containing MathType formulas
     And I press accept button in MathType Editor
     And I wait "5" seconds
     And I reload the page
+    Then I wait until Wirisformula formula exists
     Then Wirisformula should exist

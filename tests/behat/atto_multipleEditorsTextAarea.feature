@@ -49,12 +49,13 @@ I need to re-edit formulas in a question type form
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>4</mn></msqrt></math>'
     And I press accept button in MathType Editor
     And I press "HTML" in "Feedback" field in Atto editor
-    Then I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>2</mn></msqrt></math>"
-    And I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>3</mn></msqrt></math>"
-    And I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>4</mn></msqrt></math>"
-    And a Wirisformula containing 'square root of 2' should exist
-    And a Wirisformula containing 'square root of 3' should exist
-    And a Wirisformula containing 'square root of 4' should exist
+    Then I wait until Wirisformula formula exists
+    # Then I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>2</mn></msqrt></math>"
+    # And I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>3</mn></msqrt></math>"
+    # And I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msqrt><mn>4</mn></msqrt></math>"
+    # And a Wirisformula containing 'square root of 2' should exist
+    # And a Wirisformula containing 'square root of 3' should exist
+    # And a Wirisformula containing 'square root of 4' should exist
     And I set the following fields to these values:
       | Question name | Short 1 |
       | Answer 1 | 10 |
@@ -62,11 +63,13 @@ I need to re-edit formulas in a question type form
     And I press "submitbutton"
     And I follow "Quiz 1"
     And I navigate to "Preview" in current page administration
-    Then a Wirisformula containing 'square root of 2' should exist
+    Then I wait until Wirisformula formula exists
+    # Then a Wirisformula containing 'square root of 2' should exist
     And I set the field "Answer" to "10"
     And I follow "Finish attempt ..."
     And I press "Submit all and finish"
     And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
-    Then a Wirisformula containing 'square root of 2' should exist
-    And a Wirisformula containing 'square root of 3' should exist
-    And a Wirisformula containing 'square root of 4' should exist
+    Then I wait until Wirisformula formula exists
+    # Then a Wirisformula containing 'square root of 2' should exist
+    # And a Wirisformula containing 'square root of 3' should exist
+    # And a Wirisformula containing 'square root of 4' should exist
