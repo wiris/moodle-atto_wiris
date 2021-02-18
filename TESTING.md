@@ -18,7 +18,7 @@ This project uses behat testing to validate the code.
 | atto_frenchQuotes.feature | OK | - |
 | atto_modalDragFocus.feature | OK | - |
 | atto_modal.feature | OK | - |
-| atto_multipleEditorsTextAarea.feature | Errors on Moodle3_5* | - |
+| atto_multipleEditorsTextAarea.feature | OK | - |
 | atto_restoreDraft.feature | OK | - |
-| atto_textArea.feature | Errors on Moodle3_5* | - |
+| atto_textArea.feature | OK | - |
 | atto_UTF-32.feature | OK | - |

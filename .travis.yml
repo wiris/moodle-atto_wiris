@@ -41,9 +41,9 @@ php:
 
 env:
   global:
-    - IGNORE_PATHS=classes/privacy,ignore,node_modules,integration,filtersettings.php,render
+    - IGNORE_PATHS=classes/privacy,ignore,node_modules,integration,render
     - COVERAGE=false
-    - PHPUNIT_IGNORE_PATHS=classes/privacy,ignore,node_modules,integration,filtersettings.php,render
+    - PHPUNIT_IGNORE_PATHS=classes/privacy,ignore,node_modules,integration,render
     - DB=pgsql
 
   matrix:
