@@ -10,12 +10,12 @@
     "postupdate-mathtype": "npx copyfiles -fVE node_modules/@wiris/mathtype-html-integration-devkit/core.js ."
   },
   "devDependencies": {
-    "@wiris/mathtype-html-integration-devkit": ">=1.4.5",
-    "copyfiles": "^2.4.1"
+    "@wiris/mathtype-html-integration-devkit": "^1.0.0",
+    "copyfiles": "^2.0.0"
   },
   "bugs": {
     "email": "support@wiris.com"
   },
   "license": "GPL-3.0",
-  "author": "WIRIS Team (http://www.wiris.com)"
+  "author": "WIRIS Team (https://www.wiris.com)"
 }

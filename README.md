@@ -1,16 +1,16 @@
-# ![MathType](http://www.wiris.com/portal/themes/wiris_com/img/logos/mathtype/png/MY_office24.png) MathType Moodle plugin for Atto
+# ![MathType](./pix/logo-mathtype.png) MathType Moodle plugin for Atto
 
 [![Build Status](https://travis-ci.org/wiris/moodle-atto_wiris.svg?branch=stable)](https://travis-ci.org/wiris/moodle-atto_wiris)
 
-Type and handwrite mathematical notation in Moodle with [MathType](http://www.wiris.com/editor) for Atto Editor.
+Type and handwrite mathematical notation in Moodle with [MathType](https://www.wiris.com/en/mathtype/) for Atto Editor.
 
 ![Wiris mathtype plugin example](pix/snapshot.png)
 
 ## Introduction 
 
-[MathType](http://www.wiris.com/editor) is a mathematical **visual (WYSIWYG) editor** containing a large collection of icons nicely organized in thematic tabs in order to create formulas or equations for any web content. Maths and chemistry toolbars are available from different icons in Atto toolbar.
+[MathType](https://www.wiris.com/en/mathtype/) is a mathematical **visual (WYSIWYG) editor** containing a large collection of icons nicely organized in thematic tabs in order to create formulas or equations for any web content. Maths and chemistry toolbars are available from different icons in Atto toolbar.
 
-**Note**: MathType can be used for free up to a certain level of uses per natural year. Read [license conditions and prices](http://www.wiris.com/store) on our website.
+**Note**: MathType can be used for free up to a certain level of uses per natural year. Read [license conditions and prices](https://www.wiris.com/en/pricing/) on our website.
 
 ## Requirements
 
@@ -81,4 +81,4 @@ The [MathType Privacy Policy](http://www.wiris.com/mathtype/privacy-policy) cove
 
 ## License
 
-MathType for Atto by [WIRIS](http://www.wiris.com) is licensed under the [GNU General Public, License Version 3](https://www.gnu.org/licenses/gpl-3.0.en.html).
+**MathType for Atto** by [WIRIS](https://www.wiris.com) is licensed under the [GNU General Public, License Version 3](https://www.gnu.org/licenses/gpl-3.0.en.html).
