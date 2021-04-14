@@ -13,6 +13,7 @@ I need to see a formula with a UTF-32 character
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
     And the "urltolink" filter is "off"
+    And the "mathjaxloader" filter is "off"
     And I log in as "admin"
 
   @javascript

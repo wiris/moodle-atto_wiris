@@ -15,6 +15,7 @@ when it is opened.
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
     And the "urltolink" filter is "off"
+    And the "mathjaxloader" filter is "off"
     And I log in as "admin"
 
   @javascript

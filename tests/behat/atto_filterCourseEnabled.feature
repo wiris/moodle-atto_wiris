@@ -15,6 +15,7 @@ I need to use MathType despite the filter is disabled
       | user     | course | role           |
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
+    And the "mathjaxloader" filter is "off"
     And the "urltolink" filter is "off"
     And I log in as "admin"
 
