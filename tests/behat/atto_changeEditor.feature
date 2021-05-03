@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
 Feature: Change between editors
 In order to check if it's possible change between MathType and ChemType editors
 As an admin
@@ -15,6 +15,8 @@ I need to change between editors
       | user     | course | role           |
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
+    And the "urltolink" filter is "off"
+    And the "mathjaxloader" filter is "off"
     And I log in as "admin"
 
   @javascript
@@ -29,6 +31,7 @@ I need to change between editors
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I press accept button in MathType Editor
     And I press "Save and display"
+    Then I wait until Wirisformula formula exists
     Then ChemType formula should not exist
     Then a Wirisformula containing 'square root' should exist
     And Wirisformula should has height 48 with error of 2

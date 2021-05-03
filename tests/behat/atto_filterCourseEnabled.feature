@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
 Feature: Check MathType enabled if filter disabled at course level but allow_editorplugin_active_course setting is enabled
 In order to use MathType with other filters
 As an admin
@@ -15,6 +15,8 @@ I need to use MathType despite the filter is disabled
       | user     | course | role           |
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
+    And the "mathjaxloader" filter is "off"
+    And the "urltolink" filter is "off"
     And I log in as "admin"
 
   @javascript

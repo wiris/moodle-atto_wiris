@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
 Feature: Use atto to open non-formula images
 In order to assert that MathType does not override the
 behavior of non-formula images.
@@ -14,6 +14,8 @@ when it is opened.
       | user     | course | role           |
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
+    And the "urltolink" filter is "off"
+    And the "mathjaxloader" filter is "off"
     And I log in as "admin"
 
   @javascript

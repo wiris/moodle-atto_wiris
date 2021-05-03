@@ -1,29 +1,84 @@
-MathType for Atto
-==========
-### Stable Build Status
+# ![MathType](./pix/logo-mathtype.png) MathType Moodle plugin for Atto
+
 [![Build Status](https://travis-ci.org/wiris/moodle-atto_wiris.svg?branch=stable)](https://travis-ci.org/wiris/moodle-atto_wiris)
-### Master Build Status
-[![Build Status](https://travis-ci.org/wiris/moodle-atto_wiris.svg?branch=master)](https://travis-ci.org/wiris/moodle-atto_wiris)
 
-MathType for Atto adds [MathType](http://www.wiris.com/editor) to Atto editor.
+Type and handwrite mathematical notation in Moodle with [MathType](https://www.wiris.com/en/mathtype/) for Atto Editor.
 
-[MathType](http://www.wiris.com/editor) is a mathematical **visual (WYSIWYG) editor** containing a large collection of icons nicely organized in thematic tabs in order to create formulas or equations for any web content.
+![Wiris mathtype plugin example](pix/snapshot.png)
 
-MathType offers a **chemistry** toolbar. Maths and chemistry toolbars are available from different icons in Atto toolbar.
+## Introduction 
 
-MathType for Atto can be used for **free** up to a certain level of uses per natural year. Please read **license** conditions and prices at [WIRIS Store](http://www.wiris.com/store).
+[MathType](https://www.wiris.com/en/mathtype/) is a mathematical **visual (WYSIWYG) editor** containing a large collection of icons nicely organized in thematic tabs in order to create formulas or equations for any web content. Maths and chemistry toolbars are available from different icons in Atto toolbar.
 
-**[MathType filter](https://github.com/wiris/moodle-filter_wiris)** is required in order to use MathType for Atto
+**Note**: MathType can be used for free up to a certain level of uses per natural year. Read [license conditions and prices](https://www.wiris.com/en/pricing/) on our website.
 
-## Install instructions
-To install it using git, type this command in the root of your Moodle install:
+## Requirements
+
+The [MathType filter plugin](https://github.com/wiris/moodle-filter_wiris) is required in order to use this plugin.
+
+## Installation
+
+Install the plugin like any other plugin to folder `lib/editor/atto/plugins/wiris`.
+
+You can use git:
+
+```sh
+$ git clone https://github.com/wiris/moodle-atto_wiris.git lib/editor/atto/plugins/wiris
 ```
-git clone https://github.com/wiris/moodle-atto_wiris.git lib/editor/atto/plugins/wiris
-```
-Then add /filter/wiris to your git ignore.
+Alternatively, you can [download the plugin](https://github.com/wiris/moodle-atto_wiris/archive/stable.zip) and unzip the file into the Atto plugins folder at `lib/editor/atto/plugins`, and then rename the unzipped folder to `wiris`.
 
-Alternatively, download the zip from <https://github.com/wiris/moodle-atto_wiris/archive/master.zip> it into the Atto plugins folder, and then rename the new folder to "wiris".
+## Releases
+
+Since version 7.24.0, all notable changes to this project are documented in the [CHANGES.md](CHANGES.md) file. You can download any release of this plugin from the [Official Moodle's page](https://moodle.org/plugins/atto_wiris).
+
+## Libraries
+
+This plugin uses the **MathType Web Integration JavaScript SDK** ([@wiris/mathtype-html-integration-devkit](https://www.npmjs.com/package/@wiris/mathtype-html-integration-devkit)), released under GNU GPLv3 license. 
+
+The library's source code can be found at [@wiris/html-integrations](https://github.com/wiris/html-integrations) repository.
+
+**Note:** More details on the `thirdpartylibs.xml` file.
+
+## Contributing
+
+The Javascript source code of this Atto editor's button is located at `yui/src/button/button.js`.
+
+If you plan to make changes on this code you will need to rebuild the Javascript files used by Moodle, in order to be executed.
+
+Install project dependencies:
+
+```sh
+# Install project dependencies.
+$ npm install
+# Initialize grunt task files.
+$ npm start
+```
+
+Then, you will be able to use `grunt` to rebuild this plugin's source code to a set of Javascript files on the `yui/build/moodle-atto_wiris-button` folder.
+
+```sh
+# jshint uglify, rebuild all AMD modules.
+$ grunt amd
+# # Show pedantic lint warnings for JS
+$ grunt eslint --show-lint-warnings
+```
+
+**Note:** This task uses the files `Gruntfile.js`, `GruntfileComponents.js`, `.shifter.json`, `.jshintrc`, `.jshintignore`, `.gherkin-lintrc`, `lib/components.json` and `.eslintrc` have been manually downloaded from the [official moodle project source code](https://github.com/moodle/moodle/). The `package.json` dependencies share the same origin.
+
+## Further information
+
+- [Official plugin in Moodle's website](https://moodle.org/plugins/atto_wiris).
+- [Grunt page at Moodle's documentation website](https://docs.moodle.org/dev/Grunt).
+- [MathType Tutorials](https://docs.wiris.com/en/mathtype/mathtype_web/intro_tutorials).
+
+## Technical Support
+
+If you have questions or need help integrating MathType, please contact us (support@wiris.com) instead of opening an issue.
+
+## Privacy policy
+
+The [MathType Privacy Policy](http://www.wiris.com/mathtype/privacy-policy) covers the data processing operations for the MathType users. It is an addendum of the company’s general Privacy Policy and the [general Privacy Policy](https://wiris.com/en/privacy-policy) still applies to MathType users.
 
 ## License
 
-MathType for Atto is Licensed under the [GNU General Public, License Version 3](https://www.gnu.org/licenses/gpl-3.0.en.html).
+**MathType for Atto** by [WIRIS](https://www.wiris.com) is licensed under the [GNU General Public, License Version 3](https://www.gnu.org/licenses/gpl-3.0.en.html).

@@ -1,32 +1,21 @@
 {
-  "name": "mathtype-integrtion-js-dev",
-  "description": "MathType Web Integration JavaScript development tools",
-  "main": "core.src.js",
+  "name": "moodle-atto-mathtype",
+  "description": "Type and handwrite mathematical notation in Moodle with MathType for Atto Editor",
+  "homepage": "https://moodle.org/plugins/atto_wiris",
+  "private": true,
   "scripts": {
-    "build-dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "lint": "eslint --quiet src"
+    "prebuild-mathtype": "cd node_modules/@wiris/mathtype-html-integration-devkit && npm install",
+    "build-mathtype": "cd node_modules/@wiris/mathtype-html-integration-devkit && npm run build",
+    "update-mathtype": "npm run build-mathtype",
+    "postupdate-mathtype": "npx copyfiles -fVE node_modules/@wiris/mathtype-html-integration-devkit/core.js ."
+  },
+  "devDependencies": {
+    "@wiris/mathtype-html-integration-devkit": "^1.0.0",
+    "copyfiles": "^2.0.0"
+  },
+  "bugs": {
+    "email": "support@wiris.com"
   },
   "license": "GPL-3.0",
-  "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "babel-loader": "^8.0.2",
-    "css-loader": "^1.0.0",
-    "eslint": "^5.6.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "jsdoc": "^3.5.5",
-    "jsdoc-export-default-interop": "^0.3.1",
-    "mini-css-extract-plugin": "^0.4.2",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "style-loader": "^0.23.0",
-    "uglifyjs-webpack-plugin": "^1.2.8",
-    "url-loader": "^1.1.1",
-    "webpack": "^4.17.2",
-    "webpack-cli": "^3.1.0"
-  },
-  "dependencies": {
-    "npx": "^10.2.0"
-  }
+  "author": "WIRIS Team (https://www.wiris.com)"
 }

@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
 Feature: Check empty LaTeX edition
 In order to check the edition of a formula in LaTeX
 As an admin
@@ -13,6 +13,7 @@ I need to edit an empty LaTeX with MathType
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
     And the "mathjaxloader" filter is "disabled"
+    And the "urltolink" filter is "off"
     And I log in as "admin"
 
   @javascript
@@ -44,6 +45,7 @@ I need to edit an empty LaTeX with MathType
     And I press "HTML pressed" in "Page content" field in Atto editor
     Then "$$\frac1{\sqrt{2\pi}}$$" "text" should exist
     And I press "Save and display"
+    Then I wait until Wirisformula formula exists
     Then a Wirisformula containing 'square root' should exist
     And Wirisformula should has height 48 with error of 2
     And I navigate to "Edit settings" in current page administration

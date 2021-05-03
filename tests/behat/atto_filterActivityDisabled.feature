@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
 Feature: Check MathType disabled if filter disabled at activity forum level
 In order to check if MathType plugin is disabled if filter is disabled
 As an admin
@@ -15,6 +15,8 @@ I need not to be able to use MathType if filter is disabled
       | user     | course | role           |
       | admin  | C1     | editingteacher |
     And the "wiris" filter is "on"
+    And the "mathjaxloader" filter is "off"
+    And the "urltolink" filter is "off"
     And I log in as "admin"
 
   @javascript

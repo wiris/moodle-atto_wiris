@@ -2,8 +2,8 @@
 <libraries>
     <library>
         <location>core.js</location>
-        <name>MathType HTML intehgration devkit</name>
-        <version>1.2.0</version>
+        <name>MathType Web Integration JavaScript SDK</name>
+        <version>1.5.0</version>
         <license>GPL</license>
         <licenseversion>3.0+</licenseversion>
     </library>
