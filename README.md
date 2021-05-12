@@ -1,6 +1,6 @@
 # ![MathType](./pix/logo-mathtype.png) MathType Moodle plugin for Atto
 
-[![Build Status](https://travis-ci.org/wiris/moodle-atto_wiris.svg?branch=stable)](https://travis-ci.org/wiris/moodle-atto_wiris)
+[![Build Status](https://travis-ci.com/wiris/moodle-atto_wiris.svg?branch=stable)](https://travis-ci.com/wiris/moodle-atto_wiris)
 
 Type and handwrite mathematical notation in Moodle with [MathType](https://www.wiris.com/en/mathtype/) for Atto Editor.
 
@@ -45,30 +45,20 @@ The Javascript source code of this Atto editor's button is located at `yui/src/b
 
 If you plan to make changes on this code you will need to rebuild the Javascript files used by Moodle, in order to be executed.
 
-Install project dependencies:
-
-```sh
-# Install project dependencies.
-$ npm install
-# Initialize grunt task files.
-$ npm start
-```
-
 Then, you will be able to use `grunt` to rebuild this plugin's source code to a set of Javascript files on the `yui/build/moodle-atto_wiris-button` folder.
 
 ```sh
-# jshint uglify, rebuild all AMD modules.
-$ grunt amd
-# # Show pedantic lint warnings for JS
-$ grunt eslint --show-lint-warnings
+# Run this command on the 'yui' folder of this project.
+$ grunt
 ```
 
-**Note:** This task uses the files `Gruntfile.js`, `GruntfileComponents.js`, `.shifter.json`, `.jshintrc`, `.jshintignore`, `.gherkin-lintrc`, `lib/components.json` and `.eslintrc` have been manually downloaded from the [official moodle project source code](https://github.com/moodle/moodle/). The `package.json` dependencies share the same origin.
+More information at [Running grunt](https://docs.moodle.org/dev/Grunt#Running_grunt) on Moodle's documentation site.
 
 ## Further information
 
 - [Official plugin in Moodle's website](https://moodle.org/plugins/atto_wiris).
 - [Grunt page at Moodle's documentation website](https://docs.moodle.org/dev/Grunt).
+- [Javascript Modules at Moodle's documentation website](https://docs.moodle.org/dev/Javascript_Modules).
 - [MathType Tutorials](https://docs.wiris.com/en/mathtype/mathtype_web/intro_tutorials).
 
 ## Technical Support
