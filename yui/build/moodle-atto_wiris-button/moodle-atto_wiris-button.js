@@ -51,7 +51,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                  * AttoIntegration constructor. Extends from IntegrationModel class.
                  * @param {object} integrationModelProperties - Integration model properties.
                  */
-                AttoIntegration = function(integrationModelProperties) {
+                var AttoIntegration = function(integrationModelProperties) {
                     WirisPlugin.IntegrationModel.call(this, integrationModelProperties);
                     this.config = integrationModelProperties.config;
                 };
@@ -166,7 +166,6 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                    var mathTagEnd = '«/math»';
                    var start = content.indexOf(mathTagBegin);
                    var end = 0;
-
                    while (start != -1) {
                        output += content.substring(end, start);
                        // Avoid WIRIS images to be parsed.
@@ -192,7 +191,6 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
 
                        start = content.indexOf(mathTagBegin, end);
                    }
-
                    output += content.substring(end, content.length);
                    return output;
                 };
@@ -242,21 +240,34 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             }
         });
 
-        // Override updateFromTextArea to update the content editable element.
+        // Override 'updateFromTextArea' to update the content editable element.
+        // Inspired by: https://stackoverflow.com/a/16580937
+        // Added error handling since it conflicts with multilang2 for Atto plugin
+        // that uses this very same technique, https://moodle.org/plugins/atto_multilang2).
         host._wirisUpdateFromTextArea = host.updateFromTextArea;
         host.updateFromTextArea = function() {
             host._wirisUpdateFromTextArea();
             var html = host.editor.get('innerHTML');
-            html = WirisPlugin.Parser.initParse(html, WirisPlugin.currentInstance.config.lang);
+            try {
+                html = WirisPlugin.Parser.initParse(html, WirisPlugin.currentInstance.config.lang);
+            } catch (error) {
+            }
             host.editor.set('innerHTML', html);
         };
-        // Override updateOriginal to update the content of the text area element.
+
+        // Override 'updateOriginal' to update the content of the text area element.
+        // Inspired by: https://stackoverflow.com/a/16580937
+        // Added error handling since it conflicts with multilang2 for Atto plugin
+        // that uses this very same technique, https://moodle.org/plugins/atto_multilang2).
         host._wirisupdateOriginal = host.updateOriginal;
-        host.updateOriginal = function() {
+        host.updateOriginal = function(mathtypeplugin) {
             host._wirisupdateOriginal();
-            var html = host.textarea.get('value');
-            var value = WirisPlugin.Parser.endParse(html);
-            value = _convertSafeMathML(value);
+            var value = host.textarea.get('value');
+            try {
+                value = WirisPlugin.Parser.endParse(value);
+                value = mathtypeplugin._convertSafeMathML(value);
+            } catch (error) {
+            }
             host.textarea.set('value', value);
         };
 
@@ -276,7 +287,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             while (start != -1) {
                 output += content.substring(end, start);
                 // Avoid WIRIS images to be parsed.
-                imageMathmlAttribute = content.indexOf(WirisPlugin.Configuration.get('imageMathmlAttribute'));
+               imageMathmlAttribute = content.indexOf(WirisPlugin.Configuration.get('imageMathmlAttribute'));
                 end = content.indexOf(mathTagEnd, start);
 
                 if (end == -1) {

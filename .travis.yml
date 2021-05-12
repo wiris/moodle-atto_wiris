@@ -10,15 +10,7 @@ addons:
 
 services:
   - postgresql
-
-jobs:
-    # Enable fast finish.
-    # This will fail the build if a single job fails (except those in allow_failures).
-    # It will not stop the jobs from running.
-    fast_finish: true
-
-services:
-  - postgresql
+  - docker
 
 jobs:
     # Enable fast finish.
@@ -83,7 +75,13 @@ before_install:
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:
+  # Include required plugins:
   - moodle-plugin-ci add-plugin --branch $TRAVIS_BRANCH wiris/moodle-filter_wiris
+  # # Include compatibility-proved plugins:
+  # # 01. Multilang2
+  # - moodle-plugin-ci add-plugin iarenaza/moodle-filter_multilang2
+  # - moodle-plugin-ci add-plugin KepaUrzelai/moodle-atto_multilang2
+  # Install moodle
   - moodle-plugin-ci install
 
 script:
@@ -115,5 +113,6 @@ script:
   # - if [ "$MOODLE_BRANCH" = MOODLE_311_STABLE ]; then
   #     moodle-plugin-ci grunt -t eslint;
   #   fi
+  # Test suite:
   - moodle-plugin-ci phpunit
   - moodle-plugin-ci behat
