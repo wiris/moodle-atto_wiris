@@ -11,6 +11,12 @@ Last release of this plugin is 7.27.0.
 
 - Fix "missing ['privacy:metadata']" from @christina-roperto contribution #86
 
+- Improve the "MathType Moodle Plugins Suite" software development cycle.
+  - Use 'ubuntu-latest' for the Moodle Plugin CI workflow.
+  - Add 'on:schedule' trigger property to run the tests every morning.
+  - Add 'on:workflow_dispatch' trigger property to run test on demand.
+  - Improve code comments to match internal code guidelines.
+
 ## v7.27.0 - 22nd of july 2021
 - Bump 'MathType Web Integration JavaScript SDK' to 1.6.0.
 - Upgrade path for mathtype-html-integration-devkit.
