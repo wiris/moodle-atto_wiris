@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Last release of this plugin is 7.27.0.
 
+## Unrealeased
+
+- Fix "missing ['privacy:metadata']" from @christina-roperto contribution #86
+
 ## v7.27.0 - 22nd of july 2021
 - Bump 'MathType Web Integration JavaScript SDK' to 1.6.0.
 - Upgrade path for mathtype-html-integration-devkit.
