@@ -40,7 +40,7 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             return;
         }
 
-        Y.Get.js(M.cfg.wwwroot + '/lib/editor/atto/plugins/wiris/core.js?v=' + config.version, function(err) {
+        Y.Get.js(M.cfg.wwwroot + '/lib/editor/atto/plugins/wiris/devkit/core.js?v=' + config.version, function(err) {
             if (err) {
                 Y.log('Could not load core.js', 'error', 'moodle-atto_wiris');
             } else {
@@ -205,11 +205,22 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 *
                 */
                 var integrationModelProperties = {};
-                integrationModelProperties.configurationService = M.cfg.wwwroot + '/filter/wiris/integration/configurationjs.php';
+                // full-js: force values
+                //integrationModelProperties.configurationService = M.cfg.wwwroot + '/filter/wiris/integration/configurationjs.php';
+                // #full-js
                 integrationModelProperties.editorObject = this;
                 integrationModelProperties.target = this.get('host').editor.getDOMNode();
                 integrationModelProperties.scriptName = '';
                 integrationModelProperties.config = config;
+
+                // full-js: force values
+                // @TODO: get them from the settings page at moodle-filter_wiris.
+                integrationModelProperties.serviceProviderProperties= {};
+                integrationModelProperties.serviceProviderProperties.URI = 'https://www.wiris.net/demo/plugins/app';
+                integrationModelProperties.serviceProviderProperties.server = 'java';
+                integrationModelProperties.version = '7.27.0';
+                integrationModelProperties.isMoodle = false;
+                // #full-js
 
                 // Here we create a new instance of AttoIntegration.
                 var attoIntegrationInstance = new AttoIntegration(integrationModelProperties);

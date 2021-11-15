@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <libraries>
     <library>
-        <location>core.js</location>
+        <location>devkit/core.js</location>
         <name>MathType Web Integration JavaScript SDK</name>
         <version>1.6.0</version>
         <license>GPL</license>

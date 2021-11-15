@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@wiris/mathtype-html-integration-devkit": "^1.0.0",
+    "grunt": "^1.4.1",
     "shx": "^0.3.3"
   },
   "bugs": {
