@@ -6,7 +6,7 @@ Type and handwrite mathematical notation in Moodle with [MathType](https://www.w
 
 ![Wiris mathtype plugin example](pix/snapshot.png)
 
-## Introduction 
+## Introduction
 
 [MathType](https://www.wiris.com/en/mathtype/) is a mathematical **visual (WYSIWYG) editor** containing a large collection of icons nicely organized in thematic tabs in order to create formulas or equations for any web content. Maths and chemistry toolbars are available from different icons in Atto toolbar.
 
@@ -25,6 +25,7 @@ You can use git:
 ```sh
 $ git clone https://github.com/wiris/moodle-atto_wiris.git lib/editor/atto/plugins/wiris
 ```
+
 Alternatively, you can [download the plugin](https://github.com/wiris/moodle-atto_wiris/archive/stable.zip) and unzip the file into the Atto plugins folder at `lib/editor/atto/plugins`, and then rename the unzipped folder to `wiris`.
 
 ## Releases
@@ -33,7 +34,7 @@ Since version 7.24.0, all notable changes to this project are documented in the 
 
 ## Libraries
 
-This plugin uses the **MathType Web Integration JavaScript SDK** ([@wiris/mathtype-html-integration-devkit](https://www.npmjs.com/package/@wiris/mathtype-html-integration-devkit)), released under GNU GPLv3 license. 
+This plugin uses the **MathType Web Integration JavaScript SDK** ([@wiris/mathtype-html-integration-devkit](https://www.npmjs.com/package/@wiris/mathtype-html-integration-devkit)), released under GNU GPLv3 license.
 
 The library's source code can be found at [@wiris/html-integrations](https://github.com/wiris/html-integrations) repository.
 
@@ -41,7 +42,13 @@ The library's source code can be found at [@wiris/html-integrations](https://git
 
 ## Contributing
 
-The Javascript source code of this Atto editor's button is located at `yui/src/button/button.js`.
+We would love for you to contribute to this project and help make it better.
+
+As a contributor, the guidelines we would like you to follow are documented in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+### Source code
+
+The Javascript source code of this Atto editor's button is located at `yui/src/button/button.js`, following Moodle's Atto development conventions.
 
 If you plan to make changes on this code you will need to rebuild the Javascript files used by Moodle, in order to be executed.
 
