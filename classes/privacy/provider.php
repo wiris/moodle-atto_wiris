@@ -24,8 +24,6 @@
 
 namespace atto_wiris\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy Subsystem for MathType Atto plugin implementing null_provider.
  *
