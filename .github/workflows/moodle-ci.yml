@@ -29,7 +29,7 @@ jobs:
     services:
       # The test will be scoped to postgres only.
       postgres:
-        image: postgres:9.6
+        image: postgres:10
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -49,38 +49,14 @@ jobs:
       fail-fast: false
       matrix:
         php: ['7.1','7.4']
-        moodle-branch: ['MOODLE_35_STABLE', 'MOODLE_36_STABLE', 'MOODLE_37_STABLE', 'MOODLE_38_STABLE', 'MOODLE_39_STABLE', 'MOODLE_310_STABLE', 'MOODLE_311_STABLE']
+        moodle-branch: ['master']
         database: [pgsql]
         # browser: ['firefox', 'chrome']
         exclude:
           # Exclude Moodle+PHP incompatible versions
           # See: https://docs.moodle.org/dev/Moodle_and_PHP
-          - moodle-branch: 'MOODLE_38_STABLE'
+          - moodle-branch: 'master'
             php: '7.1'
-          - moodle-branch: 'MOODLE_39_STABLE'
-            php: '7.1'
-          - moodle-branch: 'MOODLE_310_STABLE'
-            php: '7.1'
-          - moodle-branch: 'MOODLE_311_STABLE'
-            php: '7.1'
-          - moodle-branch: 'MOODLE_35_STABLE'
-            php: '7.4'
-          - moodle-branch: 'MOODLE_36_STABLE'
-            php: '7.4'
-          - moodle-branch: 'MOODLE_37_STABLE'
-            php: '7.4'
-          - moodle-branch: 'MOODLE_35_STABLE'
-            php: '8.0'
-          - moodle-branch: 'MOODLE_36_STABLE'
-            php: '8.0'
-          - moodle-branch: 'MOODLE_37_STABLE'
-            php: '8.0'
-          - moodle-branch: 'MOODLE_38_STABLE'
-            php: '8.0'
-          - moodle-branch: 'MOODLE_39_STABLE'
-            php: '8.0'
-          - moodle-branch: 'MOODLE_310_STABLE'
-            php: '8.0'
             
     steps:
       # 0. Initial step. Check out this repository code in ./plugin directory
@@ -134,7 +110,6 @@ jobs:
       - name: Add MathtType filter plugin
         run: |
           moodle-plugin-ci add-plugin --branch ${GITHUB_REF##*/} wiris/moodle-filter_wiris
-
       # 4. Install Moodle-plugin-ci
       - name: Install moodle-plugin-ci
         run: |
