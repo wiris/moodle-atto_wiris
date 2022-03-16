@@ -21,12 +21,10 @@ when it is opened.
   @javascript
   Scenario: Post a chemistry formula
     # Set enabled plugins.
-    And I navigate to "Site administration" in site administration
-    And I follow "Site security settings"
+    And I navigate to "General > Security > Site security settings" in site administration
     And I check enable trusted content
     And I press "Save changes"
-    And I navigate to "Plugins" in site administration
-    And I follow "Atto toolbar settings"
+    And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
     And I set the field "Toolbar config" to multiline:
     """
     files = image
@@ -41,12 +39,14 @@ when it is opened.
     # Insert formula.
     And I press "ChemType" in "Page content" field in Atto editor
     And I set MathType formula to '<math><mi mathvariant="normal">H</mi><mn>2</mn><mi mathvariant="normal">O</mi></math>'
+    And I wait "1" seconds
     And I press accept button in MathType Editor
     # Insert non-formula image.
     And I select the text in the "Page content" Atto editor
     And I click on "Insert or edit image" "button"
     And I set the field "Enter URL" to "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg"
     And I set the field "Describe this image for someone who cannot see it" to "Dog"
+    And I wait "1" seconds
     And I click on "Save image" "button"
     # Assert that dbClick works
     And I dbClick on image with alt equals to "Dog"

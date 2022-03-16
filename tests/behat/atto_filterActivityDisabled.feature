@@ -31,8 +31,8 @@ I need not to be able to use MathType if filter is disabled
     And I navigate to "Filters" in current page administration
     And I turn MathType filter off
     And I press "Save changes"
-    And I follow "Test MathType for Atto on Moodle"
-    And I navigate to "Edit settings" in current page administration
+    And I click on "Back to Page: Test MathType for Atto on Moodle" "link"
+    And I navigate to "Settings" in current page administration
     Then "MathType" "button" should not exist
 
   @javascript
