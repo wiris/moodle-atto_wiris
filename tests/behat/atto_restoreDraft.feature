@@ -21,8 +21,7 @@ I need to restore draft content containing MathType formulas
 
   @javascript
   Scenario: Insert a formula and restore the page
-    And I navigate to "Plugins" in site administration
-    And I follow "Atto toolbar settings"
+    And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
     And I select seconds in autosave frequency option
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
@@ -31,6 +30,7 @@ I need to restore draft content containing MathType formulas
       | Name | Test MathType for Atto on Moodle |
     And I press "MathType" in "Page content" field in Atto editor
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
+    And I wait "1" seconds
     And I press accept button in MathType Editor
     And I wait "5" seconds
     And I reload the page

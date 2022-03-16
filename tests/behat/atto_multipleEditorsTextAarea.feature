@@ -18,8 +18,7 @@ I need to re-edit formulas in a question type form
 
   @javascript
   Scenario: Create and answer a Quiz using formulas
-    And I navigate to "Plugins" in site administration
-    And I follow "Atto toolbar settings"
+    And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
     And I set the field "Toolbar config" to multiline:
     """
     math = wiris
@@ -30,24 +29,26 @@ I need to re-edit formulas in a question type form
     And I add a "Quiz" to section "1"
     And I set the following fields to these values:
       | Name | Quiz 1 |
-    And I press "Save and return to course"
-    And I follow "Quiz 1"
-    And I press "Edit quiz"
-    And I open the action menu in ".page-add-actions" "css_element"
-
-    And I follow "a new question"
+    And I press "Save and display"
+    And I click on "Add question" "link"
+    And I click on "Edit mode" "checkbox"
+    And I click on "Add" "link"
+    And I click on "a new question" "link"
     And I choose Short answer
     And I press "submitbutton"
     And I press "MathType" in "Question text" field in Atto editor
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>2</mn></msqrt></math>'
+    And I wait "1" seconds
     And I press accept button in MathType Editor
     And I press "HTML" in "Question text" field in Atto editor
     And I press "MathType" in "General feedback" field in Atto editor
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>3</mn></msqrt></math>'
+    And I wait "1" seconds
     And I press accept button in MathType Editor
     And I press "HTML" in "General feedback" field in Atto editor
     And I press "MathType" in "Feedback" field in Atto editor
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>4</mn></msqrt></math>'
+    And I wait "1" seconds
     And I press accept button in MathType Editor
     And I press "HTML" in "Feedback" field in Atto editor
     Then I wait until Wirisformula formula exists
@@ -62,8 +63,8 @@ I need to re-edit formulas in a question type form
       | Answer 1 | 10 |
     And I select 100% option in Answer1
     And I press "submitbutton"
-    And I follow "Quiz 1"
-    And I navigate to "Preview" in current page administration
+    And I navigate to "Quiz" in current page administration
+    And I click on "Attempt quiz" "button"
     Then I wait until Wirisformula formula exists
     # Then a Wirisformula containing 'square root of 2' should exist
     And I set the field "Answer" to "10"
