@@ -18,8 +18,7 @@ I need to see a formula with a UTF-32 character
 
   @javascript
   Scenario: Insert double struck using UTF-32
-    And I navigate to "Plugins" in site administration
-    And I follow "Atto toolbar settings"
+    And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
     And I set the field "Toolbar config" to multiline:
     """
     math = wiris
@@ -32,6 +31,7 @@ I need to see a formula with a UTF-32 character
       | Name | Test MathType for Atto on Moodle |
     And I press "MathType" in "Page content" field in Atto editor
     And I set MathType formula to '<math><mi mathvariant="normal">&#x1D540;</mi></math>'
+    And I wait "1" seconds
     And I press accept button in MathType Editor
     And I press "HTML" in "Page content" field in Atto editor
     And I press "HTML pressed" in "Page content" field in Atto editor

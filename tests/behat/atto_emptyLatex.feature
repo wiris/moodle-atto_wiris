@@ -18,12 +18,10 @@ I need to edit an empty LaTeX with MathType
 
   @javascript
   Scenario: Insert MathType formula to an empty LaTeX
-    And I navigate to "Site administration" in site administration
-    And I follow "Site security settings"
+    And I navigate to "General > Security > Site security settings" in site administration
     And I check enable trusted content
     And I press "Save changes"
-    And I navigate to "Plugins" in site administration
-    And I follow "Atto toolbar settings"
+    And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
     And I set the field "Toolbar config" to multiline:
     """
     other = html
@@ -39,6 +37,7 @@ I need to edit an empty LaTeX with MathType
     And I place caret at position "2" in "Page content" field
     And I press "MathType" in "Page content" field in Atto editor
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
+    And I wait "1" seconds
     And I press accept button in MathType Editor
     Then "$$\frac1{\sqrt{2\pi}}$$" "text" should exist
     And I press "HTML" in "Page content" field in Atto editor
@@ -48,5 +47,5 @@ I need to edit an empty LaTeX with MathType
     Then I wait until Wirisformula formula exists
     Then a Wirisformula containing 'square root' should exist
     And Wirisformula should has height 48 with error of 2
-    And I navigate to "Edit settings" in current page administration
+    And I navigate to "Settings" in current page administration
     Then "$$\frac1{\sqrt{2\pi}}$$" "text" should exist
