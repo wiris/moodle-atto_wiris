@@ -1,4 +1,4 @@
-@filter @filter_wiris @filter_wiris_settings @wiris_settings @wiris_mathtype @atto @atto_wiris @wiris_mathtype_01
+@filter @filter_wiris @filter_wiris_settings @wiris_settings @wiris_mathtype @atto @atto_wiris @wiris_mathtype_01 @3.x
 Feature: Check the math and chem buttons visibility on text editors
 In order to check the buttons visibility in atto editor
 As an admin
