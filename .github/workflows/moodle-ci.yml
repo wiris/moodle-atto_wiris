@@ -49,14 +49,28 @@ jobs:
       fail-fast: false
       matrix:
         php: ['7.1','7.4']
-        moodle-branch: ['master']
+        moodle-branch: ['MOODLE_35_STABLE', 'MOODLE_36_STABLE', 'MOODLE_37_STABLE', 'MOODLE_38_STABLE', 'MOODLE_39_STABLE', 'MOODLE_310_STABLE', 'MOODLE_311_STABLE', 'master']
         database: [pgsql]
         # browser: ['firefox', 'chrome']
         exclude:
           # Exclude Moodle+PHP incompatible versions
           # See: https://docs.moodle.org/dev/Moodle_and_PHP
+          - moodle-branch: 'MOODLE_38_STABLE'
+            php: '7.1'
+          - moodle-branch: 'MOODLE_39_STABLE'
+            php: '7.1'
+          - moodle-branch: 'MOODLE_310_STABLE'
+            php: '7.1'
+          - moodle-branch: 'MOODLE_311_STABLE'
+            php: '7.1'
           - moodle-branch: 'master'
             php: '7.1'
+          - moodle-branch: 'MOODLE_35_STABLE'
+            php: '7.4'
+          - moodle-branch: 'MOODLE_36_STABLE'
+            php: '7.4'
+          - moodle-branch: 'MOODLE_37_STABLE'
+            php: '7.4'
             
     steps:
       # 0. Initial step. Check out this repository code in ./plugin directory
@@ -169,11 +183,18 @@ jobs:
       - name: PHPUnit tests
         if: ${{ always() }}
         run: moodle-plugin-ci phpunit
-      # Run Behat tests on all Moodle branches.
+      # Run Behat tests on latest Moodle branch
       - name: Behat features
-        if: ${{ always() }}
+        if: ${{ matrix.moodle-branch == 'master' }}
         run: moodle-plugin-ci behat --profile default -vvv
-      # Prepare '/var/www/behatfaildumps' in case of error
+      # Run Behat Legacy test on the rest Moodle branchs
+      - name: Behat legacy features
+        if: ${{ matrix.moodle-branch != 'master' }}
+        run: |
+          docker run -d --rm --name=selenium --net=host --shm-size=2g -v /home/runner/work/moodle-atto_wiris/moodle-atto_wiris/moodle:/home/runner/work/moodle-atto_wiris/moodle-atto_wiris/moodle selenium/standalone-chrome:3
+          nohup php -S localhost:8000 -t /home/runner/work/moodle-atto_wiris/moodle-atto_wiris/moodle > phpd.log 2>&1 &
+          php moodle/admin/tool/behat/cli/run.php --tags=@3.x --profile=chrome --suite=default --auto-rerun=2 --verbose -vvv
+          docker stop selenium
 
       # 5.5. Upload snapshots of errors ( Not working )
       # Save videos and screenshots as test artifacts
