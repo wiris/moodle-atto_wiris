@@ -221,6 +221,13 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
 
                 // Despite the number of Atto editors we only need a single instance.
                 WirisPlugin.currentInstance = attoIntegrationInstance;
+
+                // We add the button after the collapse plugin initially hide other
+                // buttons. So we recall it here.
+                var host = this.get('host');
+                if (host.plugins.collapse) {
+                    host.plugins.collapse._setVisibility(host.plugins.collapse.buttons.collapse);
+                }
             }
         }.bind(this));
 
@@ -340,12 +347,6 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 iconComponent: 'atto_wiris',
                 callback: this._chemButton
             });
-        }
-        // We add the button after the collapse plugin initially hide other
-        // buttons. So we recall it here.
-        var host = this.get('host');
-        if (host.plugins.collapse) {
-            host.plugins.collapse._setVisibility(host.plugins.collapse.buttons.collapse);
         }
     },
     /**
