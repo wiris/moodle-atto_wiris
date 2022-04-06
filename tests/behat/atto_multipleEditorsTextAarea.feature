@@ -64,7 +64,7 @@ I need to re-edit formulas in a question type form
     And I select 100% option in Answer1
     And I press "submitbutton"
     And I navigate to "Quiz" in current page administration
-    And I click on "Attempt quiz" "button"
+    And I press "Preview quiz"
     Then I wait until Wirisformula formula exists
     # Then a Wirisformula containing 'square root of 2' should exist
     And I set the field "Answer" to "10"
