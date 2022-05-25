@@ -16,7 +16,7 @@
 
 /*
  * @package    atto_atto_wiris
- * @copyright  2011, Maths for More S.L. http://www.wiris.com
+ * @copyright  2011, Maths for More S.L. http://www.wiris.com/?utm_source=npmjs&utm_medium=referral
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
