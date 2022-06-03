@@ -9,6 +9,8 @@ Last release of this plugin is 7.27.1 (9th of nov. 2021).
 
 ## [Unreleased]
 - fix(ci): moodle code checker warning and errors #19424.
+- Change links to make them have UTMs #KB-25028.
+- Make links open in a new tab #KB-25519
 
 ## v7.27.1 - 9th nov. 2021
 - Fix "missing ['privacy:metadata']" from @christina-roperto contribution #86
