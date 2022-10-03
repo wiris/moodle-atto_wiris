@@ -150,8 +150,8 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                     // and convert images into data-mathml attribute.
                     var html = host.editor.get('innerHTML');
                     // Check if exist mathml tag for parse.
-                    if (html.indexOf('math»') >= 0 || html.indexOf('math>') >= 0) {
-                        host.textarea.set('value', WirisPlugin.Parser.endParse(html, null, this.config.lang, true));
+                    if (html.indexOf('math»') >= 0 || html.indexOf('math>') >= 0 || html.indexOf('$$') >= 0) {
+                        host.textarea.set('value', WirisPlugin.Parser.endParseSaveMode(html, null, this.config.lang, true));
                     }
                 };
 
