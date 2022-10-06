@@ -30,6 +30,7 @@ I need to create a MathType formula
     And I wait "1" seconds
     And I press accept button in MathType Editor
     And I press "Save and display"
+    And I wait "1" seconds
     Then I wait until Wirisformula formula exists
     Then a Wirisformula containing 'square root' should exist
     And Wirisformula should has height 48 with error of 2

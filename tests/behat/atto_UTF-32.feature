@@ -38,6 +38,7 @@ I need to see a formula with a UTF-32 character
     And I press "Save and display"
     # Then a Wirisformula containing html entity '&#x1D540;' should exist
     # And Wirisformula should has height 19 with error of 2
+    And I wait "2" seconds
     Then I wait until Wirisformula formula exists
     # And a Wirisformula containing html entity '&#x1D540;' should exist
     And Wirisformula should has height 19 with error of 2

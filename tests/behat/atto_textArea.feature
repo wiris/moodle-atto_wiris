@@ -37,5 +37,6 @@ I need to not loose data editing HTML code
     # Then I wait until Wirisformula formula exists
     # Then I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#960;</mi></msqrt></mfrac></math>"
     And I press "Save and display"
+    And I wait "2" seconds
     Then I wait until Wirisformula formula exists
     # Then a Wirisformula containing 'square root' should exist

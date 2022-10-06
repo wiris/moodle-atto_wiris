@@ -46,4 +46,5 @@ I need to write a mathtype formula
     And I wait "1" seconds
     And I press accept button in MathType Editor
     And I press "Save and display"
+    And I wait "2" seconds
     Then I wait until Wirisformula formula exists
