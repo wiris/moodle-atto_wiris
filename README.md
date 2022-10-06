@@ -46,6 +46,8 @@ We would love for you to contribute to this project and help make it better.
 
 As a contributor, the guidelines we would like you to follow are documented in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
+> :warning: Make sure to disable `YUI Combo Loading` and `Cache Javascript` Moodle options.
+
 ### Source code
 
 The Javascript source code of this Atto editor's button is located at `yui/src/button/button.js`, following Moodle's Atto development conventions.
@@ -60,6 +62,24 @@ $ grunt
 ```
 
 More information at [Running grunt](https://docs.moodle.org/dev/Grunt#Running_grunt) on Moodle's documentation site.
+
+### Hot reload with Shifter
+
+Shifter is a tool that takes the source JavaScript file `yui/src/button/button.js` and rebuilt the plugin's code each time you make changes to the source file.
+
+To install shifter globally with NPM:
+
+```sh
+npm install shifter@0.4.6 -g
+```
+
+During development you can run shifter to detect changes to your files. Using a terminal, move into the `yui/src/` and run:
+
+```sh
+shifter --watch
+```
+
+More information at [YUI/Shifter](https://docs.moodle.org/dev/YUI/Shifter) on Moodle's documentation site.
 
 ## Further information
 
