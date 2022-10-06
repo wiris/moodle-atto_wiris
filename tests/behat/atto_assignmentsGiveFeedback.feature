@@ -44,6 +44,7 @@ Feature: Formulas are rendered on an Assignment feedback
     And I press accept button in MathType Editor
     Then I press "Save changes"
     # 03. Validate the formula is rendered on both contexts.
+    And I wait "1" seconds
     Then I wait until Wirisformula formula exists
     And a Wirisformula containing 'square root' should exist
     # These next steps don't work for Moodle3_7 and below.

@@ -33,6 +33,7 @@ I need to change between editors
     And I wait "1" seconds
     And I press accept button in MathType Editor
     And I press "Save and display"
+    And I wait "1" seconds
     Then I wait until Wirisformula formula exists
     Then ChemType formula should not exist
     Then a Wirisformula containing 'square root' should exist

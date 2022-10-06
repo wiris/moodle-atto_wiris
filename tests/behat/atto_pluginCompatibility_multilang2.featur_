@@ -47,6 +47,7 @@ Feature: Compatibility with Multilang2
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I press accept button in MathType Editor
     And I press "Save and display"
+    And I wait "1" seconds
     Then I wait until Wirisformula formula exists
 
     Then I navigate to "Edit settings" in current page administration
