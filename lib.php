@@ -75,5 +75,6 @@ function atto_wiris_params_for_js() {
                 'filter_enabled' => $filterwirisactive,
                 'version' => get_config('atto_wiris', 'version'),
                 'editor_is_active' => $editorisactive,
-                'chemistry_is_active' => $chemistryisactive);
+                'chemistry_is_active' => $chemistryisactive,
+                "moodleCourse" => $COURSE);
 }
