@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @3.x
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @3.x @4.x
 Feature: Check that formula is rendered when atto's draft is restored
 In order to not loose data
 As an admin

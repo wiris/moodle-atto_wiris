@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @atto_wiris_bug01 @wiris_mathtype @3.x
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @atto_wiris_bug01 @wiris_mathtype @3.x @4.x
 Feature: Check if the raw code generated in html contains MathML instead of safeXML
 In order to edit HTML code
 As an admin

@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @wiris_mathtype @atto_wiris_assignments
+@editor @editor_atto @atto @atto_wiris @wiris_mathtype @atto_wiris_assignments @4.x
 Feature: Formulas are rendered on an Assignment feedback
   In order to check that formulas can be included on an assignment feedback
   As an admin

@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @3.x
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @3.x @4.x
 Feature: Verify that we have focus after move modal window
 In order to write Mathematical formulas properly
 As an admin

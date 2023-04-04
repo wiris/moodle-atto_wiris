@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @4.x
 Feature: Check MathType disabled if filter disabled at activity forum level
 In order to check if MathType plugin is disabled if filter is disabled
 As an admin
