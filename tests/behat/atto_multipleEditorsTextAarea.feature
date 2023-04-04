@@ -74,7 +74,7 @@ I need to re-edit formulas in a question type form
     And I follow "Finish attempt ..."
     And I press "Submit all and finish"
     And I wait "1" seconds
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I click on "Submit all and finish" "button" in the "Submit all your answers and finish?" "dialogue"
     And I wait "1" seconds
     Then I wait until Wirisformula formula exists
     # Then a Wirisformula containing 'square root of 2' should exist

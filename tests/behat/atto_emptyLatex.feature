@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @atto_wiris_latex @atto_wiris_compatibility
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @atto_wiris_latex @atto_wiris_compatibility @4.x
 Feature: Check empty LaTeX edition
 In order to check the edition of a formula in LaTeX
 As an admin
