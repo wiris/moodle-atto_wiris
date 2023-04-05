@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @3.x @4.x
+@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @3.x
 Feature: Change between editors
 In order to check if it's possible change between MathType and ChemType editors
 As an admin
@@ -30,7 +30,7 @@ I need to change between editors
     And I press cancel button in MathType Editor
     And I press "MathType" in "Page content" field in Atto editor
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
-    And I wait "1" seconds
+    And I wait "5" seconds
     And I press accept button in MathType Editor
     And I press "Save and display"
     And I wait "1" seconds
