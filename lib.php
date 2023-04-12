@@ -40,9 +40,10 @@ function atto_wiris_strings_for_js() {
  * Set parameters to be passed to the js plugin constructor.
  */
 function atto_wiris_params_for_js() {
-    global $COURSE, $PAGE;
+    global $COURSE, $PAGE, $CFG;
     // We need to know if  MathType filter are active in the context of the course.
     // If not MathType for Atto should be disabled.
+
     $filterwirisactive = true;
     // Get MathType and Chemistry buttons enabled configuration.
     $editorisactive = get_config('filter_wiris', 'editor_enable');
@@ -76,5 +77,6 @@ function atto_wiris_params_for_js() {
                 'version' => get_config('atto_wiris', 'version'),
                 'editor_is_active' => $editorisactive,
                 'chemistry_is_active' => $chemistryisactive,
-                "moodleCourse" => $COURSE);
+                "moodleCourse" => $COURSE,
+                'moodleVersion' => $CFG->branch);
 }
