@@ -217,6 +217,9 @@ Y.namespace('M.atto_wiris').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 integrationModelProperties.environment.editor = 'Atto';
                 integrationModelProperties.environment.editorVersion = config.version;
                 integrationModelProperties.environment.moodleCourse = config.moodleCourse;
+                integrationModelProperties.environment.moodleCourseCategory = config.moodleCourse.category;
+                integrationModelProperties.environment.moodleCourseName = config.moodleCourse.fullname;
+                integrationModelProperties.environment.moodleVersion = config.moodleVersion;
 
                 // Here we create a new instance of AttoIntegration.
                 var attoIntegrationInstance = new AttoIntegration(integrationModelProperties);
