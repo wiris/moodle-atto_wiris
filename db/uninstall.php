@@ -17,12 +17,11 @@
 /**
  * Atto uninstall script. Removes MathType icon to Atto toolbar.
  *
- * @package    atto
+ * @package    atto_wiris
  * @subpackage wiris
  * @copyright  WIRIS Europe (Maths for more S.L)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 function xmldb_atto_wiris_uninstall() {
     // Remove 'wiris' from the toolbar editor_atto config variable.
     $toolbar = get_config('editor_atto', 'toolbar');
