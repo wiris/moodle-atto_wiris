@@ -26,11 +26,11 @@ I need to use MathType despite the filter is disabled
     And I turn MathType filter off
     And I press "Save changes"
     And I am on "Course 1" course homepage
-    And I add a "Page" to section "0"
+    And I add a "Page" to section "0" using the activity chooser
     Then "MathType" "button" should not exist
     And I navigate to "Plugins > Filters > MathType by WIRIS" in site administration
     And I check editor always active
     And I press "Save changes"
     And I am on "Course 1" course homepage
-    And I add a "Page" to section "0"
+    And I add a "Page" to section "0" using the activity chooser
     Then "MathType" "button" should exist

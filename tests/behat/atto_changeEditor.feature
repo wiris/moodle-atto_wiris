@@ -22,7 +22,7 @@ I need to change between editors
   @javascript
   Scenario: Change from custom editor to MathType Editor
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Page" to section "0"
+    And I add a "Page" to section "0" using the activity chooser
     And I set the following fields to these values:
       | Name | Test MathType for Atto on Moodle chemistry formulas |
     And I press "ChemType" in "Page content" field in Atto editor
