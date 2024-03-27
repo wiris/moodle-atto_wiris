@@ -27,7 +27,7 @@ Feature: Formulas are rendered on an Assignment feedback
   Scenario: Grade an assignment with a Formula and ensure it display correctly in the gradebook
     # 01. Create the assignment
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Assignment" to section "0"
+    And I add an "Assignment" to section "0" using the activity chooser
     And I set the following fields to these values:
       |  Assignment name | Test MathType for Atto on Moodle |
     And I click on "Online text" "checkbox"
@@ -39,6 +39,7 @@ Feature: Formulas are rendered on an Assignment feedback
     And I click on ".btn-primary" "css_element" in the "//div[@class='row']" "xpath_element"
     # 02. Grade the assignment.
     And I click on "MathType" "button"
+    And I wait "1" seconds
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I wait "1" seconds
     And I press accept button in MathType Editor

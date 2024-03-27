@@ -26,7 +26,7 @@ I need to re-edit formulas in a question type form
     """
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Quiz" to section "1"
+    And I add a "Quiz" to section "1" using the activity chooser
     And I set the following fields to these values:
       | Name | Quiz 1 |
     And I press "Save and display"
@@ -36,6 +36,7 @@ I need to re-edit formulas in a question type form
     And I click on "a new question" "link"
     And I choose Short answer
     And I press "submitbutton"
+    And I wait "1" seconds
     And I press "MathType" in "Question text" field in Atto editor
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>2</mn></msqrt></math>'
     And I wait "1" seconds
