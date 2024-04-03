@@ -1,4 +1,4 @@
-@filter @filter_wiris @filter_wiris_settings @wiris_settings @wiris_mathtype @atto @atto_wiris @wiris_mathtype_01 @4.x @filter_wiris_current
+@filter @filter_wiris @atto @atto_wiris @3.x
 Feature: Check the math and chem buttons visibility on text editors
 In order to check the buttons visibility in atto editor
 As an admin
@@ -29,7 +29,7 @@ and disable the chemtype and mathtype buttons
       | editor_enable    | 0 |
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Page" to section "0" using the activity chooser
+    And I add a "Page" to section "0"
     Then I check "MathType" in "Page content" field "does not" exist in Atto editor
     And I check "ChemType" in "Page content" field "does" exist in Atto editor
 
@@ -42,7 +42,7 @@ and disable the chemtype and mathtype buttons
       | chem_editor_enable    | 0 |
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Page" to section "0" using the activity chooser
+    And I add a "Page" to section "0"
     Then I check "MathType" in "Page content" field "does" exist in Atto editor
     And I check "ChemType" in "Page content" field "does not" exist in Atto editor
 
@@ -58,6 +58,6 @@ and disable the chemtype and mathtype buttons
       | editor_enable    | 0 |
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Page" to section "0" using the activity chooser
+    And I add a "Page" to section "0"
     Then I check "MathType" in "Page content" field "does not" exist in Atto editor
     And I check "ChemType" in "Page content" field "does not" exist in Atto editor

@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @4.x
+@editor @editor_atto @atto @atto_wiris @3.x
 Feature: Use atto to post a chemistry formula
 In order to check whether a chemistry formula can be displayed correctly
 As an admin
@@ -22,7 +22,7 @@ I need to write a chemistry formula
   @javascript
   Scenario: Post a chemistry formula
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Page" to section "0" using the activity chooser
+    And I add a "Page" to section "0"
     And I set the following fields to these values:
       | Name | Test MathType for Atto on Moodle chemistry formulas |
     And I press "ChemType" in "Page content" field in Atto editor

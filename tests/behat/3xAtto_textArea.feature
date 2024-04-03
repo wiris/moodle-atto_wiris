@@ -1,8 +1,8 @@
-@editor @editor_atto @atto @atto_wiris @wiris_mathtype @4.x
-Feature: Check MathType compatibility when collapse button is enabled
-In order to use MathType with collapse filter enabled
+@editor @editor_atto @atto @atto_wiris @3.x
+Feature: Check if the raw code generated in html contains MathML instead of safeXML
+In order to edit HTML code
 As an admin
-I need to write a mathtype formula
+I need to not loose data editing HTML code
 
   Background:
     Given the following "courses" exist:
@@ -15,37 +15,29 @@ I need to write a mathtype formula
     And the "urltolink" filter is "off"
     And the "mathjaxloader" filter is "off"
     And I log in as "admin"
-    
+
   @javascript
-  Scenario: Insert a Formula with collapse plugin enabled
+  Scenario: Transform formula to raw code in html
     And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
     And I set the field "Toolbar config" to multiline:
     """
-    collapse = collapse
-    style1 = title, bold, italic
-    list = unorderedlist, orderedlist
-    links = link
-    files = image, media, recordrtc, managefiles
-    style2 = underline, strike, subscript, superscript
-    align = align
-    indent = indent
-    insert = equation, charmap, table, clear
-    undo = undo
-    accessibility = accessibilitychecker, accessibilityhelper
     math = wiris
     other = html
     """
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Page" to section "0" using the activity chooser
+    And I add a "Page" to section "0"
     And I set the following fields to these values:
       | Name | Test MathType for Atto on Moodle |
-    And I press "Collapse" in "Page content" field in Atto editor
     And I press "MathType" in "Page content" field in Atto editor
     And I wait "1" seconds
-    And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
+    And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I wait "1" seconds
     And I press accept button in MathType Editor
+    # And I press "HTML" in "Page content" field in Atto editor
+    # Then I wait until Wirisformula formula exists
+    # Then I should see "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mfrac><mn>1</mn><msqrt><mn>20</mn><mi>&#960;</mi></msqrt></mfrac></math>"
     And I press "Save and display"
     And I wait "2" seconds
     Then I wait until Wirisformula formula exists
+    # Then a Wirisformula containing 'square root' should exist

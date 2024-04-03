@@ -1,8 +1,8 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @4.x
-Feature: Verify that we have focus after move modal window
-In order to write Mathematical formulas properly
+@editor @editor_atto @atto @atto_wiris @3.x
+Feature: Check that formula is rendered when atto's draft is restored
+In order to not loose data
 As an admin
-I need to use the modal window
+I need to restore draft content containing MathType formulas
 
   Background:
     Given the following config values are set as admin:
@@ -20,19 +20,21 @@ I need to use the modal window
     And I log in as "admin"
 
   @javascript
-  Scenario: Insert formula after moving modal window
+  Scenario: Insert a formula and restore the page
+    And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
+    And I select seconds in autosave frequency option
+    And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Page" to section "0" using the activity chooser
+    And I add a "Page" to section "0"
     And I set the following fields to these values:
       | Name | Test MathType for Atto on Moodle |
     And I press "MathType" in "Page content" field in Atto editor
-    And I click on MathType editor title bar
     And I wait "1" seconds
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I wait "1" seconds
     And I press accept button in MathType Editor
-    And I press "Save and display"
-    And I wait "1" seconds
+    And I wait "5" seconds
+    And I reload the page
+    And I wait "5" seconds
     Then I wait until Wirisformula formula exists
-    Then a Wirisformula containing 'square root' should exist
-    And Wirisformula should has height 48 with error of 2
+    Then Wirisformula should exist

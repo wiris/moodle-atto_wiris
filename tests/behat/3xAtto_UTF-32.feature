@@ -1,8 +1,8 @@
-@editor @editor_atto @atto @atto_wiris @wiris_mathtype @4.x
-Feature: Check MathType compatibility when collapse button is enabled
-In order to use MathType with collapse filter enabled
+@editor @editor_atto @atto @atto_wiris @3.x
+Feature: Test I double struck (UTF-32)
+In order to create formulas with UTF-32 characters
 As an admin
-I need to write a mathtype formula
+I need to see a formula with a UTF-32 character
 
   Background:
     Given the following "courses" exist:
@@ -15,37 +15,31 @@ I need to write a mathtype formula
     And the "urltolink" filter is "off"
     And the "mathjaxloader" filter is "off"
     And I log in as "admin"
-    
+
   @javascript
-  Scenario: Insert a Formula with collapse plugin enabled
+  Scenario: Insert double struck using UTF-32
     And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
     And I set the field "Toolbar config" to multiline:
     """
-    collapse = collapse
-    style1 = title, bold, italic
-    list = unorderedlist, orderedlist
-    links = link
-    files = image, media, recordrtc, managefiles
-    style2 = underline, strike, subscript, superscript
-    align = align
-    indent = indent
-    insert = equation, charmap, table, clear
-    undo = undo
-    accessibility = accessibilitychecker, accessibilityhelper
     math = wiris
     other = html
     """
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Page" to section "0" using the activity chooser
+    And I add a "Page" to section "0"
     And I set the following fields to these values:
       | Name | Test MathType for Atto on Moodle |
-    And I press "Collapse" in "Page content" field in Atto editor
     And I press "MathType" in "Page content" field in Atto editor
     And I wait "1" seconds
-    And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
+    And I set MathType formula to '<math><mi mathvariant="normal">&#x1D540;</mi></math>'
     And I wait "1" seconds
     And I press accept button in MathType Editor
+    And I press "HTML" in "Page content" field in Atto editor
+    And I press "HTML pressed" in "Page content" field in Atto editor
     And I press "Save and display"
+    # Then a Wirisformula containing html entity '&#x1D540;' should exist
+    # And Wirisformula should has height 19 with error of 2
     And I wait "2" seconds
     Then I wait until Wirisformula formula exists
+    # And a Wirisformula containing html entity '&#x1D540;' should exist
+    And Wirisformula should has height 19 with error of 2
