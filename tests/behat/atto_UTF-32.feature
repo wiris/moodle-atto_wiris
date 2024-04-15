@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @4.x
+@editor @editor_atto @atto @atto_wiris @atto_wiris_current @_bug_phantomjs @wiris_mathtype
 Feature: Test I double struck (UTF-32)
 In order to create formulas with UTF-32 characters
 As an admin

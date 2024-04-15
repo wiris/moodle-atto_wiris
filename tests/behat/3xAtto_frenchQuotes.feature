@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @3.x
+@atto @atto_wiris @3.x @3.x_atto @4.0 @4.0_atto
 Feature: Checking french quotes to prevent dissapear and post
 In order to check if french quotes can be displayed correctly
 I need to post with french quotes

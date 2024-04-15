@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @atto_wiris_current @wiris_mathtype @atto_wiris_compatibility
+@atto @atto_wiris @4.0 @4.0_atto
 Feature: Compatibility with Multilang2
   In order to check if MathType is compatible with Multilang2 plugin for Atto
   As an admin
@@ -31,7 +31,7 @@ Feature: Compatibility with Multilang2
       """
     And I press "Save changes"
     And I am on "Course 1" course homepage with editing mode on
-    And I add a "Page" to section "0" using the activity chooser
+    And I add a "Page" to section "0"
     And I set the following fields to these values:
       | Name | Test MathType for Atto on Moodle |
     And I set the field "Page content" to multiline:

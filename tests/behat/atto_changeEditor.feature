@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype
+@editor @editor_atto @atto @atto_wiris @atto_wiris_current @_bug_phantomjs @wiris_mathtype
 Feature: Change between editors
 In order to check if it's possible change between MathType and ChemType editors
 As an admin

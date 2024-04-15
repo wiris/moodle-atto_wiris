@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @3.x
+@atto @atto_wiris @3.x @3.x_atto @4.0 @4.0_atto
 Feature: Verify that we have focus after move modal window
 In order to write Mathematical formulas properly
 As an admin

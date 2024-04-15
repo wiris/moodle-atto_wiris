@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @wiris_mathtype @4.x
+@editor @editor_atto @atto @atto_wiris @atto_wiris_current @wiris_mathtype
 Feature: Check MathType compatibility when collapse button is enabled
 In order to use MathType with collapse filter enabled
 As an admin

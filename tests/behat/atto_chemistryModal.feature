@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @4.x
+@editor @editor_atto @atto @atto_wiris @atto_wiris_current @_bug_phantomjs @wiris_mathtype
 Feature: Use atto to post a chemistry formula
 In order to check whether a chemistry formula can be displayed correctly
 As an admin

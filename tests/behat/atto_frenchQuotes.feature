@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @4.x
+@editor @editor_atto @atto @atto_wiris @atto_wiris_current @_bug_phantomjs @wiris_mathtype
 Feature: Checking french quotes to prevent dissapear and post
 In order to check if french quotes can be displayed correctly
 I need to post with french quotes

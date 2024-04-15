@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @atto_wiris_bug01 @wiris_mathtype @atto_wiris_error
+@editor @editor_atto @atto @atto_wiris @atto_wiris_current @_bug_phantomjs @atto_wiris_bug01 @wiris_mathtype @atto_wiris_error
 Feature: Checks formula creation in forms with multiple editors
 In order to use multiple editors
 As an admin

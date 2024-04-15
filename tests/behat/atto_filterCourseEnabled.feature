@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @4.x
+@editor @editor_atto @atto @atto_wiris @atto_wiris_current @_bug_phantomjs @wiris_mathtype
 Feature: Check MathType enabled if filter disabled at course level but allow_editorplugin_active_course setting is enabled
 In order to use MathType with other filters
 As an admin
