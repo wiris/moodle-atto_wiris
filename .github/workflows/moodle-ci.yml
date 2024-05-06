@@ -83,8 +83,6 @@ jobs:
             php: '8.0'
           - moodle-branch: 'MOODLE_310_STABLE'
             php: '8.0'
-          - moodle-branch: 'MOODLE_311_STABLE'
-            php: '8.0'
             
     steps:
       # 0. Initial step. Check out this repository code in ./plugin directory
@@ -204,7 +202,7 @@ jobs:
       - name: PHPUnit tests
         if: ${{ always() }}
         run: moodle-plugin-ci phpunit
-      # Run Behat Legacy test on the rest Moodle branchs
+      # Run Behat Legacy test on the 3.x Moodle branchs
       - name: Behat legacy features 3.x
         if: ${{ !(matrix.moodle-branch == 'MOODLE_400_STABLE') }}
         run: |
@@ -212,7 +210,7 @@ jobs:
           nohup php -S localhost:8000 -t /home/runner/work/moodle-atto_wiris/moodle-atto_wiris/moodle > phpd.log 2>&1 &
           php moodle/admin/tool/behat/cli/run.php --tags=@3.x_atto --profile=chrome --suite=default --auto-rerun=2 --verbose -vvv
           docker stop selenium
-      # Run Behat Legacy test for Moodle 4.0.0 & 4.0.1 on the rest Moodle branchs
+      # Run Behat Legacy test for Moodle 4.0
       - name: Behat legacy features 4.0 & 4.1
         if: ${{ matrix.moodle-branch == 'MOODLE_400_STABLE' }}
         run: |
@@ -254,12 +252,12 @@ jobs:
       fail-fast: false
       matrix:
         php: ['8.0', '8.1', '8.2', '8.3']
-        moodle-branch: [MOODLE_402_STABLE, MOODLE_403_STABLE, main]
+        moodle-branch: [MOODLE_402_STABLE, MOODLE_403_STABLE, MOODLE_404_STABLE, main]
         database: [pgsql]
         exclude:
           # Exclude Moodle+PHP incompatible versions
           # See: https://docs.moodle.org/dev/Moodle_and_PHP
-          - moodle-branch: 'MOODLE_403_STABLE'
+          - moodle-branch: 'MOODLE_404_STABLE'
             php: '8.0'
           - moodle-branch: 'main'
             php: '8.0'
