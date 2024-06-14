@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-98
+@atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-98
 Feature: Insert a MathType formula in an assignment's feedback
   In order to check that formulas can be included on an assignment feedback
   As an admin

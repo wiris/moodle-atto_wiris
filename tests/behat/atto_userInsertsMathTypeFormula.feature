@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-33
+@atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-33
 Feature: Insert MathType formula
   In order to check if MathType formula can be displayed correctly
   As an admin

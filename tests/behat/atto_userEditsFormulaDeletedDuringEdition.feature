@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_edit_formula @mtmoodle-76
+@atto @atto_wiris @wiris_mathtype @atto_edit_formula @mtmoodle-76
 Feature: User edits deleted formula
   In order to check if MathType formula can be formulas in edition
   As an admin

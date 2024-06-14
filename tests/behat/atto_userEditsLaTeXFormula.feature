@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_edit_formula @atto_latex_formula @mtmoodle-38
+@atto @atto_wiris @wiris_mathtype @atto_edit_formula @atto_latex_formula @mtmoodle-38
 Feature: Edit LaTeX formula inside MathType editor
 In order to check the edition of a formula in LaTeX
 As an admin

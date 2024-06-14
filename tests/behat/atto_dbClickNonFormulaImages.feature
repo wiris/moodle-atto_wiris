@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @pending
+@atto @atto_wiris @wiris_mathtype @pending
 Feature: Use atto to open non-formula images
   In order to assert that MathType does not override the
   behavior of non-formula images.

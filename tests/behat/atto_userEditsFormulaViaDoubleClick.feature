@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_edit_formula @mtmoodle-34
+@atto @atto_wiris @wiris_mathtype @atto_edit_formula @mtmoodle-34
 Feature: Edit MathType formula with atto editor via double click
 In order to check if MathType formula can be edited via double click
 As an admin

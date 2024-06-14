@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-93
+@atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-93
 Feature: Check that formula is rendered when atto's draft is restored
 In order to not loose data
 As an admin

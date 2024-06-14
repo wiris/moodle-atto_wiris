@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_modal_window @mtmoodle-90
+@atto @atto_wiris @wiris_mathtype @atto_modal_window @mtmoodle-90
 Feature: MathType and ChemType editor switch
   In order to check if MathType formula can be displayed correctly
   As an admin

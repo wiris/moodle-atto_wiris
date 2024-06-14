@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @pending
+@atto @atto_wiris @wiris_mathtype @pending
 Feature: Checks formula creation in forms with multiple editors
     In order to use multiple editors
     As an admin

@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @pending
+@atto @atto_wiris @wiris_mathtype @pending
 Feature: Compatibility with Multilang2
   In order to check if MathType is compatible with Multilang2 plugin for Atto
   As an admin

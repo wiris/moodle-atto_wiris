@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-91
+@atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-91
 Feature: Insert ChemType formula with atto editor
 In order to check whether a ChemType formula can be displayed correctly
 As an admin

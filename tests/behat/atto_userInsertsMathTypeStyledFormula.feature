@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-57
+@atto @atto_wiris @wiris_mathtype @atto_insert_formula @mtmoodle-57
 Feature: Insert MathType styled formula
   In order to check if styled MathType formula can be displayed correctly
   As an admin

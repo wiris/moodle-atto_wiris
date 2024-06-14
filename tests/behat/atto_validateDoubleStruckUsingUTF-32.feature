@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_insert_formula @atto_symbols_and_attributes @mtmoodle-94
+@atto @atto_wiris @wiris_mathtype @atto_insert_formula @atto_symbols_and_attributes @mtmoodle-94
 Feature: Test double struck using UTF-32
   In order to create formulas with UTF-32 characters
   As an admin

@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_modal_window @mtmoodle-99
+@atto @atto_wiris @wiris_mathtype @atto_modal_window @mtmoodle-99
 Feature: Collapse plugin compatibility with MathType for atto
   In order to use MathType with collapse filter enabled
   As an admin

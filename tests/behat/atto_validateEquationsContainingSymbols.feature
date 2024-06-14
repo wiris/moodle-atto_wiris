@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_insert_formula @atto_symbols_and_attributes @mtmoodle-96
+@atto @atto_wiris @wiris_mathtype @atto_insert_formula @atto_symbols_and_attributes @mtmoodle-96
 Feature: insert equations containing sensible symbols
   In order to check if some symbols render correctly
   I need to create a formula

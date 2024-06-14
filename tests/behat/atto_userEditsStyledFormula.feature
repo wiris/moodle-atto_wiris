@@ -1,4 +1,4 @@
-@atto @editor_atto @atto_wiris @wiris_mathtype @atto_edit_formula @atto_formula_type @mtmoodle-58
+@atto @atto_wiris @wiris_mathtype @atto_edit_formula @atto_formula_type @mtmoodle-58
 Feature: Edit MathType styled formula
   In order to check if styled MathType formula can be edited correctly
   As an admin
