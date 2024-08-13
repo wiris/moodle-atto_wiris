@@ -1,16 +1,17 @@
 name: Moodle Plugin CI Tests for WIRIS_Moodle_atto
 
+# The workflow is triggered on push to the stable branch, main branch, pull requests and every day at 6:30 UTC.
 on:
   push:
-  #   branches:
-  #     - stable
-  #     - main
-  # pull_request:
-  #   branches:
-  #     - "*"
-  # schedule:
-  #   - cron: "30 6 * * *"
-    
+    branches:
+      - stable
+      - main
+  pull_request:
+    branches:
+      - "*"
+  schedule:
+    - cron: "30 6 * * *"
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -150,15 +151,6 @@ jobs:
           moodle-plugin-ci add-plugin --branch stable wiris/moodle-filter_wiris
 
       # 3.2 Install Atto plugin ( Not used )
-      # - name: Add MathType plugin for Atto
-      #   id: install-plugin-atto
-      #   continue-on-error: true
-      #   run: |
-      #     moodle-plugin-ci add-plugin --branch ${{ github.ref_name }} wiris/moodle-atto_wiris
-      # - name: Add MathType plugin for Atto using the stable branch
-      #   if: steps.install-plugin-atto.outcome != 'success'
-      #   run: |
-      #     moodle-plugin-ci add-plugin --branch stable wiris/moodle-atto_wiris
 
       # 3.3 Install Tiny plugin
       - name: Add MathType plugin for TinyMCE
@@ -197,20 +189,21 @@ jobs:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
 
-      # 5.4. Code testing
-      # Run PHPUnit tests on all Moodle branches.
+      # 5.1 PHPUnit tests
       - name: PHPUnit tests
         if: ${{ always() }}
         run: moodle-plugin-ci phpunit ./plugin
 
+      # 5.1 Moodle Code Validator
       - name: Validating
         if: ${{ always() }}
-        run: moodle-plugin-ci validate ./plugin
+        run: moodle-plugin-ci validate ./plugin      
+        
+      # 5.2 Behat tests
+
       # Run Behat tests on all Moodle branches.
       # Known tags: @3.x_plugin, @4.0_plugin, @4.x_plugin
       # Run Behat tests on all Moodle branches.
-
-
       - name: Behat features for ( ${{ matrix.moodle-branch }} on PHP ${{ matrix.php }} )
         if: ${{ always() }}
         run: |
