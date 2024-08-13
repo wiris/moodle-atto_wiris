@@ -27,12 +27,12 @@ function xmldb_atto_wiris_uninstall() {
     $toolbar = get_config('editor_atto', 'toolbar');
     if (strpos($toolbar, 'wiris') !== false) {
         $groups = explode("\n", $toolbar);
-        $newgroups = array();
+        $newgroups = [];
         foreach ($groups as $group) {
             if (strpos($group, 'wiris') !== false) {
                 $parts = explode('=', $group);
                 $items = explode(',', $parts[1]);
-                $newitems = array();
+                $newitems = [];
                 foreach ($items as $item) {
                     if (trim($item) != 'wiris') {
                         $newitems[] = $item;
