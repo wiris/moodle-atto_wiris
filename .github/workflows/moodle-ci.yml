@@ -110,6 +110,15 @@ jobs:
           echo "Moodle: ${{ matrix.moodle-branch }}"
           echo "Database: ${{ matrix.database }}"
 
+      - name: Set branch name
+        id: get_branch
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
+          else
+            echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
+          fi
+
       # 1. Setup PHP using the matrix described on the strategy section.
       - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
@@ -144,7 +153,7 @@ jobs:
         id: install-plugin-filter
         continue-on-error: true
         run: |
-          moodle-plugin-ci add-plugin --branch ${{ github.ref_name }} wiris/moodle-filter_wiris
+          moodle-plugin-ci add-plugin --branch ${{ env.BRANCH_NAME }} wiris/moodle-filter_wiris
       - name: Add MathType filter plugin using the stable branch
         if: steps.install-plugin-filter.outcome != 'success'
         run: |
@@ -159,7 +168,7 @@ jobs:
 
         continue-on-error: true
         run: |
-          moodle-plugin-ci add-plugin --branch ${{ github.ref_name }} wiris/moodle-tiny_wiris
+          moodle-plugin-ci add-plugin --branch ${{ env.BRANCH_NAME }} wiris/moodle-tiny_wiris
       - name: Add MathType plugin for TinyMCE using the stable branch
         if: contains(fromJson('["MOODLE_401_STABLE", "MOODLE_402_STABLE", "MOODLE_403_STABLE", "MOODLE_404_STABLE"]'), matrix.moodle-branch) && steps.install-plugin-tiny.outcome != 'success'
         run: |
@@ -176,7 +185,7 @@ jobs:
         if: ${{ always() }}
         continue-on-error: true
         run: |
-          moodle-plugin-ci add-plugin --branch ${{ github.ref_name }} wiris/moodle-qtype_wq
+          moodle-plugin-ci add-plugin --branch ${{ env.BRANCH_NAME }} wiris/moodle-qtype_wq
       - name: Add Wiris Quizzes plugin using the stable branch
         if: steps.install-plugin-quizzes.outcome != 'success'
         run: |
