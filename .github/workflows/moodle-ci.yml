@@ -1,4 +1,4 @@
-name: Moodle Plugin CI Tests for WIRIS_Moodle_atto
+name: Moodle Plugin CI Tests
 
 # The workflow is triggered on push to the stable branch, main branch, pull requests and every day at 6:30 UTC.
 on:
@@ -41,7 +41,7 @@ jobs:
             "MOODLE_404_STABLE",
           ]
         database: [pgsql]
-        browser: [ "chrome","firefox" ]
+        browser: ["chrome", "firefox"]
         exclude:
           # Exclude Moodle+PHP incompatible versions
           # See: https://docs.moodle.org/dev/Moodle_and_PHP
@@ -131,7 +131,7 @@ jobs:
           coverage: none
 
       - name: Setup Node.js
-        run  : |
+        run: |
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -150,7 +150,7 @@ jobs:
           CODECHECKER_IGNORE_PATHS: classes/privacy,ignore,node_modules,integration,render
           PHPUNIT_IGNORE_PATHS: classes/privacy,ignore,node_modules,integration,render
 
-      # 3.1 Install Filter plugin 
+      # 3.1 Install Filter plugin
       - name: Add MathType filter plugin
         id: install-plugin-filter
         continue-on-error: true
@@ -208,8 +208,8 @@ jobs:
       # 5.2 Moodle Code Validator
       - name: Validating
         if: ${{ always() }}
-        run: moodle-plugin-ci validate ./plugin      
-        
+        run: moodle-plugin-ci validate ./plugin
+
       # 6 Behat tests
 
       # Run Behat tests on all Moodle branches.
