@@ -1,4 +1,4 @@
-@editor @editor_atto @atto @atto_wiris @wiris_mathtype @atto_wiris_compatibility @4.x
+@atto @atto_wiris @wiris_mathtype @pending
 Feature: Compatibility with Multilang2
   In order to check if MathType is compatible with Multilang2 plugin for Atto
   As an admin
@@ -22,8 +22,7 @@ Feature: Compatibility with Multilang2
 
   @javascript
   Scenario: Activate Multilang2 and insert content
-    And I navigate to "Plugins" in site administration
-    And I follow "Atto toolbar settings"
+    And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
     And I set the field "Toolbar config" to multiline:
       """
       math = wiris

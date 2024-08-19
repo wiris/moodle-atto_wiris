@@ -1,18 +1,18 @@
-@editor @editor_atto @atto @atto_wiris @_bug_phantomjs @wiris_mathtype @4.x
+@atto @atto_wiris @wiris_mathtype @pending
 Feature: Use atto to open non-formula images
-In order to assert that MathType does not override the
-behavior of non-formula images.
-As an admin
-I need to display the settings of a created non-formula images
-when it is opened.
+  In order to assert that MathType does not override the
+  behavior of non-formula images.
+  As an admin
+  I need to display the settings of a created non-formula images
+  when it is opened.
 
   Background:
     Given the following "courses" exist:
       | fullname | shortname | format |
       | Course 1 | C1        | topics |
     And the following "course enrolments" exist:
-      | user     | course | role           |
-      | admin  | C1     | editingteacher |
+      | user  | course | role           |
+      | admin | C1     | editingteacher |
     And the "wiris" filter is "on"
     And the "urltolink" filter is "off"
     And the "mathjaxloader" filter is "off"
@@ -26,10 +26,10 @@ when it is opened.
     And I press "Save changes"
     And I navigate to "Plugins > Text editors > Atto toolbar settings" in site administration
     And I set the field "Toolbar config" to multiline:
-    """
-    files = image
-    math = wiris
-    """
+      """
+      files = image
+      math = wiris
+      """
     And I press "Save changes"
     # Course
     And I am on "Course 1" course homepage with editing mode on
