@@ -29,10 +29,10 @@
 function atto_wiris_strings_for_js() {
     global $PAGE;
     $PAGE->requires->strings_for_js(
-      array(
+      [
         'wiris_editor_title',
         'wiris_chem_editor_title',
-      ),
+      ],
       'atto_wiris');
 }
 
@@ -72,11 +72,11 @@ function atto_wiris_params_for_js() {
     }
 
     // Atto js plugin checks if the filter is - or not - active.
-    return array('lang' => current_language(),
+    return ['lang' => current_language(),
                 'filter_enabled' => $filterwirisactive,
                 'version' => get_config('atto_wiris', 'version'),
                 'editor_is_active' => $editorisactive,
                 'chemistry_is_active' => $chemistryisactive,
                 "moodleCourse" => $COURSE,
-                'moodleVersion' => $CFG->branch);
+                'moodleVersion' => $CFG->branch];
 }
