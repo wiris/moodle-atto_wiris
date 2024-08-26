@@ -36,7 +36,7 @@ Feature: Insert MathType formula
     Then a Wirisformula containing 'square root' should exist
     And Wirisformula should has height 48 with error of 2
 
-  @javascript @3.x @3.x_atto @4.0 @4.0_atto
+  @javascript @4.0 @4.0_atto
   Scenario: MTMOODLE-33 - User inserts MathType
     And I am on "Course 1" course homepage with editing mode on
     And I add a "Page" to section "0" using the activity chooser
