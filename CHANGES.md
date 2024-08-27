@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 The latest release of this plugin is v8.7.0 (23 apr. 2024).
 
+## v8.7.1 - 27 aug. 2024
+- test: Improve and add test coverage.
+- refactor: Moodle test page. #KB-43810
+- fix: Fetch notification when load setting page. #KB-44423
+  
 ## v8.7.0 - 23 apr. 2024
 - feat: Add compatibility with Moodle 4.4.
 
