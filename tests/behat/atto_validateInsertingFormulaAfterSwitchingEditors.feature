@@ -46,7 +46,7 @@ Feature: Insert MathType formula after editor switch
     And I set the following fields to these values:
       | Name | Test Multiple Editors for Atto on Moodle |
     And I press "ChemType" in "Page content" field in Atto editor
-    And I wait until MathType editor is displayed
+    And I wait until ChemType editor is displayed
     And I wait "2" seconds
     And I press "MathType" in "Page content" field in Atto editor
     And I wait "1" seconds
