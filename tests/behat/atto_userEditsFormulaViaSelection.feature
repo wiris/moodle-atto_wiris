@@ -63,8 +63,7 @@ Background:
     And I press accept button in MathType Editor
     # Assert that selection
     And I wait until Wirisformula formula exists
-    And I click on WirisFormula with alt equals to "1 plus 1"
-    And I press "MathType" in "Page content" field in Atto editor
+    And I dbClick on WirisFormula with alt equals to "1 plus 1"
     And I wait until MathType editor is displayed
     And I wait "3" seconds
     And I set MathType formula to '<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mi>y</mi></msqrt></math>'
