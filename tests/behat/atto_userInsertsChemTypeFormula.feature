@@ -26,7 +26,7 @@ I need to write a ChemType formula
     And I set the following fields to these values:
       | Name | Test MathType for Atto on Moodle chemistry formulas |
     And I press "ChemType" in "Page content" field in Atto editor
-    And I wait until MathType editor is displayed
+    And I wait until ChemType editor is displayed
     And I set MathType formula to '<math><mi mathvariant="normal">H</mi><mn>2</mn><mi mathvariant="normal">O</mi></math>'
     And I wait "3" seconds
     And I press accept button in MathType Editor
