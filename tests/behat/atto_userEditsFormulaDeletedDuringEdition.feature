@@ -61,8 +61,8 @@ Feature: User edits deleted formula
     And I wait until Wirisformula formula exists
     And I dbClick on WirisFormula with alt equals to "1 plus 1"
     And I wait until MathType editor is displayed
-    And I click on WirisFormula with alt equals to "1 plus 1"
-    And I press the enter key
+    And I click on "Page content" field
+    And I press the backspace key
     And I press accept button in MathType Editor
     And I press "Save and display"
     # Check final formula
