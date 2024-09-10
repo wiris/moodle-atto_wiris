@@ -2,6 +2,7 @@ name: Moodle Plugin CI Tests
 
 # The workflow is triggered on push to the stable branch, main branch, pull requests and every day at 6:30 UTC.
 on:
+  workflow_dispatch:
   push:
     branches:
       - stable
