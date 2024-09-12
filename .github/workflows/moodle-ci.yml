@@ -2,6 +2,7 @@ name: Moodle Plugin CI Tests
 
 # The workflow is triggered on push to the stable branch, main branch, pull requests and every day at 6:30 UTC.
 on:
+  workflow_dispatch:
   push:
     branches:
       - stable
@@ -156,10 +157,10 @@ jobs:
         continue-on-error: true
         run: |
           moodle-plugin-ci add-plugin --branch ${{ env.BRANCH_NAME }} wiris/moodle-filter_wiris
-      - name: Add MathType filter plugin using the stable branch
+      - name: Add MathType filter plugin using the main branch
         if: steps.install-plugin-filter.outcome != 'success'
         run: |
-          moodle-plugin-ci add-plugin --branch stable wiris/moodle-filter_wiris
+          moodle-plugin-ci add-plugin --branch main wiris/moodle-filter_wiris
 
       # 3.2 Install Atto plugin ( Not used )
 
@@ -174,12 +175,12 @@ jobs:
       - name: Add MathType plugin for TinyMCE using the stable branch
         if: contains(fromJson('["MOODLE_401_STABLE", "MOODLE_402_STABLE", "MOODLE_403_STABLE", "MOODLE_404_STABLE"]'), matrix.moodle-branch) && steps.install-plugin-tiny.outcome != 'success'
         run: |
-          moodle-plugin-ci add-plugin --branch stable wiris/moodle-tiny_wiris
+          moodle-plugin-ci add-plugin --branch main wiris/moodle-tiny_wiris
 
       - name: Add legacy MathType plugin for TinyMCE
         if: contains(fromJson('["MOODLE_38_STABLE", "MOODLE_39_STABLE", "MOODLE_311_STABLE", "MOODLE_400_STABLE"]'), matrix.moodle-branch)
         run: |
-          moodle-plugin-ci add-plugin --branch stable wiris/moodle-tinymce_tiny_mce_wiris
+          moodle-plugin-ci add-plugin --branch main wiris/moodle-tinymce_tiny_mce_wiris
 
       # 3.4 Install wirisquizzes
       - name: Add Wiris Quizzes plugin
