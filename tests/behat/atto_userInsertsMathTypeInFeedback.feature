@@ -58,7 +58,7 @@ Feature: Insert a MathType formula in an assignment's feedback
   Scenario: MTMOODLE-98 - Insert a MathType formula in an assignment's feedback
     # 01. Create the assignment
     And I am on "Course 1" course homepage with editing mode on
-    And I add an "Assignment" to section "0"
+    And I add a "Assignment" to section "0"
     And I set the following fields to these values:
       | Assignment name | Test MathType for Atto on Moodle |
     And I click on "Online text" "checkbox"
