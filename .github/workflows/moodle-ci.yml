@@ -236,7 +236,7 @@ jobs:
             "MOODLE_400_STABLE")
               TAG="@4.0_atto"
               ;;
-            "MOODLE_401_STABLE"|"MOODLE_402_STABLE"|"MOODLE_403_STABLE"|"MOODLE_404_STABLE")
+            "MOODLE_401_STABLE"|"MOODLE_402_STABLE"|"MOODLE_403_STABLE"|"MOODLE_404_STABLE"|"main")
               TAG="@4.x_atto"
               ;;
             *)
