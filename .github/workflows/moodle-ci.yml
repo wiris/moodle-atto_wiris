@@ -3,6 +3,11 @@ name: Moodle Plugin CI Tests
 # The workflow is triggered on push to the stable branch, main branch, pull requests and every day at 6:30 UTC.
 on:
   workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Adds an additional tags to the tests. It needs the && to concat other tags and a starting @. Usage: "&&@mtmoodle-x"'
+        required: false
+        default: ''
   push:
     branches:
       - stable
@@ -243,7 +248,8 @@ jobs:
               TAG="@atto"
               ;;
           esac
-          moodle-plugin-ci behat --tags=$TAG --profile ${{ matrix.browser }} --auto-rerun=2 --verbose -vvv
+          echo "moodle-plugin-ci behat --tags=$TAG${{ github.event.inputs.tags }} --profile ${{ matrix.browser }} --auto-rerun=2 --verbose -vvv"
+          moodle-plugin-ci behat --tags=$TAG${{ github.event.inputs.tags }} --profile ${{ matrix.browser }} --auto-rerun=2 --verbose -vvv
       - name: Upload Behat Faildump
         if: ${{ failure() && steps.behat.outcome == 'failure' }}
         uses: actions/upload-artifact@v4
