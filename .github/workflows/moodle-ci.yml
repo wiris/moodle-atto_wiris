@@ -186,7 +186,7 @@ jobs:
         continue-on-error: true
         run: |
           moodle-plugin-ci add-plugin --branch ${{ env.BRANCH_NAME }} wiris/moodle-tiny_wiris
-      - name: Add MathType plugin for TinyMCE using the stable branch
+      - name: Add MathType plugin for TinyMCE using the main branch
         if: contains(fromJson('["MOODLE_401_STABLE", "MOODLE_402_STABLE", "MOODLE_403_STABLE", "MOODLE_404_STABLE"]'), matrix.moodle-branch) && steps.install-plugin-tiny.outcome != 'success'
         run: |
           moodle-plugin-ci add-plugin --branch main wiris/moodle-tiny_wiris
@@ -248,7 +248,6 @@ jobs:
               TAG="@atto"
               ;;
           esac
-          echo "moodle-plugin-ci behat --tags=$TAG${{ github.event.inputs.tags }} --profile ${{ matrix.browser }} --auto-rerun=2 --verbose -vvv"
           moodle-plugin-ci behat --tags=$TAG${{ github.event.inputs.tags }} --profile ${{ matrix.browser }} --auto-rerun=2 --verbose -vvv
       - name: Upload Behat Faildump
         if: ${{ failure() && steps.behat.outcome == 'failure' }}
