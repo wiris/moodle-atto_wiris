@@ -20,7 +20,7 @@ Feature: Modal window focus
     And I log in as "admin"
 
   @javascript @4.x @4.x_atto
-  Scenario: MTMOODLE-100 - Insert formula after moving modal window
+  Scenario:  - Insert formula after moving modal window
     And I am on "Course 1" course homepage with editing mode on
     And I add a "Page" to section "0" using the activity chooser
     And I set the following fields to these values:
@@ -28,7 +28,7 @@ Feature: Modal window focus
     And I press "MathType" in "Page content" field in Atto editor
     And I wait until MathType editor is displayed
     And I wait "2" seconds
-    And I click on MathType editor title bar
+    And I move the MathType editor
     And I wait "1" seconds
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I wait "1" seconds
@@ -47,7 +47,7 @@ Feature: Modal window focus
     And I press "MathType" in "Page content" field in Atto editor
     And I wait until MathType editor is displayed
     And I wait "2" seconds
-    And I click on MathType editor title bar
+    And I move the MathType editor
     And I wait "1" seconds
     And I set MathType formula to '<math><mfrac><mn>1</mn><msqrt><mn>2</mn><mi>&#x3c0;</mi></msqrt></mfrac></math>'
     And I wait "1" seconds
