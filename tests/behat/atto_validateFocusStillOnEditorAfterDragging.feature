@@ -1,4 +1,4 @@
-@atto @atto_wiris @wiris_mathtype @atto_insert_formula @atto_focus @mtmoodle-100 @wipdavid
+@atto @atto_wiris @wiris_mathtype @atto_insert_formula @atto_focus @mtmoodle-100
 Feature: Modal window focus
   In order to write Mathematical formulas properly
   As an admin
