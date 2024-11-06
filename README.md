@@ -26,7 +26,7 @@ You can use git:
 $ git clone https://github.com/wiris/moodle-atto_wiris.git lib/editor/atto/plugins/wiris
 ```
 
-Alternatively, you can [download the plugin](https://github.com/wiris/moodle-atto_wiris/archive/stable.zip) and unzip the file into the Atto plugins folder at `lib/editor/atto/plugins`, and then rename the unzipped folder to `wiris`.
+Alternatively, you can [download the plugin](https://github.com/wiris/moodle-atto_wiris/archive/main.zip) and unzip the file into the Atto plugins folder at `lib/editor/atto/plugins`, and then rename the unzipped folder to `wiris`.
 
 ## Releases
 
