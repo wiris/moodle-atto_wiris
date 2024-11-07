@@ -35,8 +35,7 @@ Feature: Edit MathType styled formula
     And I press accept button in MathType Editor
     # Assert that selection
     And I wait until Wirisformula formula exists
-    And I click on WirisFormula with alt equals to "bold italic 1"
-    And I press "MathType" in "Page content" field in Atto editor
+    And I dBclick on WirisFormula with alt equals to "bold italic 1"
     And I wait until MathType editor is displayed
     And I wait "2" seconds
     And I set MathType formula to '<math style="font-family:Arial" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathsize="72px"><mn mathvariant="bold-italic" mathcolor="#FF0000">1</mn><mo mathvariant="bold-italic" mathcolor="#FF0000">+</mo><mn mathvariant="bold-italic" mathcolor="#FF0000">1</mn></mstyle></math>'
@@ -63,8 +62,7 @@ Feature: Edit MathType styled formula
     And I press accept button in MathType Editor
     # Assert that selection
     And I wait until Wirisformula formula exists
-    And I click on WirisFormula with alt equals to "bold italic 1"
-    And I press "MathType" in "Page content" field in Atto editor
+    And I dBclick on WirisFormula with alt equals to "bold italic 1"
     And I wait until MathType editor is displayed
     And I wait "2" seconds
     And I set MathType formula to '<math style="font-family:Arial" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathsize="72px"><mn mathvariant="bold-italic" mathcolor="#FF0000">1</mn><mo mathvariant="bold-italic" mathcolor="#FF0000">+</mo><mn mathvariant="bold-italic" mathcolor="#FF0000">1</mn></mstyle></math>'
