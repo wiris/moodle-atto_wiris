@@ -19,7 +19,7 @@ Feature: Edit MathType styled formula
     And the "urltolink" filter is "off"
     And I log in as "admin"
 
-  @javascript @4.x @4.x_atto @wipdavid
+  @javascript @4.x @4.x_atto
   Scenario: MTMOODLE-58 - User edits MathType styled
     # Course
     And I am on "Course 1" course homepage with editing mode on
