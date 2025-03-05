@@ -49,7 +49,7 @@ Feature: Insert a MathType formula in an assignment's feedback
     And I should see "Grade"
     And I wait "1" seconds
     # Suboptimal way to click on the 'Grade' link since "I press", "I follow" and 'I click on "Grade" "link"' don't work.
-    And I click on "Grade" "link" in the ".tertiary-navigation" "css_element" "xpath_element"
+    And I click on "Grade" "link" in the ".tertiary-navigation" "css_element"
     # 02. Grade the assignment.
     And I click on "MathType" "button"
     And I wait until MathType editor is displayed
